@@ -47,7 +47,7 @@ export default defineNuxtConfig({
       dev: IS_DEV,
       api: "https://api.nuxt.studio",
       gitInfo: {
-        name: "devpy.de",
+        name: "devpy",
         owner: "Vipin Kumar Madhaan",
         url: "https://github.com/VipinMadhaan/devpy",
       },
@@ -139,10 +139,10 @@ export default defineNuxtConfig({
   schemaOrg: {
     identity: definePerson({
       // Basic Information, if applicable
-      name: "Vipin",
-      givenName: "Kumar Madhaan",
+      name: "Vipin Kumar Madhaan",
+      givenName: "Vipin Madhaan",
       familyName: "Madhaan",
-      additionalName: "Vipin", // middle name or other additional names
+      additionalName: "Kumar", // middle name or other additional names
       alternateName: "Vipin Kumar Madhaan",
 
       // Profile Information, if applicable

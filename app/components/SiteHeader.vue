@@ -141,46 +141,6 @@ const scrolled = ref(false)
 const handleScroll = () => {
   scrolled.value = window.scrollY > 8
 }
-onMounted(() => {
-  window.addEventListener("scroll", handleScroll, { passive: true })
-  handleScroll()
-})
-onBeforeUnmount(() => {
-  window.removeEventListener("scroll", handleScroll)
-  document.body.style.overflow = ""
-})
-
-// Touch gesture handling for swipe to close
-let touchStartY = 0
-let touchStartX = 0
-
-const handleTouchStart = (e: TouchEvent) => {
-  if (e.touches[0]) {
-    touchStartY = e.touches[0].clientY
-    touchStartX = e.touches[0].clientX
-  }
-}
-
-const handleTouchMove = (e: TouchEvent) => {
-  // Prevent background scrolling when menu is open
-  if (mobileMenuOpen.value) {
-    e.preventDefault()
-  }
-}
-
-const handleTouchEnd = (e: TouchEvent) => {
-  if (e.changedTouches[0]) {
-    const touchEndY = e.changedTouches[0].clientY
-    const touchEndX = e.changedTouches[0].clientX
-    const deltaY = touchStartY - touchEndY
-    const deltaX = Math.abs(touchStartX - touchEndX)
-
-    // Swipe up to close (with minimum distance and not too much horizontal movement)
-    if (deltaY > 50 && deltaX < 100) {
-      closeMobileMenu()
-    }
-  }
-}
 
 // Close mobile menu when route changes
 const route = useRoute()
@@ -196,59 +156,72 @@ const toggleMobileMenu = () => {
   mobileMenuOpen.value = !mobileMenuOpen.value
 
   // Prevent body scroll when menu is open
-  if (mobileMenuOpen.value) {
-    document.body.style.overflow = "hidden"
-  } else {
-    document.body.style.overflow = ""
+  if (import.meta.client) {
+    if (mobileMenuOpen.value) {
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = ""
+    }
   }
 }
 
 const closeMobileMenu = () => {
   mobileMenuOpen.value = false
-  document.body.style.overflow = ""
+  if (import.meta.client) {
+    document.body.style.overflow = ""
+  }
 }
 
-// Keyboard shortcuts and accessibility
-onMounted(() => {
-  const handleKeydown = (e: KeyboardEvent) => {
-    // Escape to close mobile menu
-    if (e.key === "Escape" && mobileMenuOpen.value) {
-      closeMobileMenu()
-    }
+// Keyboard event handler function
+const handleKeydown = (e: KeyboardEvent) => {
+  // Escape to close mobile menu
+  if (e.key === "Escape" && mobileMenuOpen.value) {
+    closeMobileMenu()
+  }
 
-    // Focus management for accessibility
-    if (e.key === "Tab" && mobileMenuOpen.value) {
-      // Trap focus within mobile menu when open
-      const mobileMenu = document.getElementById("mobile-menu")
-      if (mobileMenu) {
-        const focusableElements = mobileMenu.querySelectorAll(
-          'a, button, [tabindex]:not([tabindex="-1"])',
-        )
+  // Focus management for accessibility
+  if (e.key === "Tab" && mobileMenuOpen.value) {
+    // Trap focus within mobile menu when open
+    const mobileMenu = document.getElementById("mobile-menu")
+    if (mobileMenu) {
+      const focusableElements = mobileMenu.querySelectorAll(
+        'a, button, [tabindex]:not([tabindex="-1"])',
+      )
 
-        if (focusableElements && focusableElements.length > 0) {
-          const firstElement = focusableElements[0] as HTMLElement
-          const lastElement = focusableElements[
-            focusableElements.length - 1
-          ] as HTMLElement
+      if (focusableElements && focusableElements.length > 0) {
+        const firstElement = focusableElements[0] as HTMLElement
+        const lastElement = focusableElements[
+          focusableElements.length - 1
+        ] as HTMLElement
 
-          if (e.shiftKey && document.activeElement === firstElement) {
-            e.preventDefault()
-            lastElement.focus()
-          } else if (!e.shiftKey && document.activeElement === lastElement) {
-            e.preventDefault()
-            firstElement.focus()
-          }
+        if (e.shiftKey && document.activeElement === firstElement) {
+          e.preventDefault()
+          lastElement.focus()
+        } else if (!e.shiftKey && document.activeElement === lastElement) {
+          e.preventDefault()
+          firstElement.focus()
         }
       }
     }
   }
+}
 
+// Lifecycle management
+onMounted(() => {
+  // Scroll handling
+  window.addEventListener("scroll", handleScroll, { passive: true })
+  handleScroll()
+
+  // Keyboard shortcuts
   document.addEventListener("keydown", handleKeydown)
+})
 
-  onUnmounted(() => {
+// Cleanup on unmount
+onBeforeUnmount(() => {
+  if (import.meta.client) {
+    window.removeEventListener("scroll", handleScroll)
     document.removeEventListener("keydown", handleKeydown)
-    // Clean up body overflow on unmount
     document.body.style.overflow = ""
-  })
+  }
 })
 </script>

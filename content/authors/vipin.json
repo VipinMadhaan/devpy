@@ -1,15 +1,13 @@
-[
-  {
-    "@context": "https://schema.org/author",
-    "@id": "https://devpy.de",
-    "@type": "Person",
-    "alternateName": "Vipin",
-    "gender": "Male",
-    "image": "https://devpy.de/meta-img.jpg",
-    "jobTitle": "Software Engineer",
-    "name": "Vipin Kumar Madhaan",
-    "nationality": "India",
-    "sameAs": ["https://devpy.de"],
-    "url": "https://devpy.de"
-  }
-]
+{
+  "@context": "https://schema.org/author",
+  "@id": "https://devpy.de",
+  "@type": "Person",
+  "alternateName": "Vipin",
+  "gender": "Male",
+  "image": "https://devpy.de/meta-img.jpg",
+  "jobTitle": "Software Engineer",
+  "name": "Vipin Kumar Madhaan",
+  "nationality": "India",
+  "sameAs": ["https://devpy.de"],
+  "url": "https://devpy.de"
+}

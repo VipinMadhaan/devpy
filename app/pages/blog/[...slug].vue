@@ -2,12 +2,37 @@
 const route = useRoute()
 const site = useSiteConfig()
 
-const { data: page } = await useAsyncData(`page-${route.path}`, () => {
-  return queryCollection("blog").path(route.path).first()
-})
+// Fetch blog post with proper error handling
+const { data: page, error } = await useAsyncData(
+  `blog-${route.path}`,
+  async () => {
+    try {
+      const result = await queryCollection("blog").path(route.path).first()
+      return result
+    } catch (err) {
+      console.error("Error fetching blog post:", err)
+      throw createError({
+        statusCode: 404,
+        statusMessage: "Blog post not found",
+      })
+    }
+  },
+)
 
+// Handle error state
+if (error.value) {
+  throw createError({
+    statusCode: 404,
+    statusMessage: "Blog post not found",
+  })
+}
+
+// Handle missing page
 if (!page.value) {
-  navigateTo("/404")
+  throw createError({
+    statusCode: 404,
+    statusMessage: "Blog post not found",
+  })
 }
 
 // SEO: page meta, canonical, OG/Twitter, and BlogPosting schema

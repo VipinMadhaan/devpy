@@ -90,10 +90,10 @@ export default defineNuxtConfig({
     "@nuxt/content",
     "nuxt-mcp",
     "@nuxt/eslint",
+    "@nuxthub/core",
   ],
 
   nitro: {
-    preset: "github-pages",
     prerender: {
       crawlLinks: true,
       failOnError: false,

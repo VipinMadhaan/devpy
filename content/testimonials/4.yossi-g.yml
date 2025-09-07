@@ -1,0 +1,12 @@
+avatar: ""
+name: "Yossi G."
+title: "Client"
+company: ""
+quote: "The work Vipin did was very good, and he found solutions to unexpected problems."
+featured: true
+rating: 5
+project: "Custom CRM Integration"
+results:
+  - "Resolved unexpected API issues"
+  - "Integrated with legacy systems"
+  - "Delivered on time despite challenges"

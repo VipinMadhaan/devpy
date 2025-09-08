@@ -95,7 +95,7 @@ export default defineNuxtConfig({
     "@nuxt/content",
     "nuxt-mcp",
     "@nuxt/eslint",
-    // "@nuxthub/core", // Disabled for development
+    "@nuxthub/core",
   ],
 
   nitro: {

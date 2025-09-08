@@ -137,7 +137,7 @@ enum SearchType {
 
 ### DataLoader for N+1 Problem Resolution
 
-```javascript
+```js
 // dataloaders/userLoader.js
 const DataLoader = require("dataloader")
 const { User } = require("../models")
@@ -179,7 +179,7 @@ const createContext = ({ req }) => ({
 
 ### Resolver Implementation with DataLoaders
 
-```javascript
+```js
 // resolvers/user.js
 const userResolvers = {
   Query: {
@@ -246,7 +246,7 @@ const userResolvers = {
 
 ### Field-Level Authorization
 
-```javascript
+```js
 // directives/auth.js
 const { SchemaDirectiveVisitor } = require("apollo-server-express")
 const { defaultFieldResolver } = require("graphql")
@@ -300,7 +300,7 @@ const typeDefs = `
 
 ### Query Complexity Analysis
 
-```javascript
+```js
 // complexity/rules.js
 const depthLimit = require("graphql-depth-limit")
 const costAnalysis = require("graphql-cost-analysis")
@@ -364,7 +364,7 @@ const server = new ApolloServer({
 
 ### Query Caching and Persisted Queries
 
-```javascript
+```js
 // cache/redis.js
 const Redis = require("ioredis")
 const redis = new Redis(process.env.REDIS_URL)
@@ -425,7 +425,7 @@ const cachePlugin = {
 
 ### Subscription Optimization
 
-```javascript
+```js
 // subscriptions/setup.js
 const { RedisPubSub } = require("graphql-redis-subscriptions")
 const { withFilter } = require("graphql-subscriptions")
@@ -494,7 +494,7 @@ const publishCommentAdded = async (comment) => {
 
 ### Input Validation and Sanitization
 
-```javascript
+```js
 // validation/schemas.js
 const Joi = require("joi")
 
@@ -561,7 +561,7 @@ const mutationResolvers = {
 
 ### Rate Limiting
 
-```javascript
+```js
 // middleware/rateLimiting.js
 const { RateLimiterRedis } = require("rate-limiter-flexible")
 const Redis = require("ioredis")
@@ -617,7 +617,7 @@ const rateLimitPlugin = {
 
 ### Query Whitelisting for Production
 
-```javascript
+```js
 // security/queryWhitelist.js
 const approvedQueries = new Map([
   [
@@ -698,7 +698,7 @@ const queryWhitelistPlugin = {
 
 ### Unit Testing Resolvers
 
-```javascript
+```js
 // tests/resolvers/user.test.js
 const { createTestClient } = require("apollo-server-testing")
 const { ApolloServer } = require("apollo-server-express")
@@ -795,7 +795,7 @@ describe("User Resolvers", () => {
 
 ### Integration Testing
 
-```javascript
+```js
 // tests/integration/api.test.js
 const request = require("supertest")
 const { createApp } = require("../../src/app")
@@ -892,7 +892,7 @@ describe("GraphQL API Integration", () => {
 
 ### Performance Monitoring
 
-```javascript
+```js
 // monitoring/apollo.js
 const { ApolloServerPluginUsageReporting } = require("apollo-server-core")
 

@@ -112,7 +112,7 @@ CMD ["npm", "run", "start:prod"]
 
 ### Custom Error Classes
 
-```typescript
+```ts
 // src/errors/AppError.ts
 export class AppError extends Error {
   public readonly statusCode: number
@@ -146,7 +146,7 @@ export class NotFoundError extends AppError {
 
 ### Global Error Handler
 
-```typescript
+```ts
 // src/middleware/errorHandler.ts
 import { Request, Response, NextFunction } from "express"
 import { AppError } from "../errors/AppError"
@@ -179,7 +179,7 @@ export const errorHandler = (
 
 ### Prisma Integration
 
-```typescript
+```ts
 // src/database/client.ts
 import { PrismaClient } from "@prisma/client"
 
@@ -196,7 +196,7 @@ if (process.env.NODE_ENV !== "production") {
 
 ### Repository Pattern
 
-```typescript
+```ts
 // src/repositories/UserRepository.ts
 import { User, Prisma } from "@prisma/client"
 import { prisma } from "../database/client"
@@ -233,7 +233,7 @@ export class UserRepository {
 
 ### Request/Response Types
 
-```typescript
+```ts
 // src/types/api.ts
 export interface CreateUserRequest {
   email: string
@@ -259,7 +259,7 @@ export interface ApiResponse<T = unknown> {
 
 ### Validated Controllers
 
-```typescript
+```ts
 // src/controllers/UserController.ts
 import { Request, Response, NextFunction } from "express"
 import { z } from "zod"
@@ -317,7 +317,7 @@ export class UserController {
 
 ### Runtime Performance
 
-```typescript
+```ts
 // Use type assertions carefully
 const user = data as User // Fast but unsafe
 const user = data satisfies User // Type-safe validation
@@ -339,7 +339,7 @@ const config = {
 
 ### Structured Logging
 
-```typescript
+```ts
 // src/utils/logger.ts
 import winston from "winston"
 
@@ -368,7 +368,7 @@ export const logger = winston.createLogger({
 
 ### Unit Tests with Jest
 
-```typescript
+```ts
 // src/services/__tests__/UserService.test.ts
 import { UserService } from "../UserService"
 import { UserRepository } from "../../repositories/UserRepository"

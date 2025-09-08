@@ -173,7 +173,7 @@ Let's build a practical example together—a task management application that de
 
 First, let's create a robust backend API:
 
-```javascript
+```js
 // server/app.js
 const express = require("express")
 const cors = require("cors")
@@ -216,7 +216,7 @@ module.exports = app
 
 ### Creating the API Routes
 
-```javascript
+```js
 // server/routes/tasks.js
 const express = require("express")
 const router = express.Router()
@@ -506,7 +506,7 @@ export default {
 
 ### Setting Up API Communication
 
-```javascript
+```js
 // client/src/services/taskService.js
 const API_BASE_URL = process.env.VUE_APP_API_URL || "http://localhost:3000/api"
 
@@ -564,7 +564,7 @@ Now that we have a working application, let's explore some advanced patterns tha
 
 ### Environment Configuration
 
-```javascript
+```js
 // server/config/database.js
 const config = {
   development: {
@@ -589,7 +589,7 @@ module.exports = config[process.env.NODE_ENV || "development"]
 
 ### Error Handling and Validation
 
-```javascript
+```js
 // server/middleware/validation.js
 const { body, validationResult } = require("express-validator")
 
@@ -621,7 +621,7 @@ module.exports = { validateTask }
 
 ### State Management with Vuex
 
-```javascript
+```js
 // client/src/store/modules/tasks.js
 const state = {
   tasks: [],
@@ -688,7 +688,7 @@ Testing is crucial for maintaining code quality and preventing bugs. Here's how 
 
 ### Backend Testing with Jest
 
-```javascript
+```js
 // server/tests/routes/tasks.test.js
 const request = require("supertest")
 const app = require("../../app")
@@ -731,7 +731,7 @@ describe("Tasks API", () => {
 
 ### Frontend Testing with Vue Test Utils
 
-```javascript
+```js
 // client/tests/unit/TaskForm.spec.js
 import { shallowMount } from "@vue/test-utils"
 import TaskForm from "@/components/TaskForm.vue"

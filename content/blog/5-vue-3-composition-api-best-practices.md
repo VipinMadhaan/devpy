@@ -25,7 +25,7 @@ The Composition API addresses several limitations of the Options API:
 
 ### 1. Use Composables for Reusable Logic
 
-```javascript
+```js
 // composables/useCounter.js
 import { ref, computed } from "vue"
 
@@ -52,7 +52,7 @@ export function useCounter(initialValue = 0) {
 
 Instead of grouping all refs together, group related logic:
 
-```javascript
+```js
 // ❌ Avoid - grouped by type
 export default {
   setup() {
@@ -94,7 +94,7 @@ export default {
 
 When creating composables, expose state as readonly to prevent external mutations:
 
-```javascript
+```js
 export function useUserStore() {
   const users = ref([])
   const loading = ref(false)
@@ -117,7 +117,7 @@ export function useUserStore() {
 
 Create custom refs for complex state management:
 
-```javascript
+```js
 import { customRef } from "vue"
 
 function useDebouncedRef(value, delay = 200) {
@@ -144,7 +144,7 @@ function useDebouncedRef(value, delay = 200) {
 
 Combine lifecycle hooks with reactive state:
 
-```javascript
+```js
 export function useAsyncData(url) {
   const data = ref(null)
   const error = ref(null)
@@ -174,7 +174,7 @@ export function useAsyncData(url) {
 
 For large objects that don't need deep reactivity:
 
-```javascript
+```js
 import { shallowRef } from "vue"
 
 const largeDataSet = shallowRef({
@@ -186,7 +186,7 @@ const largeDataSet = shallowRef({
 
 For objects that should never be reactive:
 
-```javascript
+```js
 import { markRaw } from "vue"
 
 const thirdPartyLibrary = markRaw(new SomeLibrary())
@@ -196,7 +196,7 @@ const thirdPartyLibrary = markRaw(new SomeLibrary())
 
 Composables are easy to test in isolation:
 
-```javascript
+```js
 import { describe, it, expect } from "vitest"
 import { useCounter } from "@/composables/useCounter"
 

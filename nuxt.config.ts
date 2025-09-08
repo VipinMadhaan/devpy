@@ -27,7 +27,18 @@ export default defineNuxtConfig({
             rel: "noopener noreferer",
           },
         },
-        highlight: false,
+        highlight: {
+          // any Shiki theme like synthwave-84, one-dark-pro, andromeeda
+          // ['json', 'js', 'ts', 'html', 'css', 'vue', 'shell', 'mdc', 'md', 'yaml']
+          theme: {
+            // Default theme (same as single string)
+            default: "andromeeda",
+            // Theme used if `html.dark`
+            dark: "andromeeda",
+            // Theme used if `html.sepia`
+            sepia: "monokai",
+          },
+        },
         toc: {
           depth: 2,
           searchDepth: 2,

@@ -729,7 +729,7 @@ scrape_configs:
 
 ### Application Metrics
 
-```javascript
+```js
 // metrics.js - Express.js middleware for metrics
 const promClient = require("prom-client")
 
@@ -824,7 +824,7 @@ module.exports = {
 
 ### Distributed Tracing
 
-```javascript
+```js
 // tracing.js - OpenTelemetry setup
 const { NodeSDK } = require("@opentelemetry/sdk-node")
 const {

@@ -109,7 +109,7 @@ The template includes full TypeScript support with:
 - IntelliSense support for extension-specific functionality
 - Build-time type checking
 
-```typescript
+```ts
 // types/messages.ts
 export interface GetSettingsMessage {
   type: "GET_SETTINGS"
@@ -169,7 +169,7 @@ src/
 
 One of the most complex aspects of extension development is communication between different contexts. The template uses `webext-bridge` to simplify this:
 
-```typescript
+```ts
 // In content script
 import { sendMessage } from "webext-bridge/content-script"
 
@@ -192,7 +192,7 @@ This abstraction handles all the complexity of browser APIs while providing a cl
 
 For capabilities that require DOM access but can't run in the service worker:
 
-```typescript
+```ts
 // background/offscreen.ts
 export async function createOffscreenDocument() {
   if (await chrome.offscreen.hasDocument()) return
@@ -246,7 +246,7 @@ npm run dev
 
 Update `manifest.config.ts`:
 
-```typescript
+```ts
 export default {
   name: "Reading Time Calculator",
   description: "Calculate estimated reading time for any article",
@@ -263,7 +263,7 @@ export default {
 
 ### 3. Build the Content Script
 
-```typescript
+```ts
 // content-script/index.ts
 import { createApp } from "vue"
 import ReadingTimeWidget from "./components/ReadingTimeWidget.vue"
@@ -360,7 +360,7 @@ npm run build:firefox
 
 For complex extensions, you'll need shared state management:
 
-```typescript
+```ts
 // utils/storage.ts
 import { storage } from "webext-bridge/background"
 
@@ -389,7 +389,7 @@ export async function saveState() {
 
 ### Error Handling and Logging
 
-```typescript
+```ts
 // utils/logger.ts
 export class ExtensionLogger {
   private context: string
@@ -415,7 +415,7 @@ logger.info("Extension initialized")
 
 ### Performance Optimization
 
-```typescript
+```ts
 // utils/performance.ts
 export function debounce<T extends (...args: any[]) => any>(
   func: T,
@@ -451,7 +451,7 @@ npm run build:submission
 
 ### Automated Testing
 
-```typescript
+```ts
 // tests/extension.test.ts
 import { describe, it, expect } from "vitest"
 import { calculateReadingTime } from "../src/utils/reading-time"

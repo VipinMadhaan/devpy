@@ -25,7 +25,7 @@ Conditional types allow you to create types that change based on conditions, ena
 
 ### Basic Conditional Types
 
-```typescript
+```ts
 // Basic conditional type syntax
 type IsString<T> = T extends string ? true : false
 
@@ -41,7 +41,7 @@ type MethodReturn = ReturnType<(x: number) => boolean> // boolean
 
 ### Advanced Conditional Type Patterns
 
-```typescript
+```ts
 // Recursive conditional types for deep object manipulation
 type DeepReadonly<T> = {
   readonly [P in keyof T]: T[P] extends object
@@ -84,7 +84,7 @@ Template literal types provide powerful string manipulation at the type level.
 
 ### Dynamic API Endpoint Types
 
-```typescript
+```ts
 // Generate API endpoint types dynamically
 type HttpMethod = "GET" | "POST" | "PUT" | "DELETE"
 type ApiVersion = "v1" | "v2"
@@ -116,7 +116,7 @@ type MarginProperties = CSSPropertyWithDirection<"margin", CSSDirection>
 
 ### Form Validation with Template Literals
 
-```typescript
+```ts
 // Type-safe form field validation
 type ValidationRule = "required" | "email" | "minLength" | "maxLength"
 type FieldName = "username" | "email" | "password"
@@ -151,7 +151,7 @@ Mapped types allow you to transform existing types by iterating over their prope
 
 ### Advanced Mapped Type Patterns
 
-```typescript
+```ts
 // Optional properties with specific keys
 type OptionalKeys<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>
 
@@ -188,7 +188,7 @@ type UserModel = Model<User>
 
 ### Database Query Builder Types
 
-```typescript
+```ts
 // Type-safe query builder
 type QueryOperator = "eq" | "ne" | "gt" | "lt" | "in" | "like"
 
@@ -235,7 +235,7 @@ const products = await createQuery<Product>()
 
 ### Custom Utility Types
 
-```typescript
+```ts
 // Deep partial for nested objects
 type DeepPartial<T> = {
   [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P]
@@ -280,7 +280,7 @@ type UpdateUser = RequireAtLeastOne<
 
 ### Function Type Utilities
 
-```typescript
+```ts
 // Extract function parameters
 type Parameters<T extends (...args: any) => any> = T extends (
   ...args: infer P
@@ -316,7 +316,7 @@ type UserData = AsyncReturnType<ApiMethods["getUser"]> // User
 
 ### Builder Pattern with Type Safety
 
-```typescript
+```ts
 // Type-safe builder pattern
 interface DatabaseConfig {
   host: string
@@ -411,7 +411,7 @@ const config = new DatabaseConfigBuilder()
 
 ### Factory Pattern with Generic Constraints
 
-```typescript
+```ts
 // Generic factory with constraints
 interface Entity {
   id: string
@@ -470,7 +470,7 @@ const user = userFactory.create({ name: "John", email: "john@example.com" })
 
 ### Observer Pattern with Type Safety
 
-```typescript
+```ts
 // Type-safe observer pattern
 type EventMap = {
   userCreated: { user: User }
@@ -533,7 +533,7 @@ eventEmitter.emit("userUpdated", {
 
 ### Variance and Generic Constraints
 
-```typescript
+```ts
 // Covariance and contravariance
 interface Producer<out T> {
   produce(): T
@@ -586,7 +586,7 @@ type CreateUserEndpoint = ApiEndpoint<Omit<User, "id">> // Has create, list meth
 
 ### Higher-Order Type Functions
 
-```typescript
+```ts
 // Type-level functions
 type Curry<T> = T extends (arg1: infer A, ...rest: infer R) => infer Return
   ? R extends []
@@ -626,7 +626,7 @@ type PipelineResult = Pipe<
 
 ## Real-World Application: Type-Safe API Client
 
-```typescript
+```ts
 // Complete type-safe API client implementation
 interface ApiSchema {
   "/users": {
@@ -660,8 +660,8 @@ type ExtractParams<T extends string> =
   T extends `${string}:${infer Param}/${infer Rest}`
     ? { [K in Param]: string } & ExtractParams<`/${Rest}`>
     : T extends `${string}:${infer Param}`
-    ? { [K in Param]: string }
-    : {}
+      ? { [K in Param]: string }
+      : {}
 
 type ApiMethod<
   Schema extends Record<string, any>,
@@ -675,14 +675,14 @@ type ApiMethod<
 }
   ? (params: P, options?: { query?: Q; body?: B }) => Promise<R>
   : Schema[Path][Method] extends {
-      query?: infer Q
-      body?: infer B
-      response: infer R
-    }
-  ? (options?: { query?: Q; body?: B }) => Promise<R>
-  : Schema[Path][Method] extends { response: infer R }
-  ? () => Promise<R>
-  : never
+        query?: infer Q
+        body?: infer B
+        response: infer R
+      }
+    ? (options?: { query?: Q; body?: B }) => Promise<R>
+    : Schema[Path][Method] extends { response: infer R }
+      ? () => Promise<R>
+      : never
 
 class TypedApiClient<Schema extends Record<string, any>> {
   constructor(private baseUrl: string) {}

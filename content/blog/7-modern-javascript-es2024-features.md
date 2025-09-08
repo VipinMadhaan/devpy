@@ -23,7 +23,7 @@ JavaScript continues to evolve at a rapid pace, and ES2024 brings some exciting 
 
 One of the most anticipated features in ES2024 is the Temporal API, which addresses the long-standing issues with JavaScript's Date object.
 
-```javascript
+```js
 // Old way with Date (problematic)
 const date = new Date("2024-03-15")
 console.log(date.getMonth()) // 2 (March is month 2?!)
@@ -45,7 +45,7 @@ The Temporal API provides immutable date/time objects, proper time zone support,
 
 Decorators bring a clean syntax for metaprogramming that many developers have been waiting for:
 
-```javascript
+```js
 // Method decorator for logging
 function log(target, propertyKey, descriptor) {
   const originalMethod = descriptor.value
@@ -73,7 +73,7 @@ class UserService {
 
 Pattern matching provides a more powerful alternative to switch statements:
 
-```javascript
+```js
 // Traditional switch
 function processResponse(response) {
   switch (response.status) {
@@ -103,7 +103,7 @@ function processResponse(response) {
 
 The new `Object.groupBy()` and `Map.groupBy()` methods make data grouping much cleaner:
 
-```javascript
+```js
 const users = [
   { name: "Alice", role: "admin", department: "IT" },
   { name: "Bob", role: "user", department: "Sales" },
@@ -127,7 +127,7 @@ const usersByDepartment = Map.groupBy(users, (user) => user.department)
 
 Import assertions provide a way to assert the type of modules being imported:
 
-```javascript
+```js
 // Import JSON with type assertion
 import config from "./config.json" assert { type: "json" }
 
@@ -141,7 +141,7 @@ import styles from "./component.css" assert { type: "css" }
 
 Records and Tuples bring immutable data structures to JavaScript:
 
-```javascript
+```js
 // Records (immutable objects)
 const user = #{
   name: "Alice",
@@ -163,7 +163,7 @@ console.log(updatedUser.age) // 31
 
 The pipeline operator makes functional programming more readable:
 
-```javascript
+```js
 // Traditional nested function calls
 const result = Math.round(Math.max(0, Math.min(100, value * 1.2)))
 

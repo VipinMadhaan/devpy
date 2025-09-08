@@ -716,7 +716,7 @@ describe("Dashboard Page", () => {
 
 ### Environment Configuration
 
-```javascript
+```js
 // next.config.js
 /** @type {import('next').NextConfig} */
 const nextConfig = {

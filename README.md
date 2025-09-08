@@ -253,7 +253,7 @@ Modify [`content/services.yml`](./content/services.yml) to manage service offeri
 
 Update theme colors in [`app/app.config.ts`](./app/app.config.ts):
 
-```typescript
+```ts
 export default defineAppConfig({
   ui: {
     colors: {
@@ -268,7 +268,7 @@ export default defineAppConfig({
 
 Modify site settings in [`nuxt.config.ts`](./nuxt.config.ts):
 
-```typescript
+```ts
 export default defineNuxtConfig({
   site: {
     url: "https://yourdomain.com",

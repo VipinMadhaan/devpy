@@ -104,7 +104,7 @@ FID is being replaced by INP in 2024. INP measures responsiveness throughout the
 
 **1. Code Splitting and Lazy Loading**
 
-```javascript
+```js
 // ❌ Loading everything upfront
 import { heavyLibrary } from "./heavy-library"
 import { analytics } from "./analytics"
@@ -137,7 +137,7 @@ document.addEventListener(
 
 **2. Web Workers for Heavy Computations**
 
-```javascript
+```js
 // main.js
 const worker = new Worker("/js/data-processor.js")
 
@@ -163,7 +163,7 @@ self.onmessage = function (e) {
 
 **3. Optimizing Event Handlers**
 
-```javascript
+```js
 // ❌ Blocking event handlers
 document.addEventListener("scroll", () => {
   // Expensive DOM operations on every scroll
@@ -228,7 +228,12 @@ CLS measures unexpected layout shifts. Target: **under 0.1**.
 
 /* Fallback font with similar metrics */
 body {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui,
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    system-ui,
     sans-serif;
 }
 ```
@@ -284,7 +289,7 @@ function ProductCardSkeleton() {
 
 **Service Worker for Advanced Caching**
 
-```javascript
+```js
 // sw.js - Advanced caching strategies
 const CACHE_NAME = "app-v1"
 const STATIC_CACHE = "static-v1"
@@ -365,7 +370,7 @@ const cacheStrategies = {
 
 **Critical CSS Extraction and Inlining**
 
-```javascript
+```js
 // Build-time critical CSS extraction
 const critical = require("critical")
 
@@ -406,7 +411,7 @@ critical.generate({
 
 **Tree Shaking and Dead Code Elimination**
 
-```javascript
+```js
 // ❌ Importing entire library
 import _ from "lodash"
 
@@ -429,7 +434,7 @@ const debounce = (func, wait) => {
 
 **Module Federation for Micro-frontends**
 
-```javascript
+```js
 // webpack.config.js
 const ModuleFederationPlugin = require("@module-federation/webpack")
 
@@ -454,7 +459,7 @@ module.exports = {
 
 ### 1. Real User Monitoring (RUM)
 
-```javascript
+```js
 // Custom performance monitoring
 class PerformanceMonitor {
   constructor() {
@@ -530,7 +535,7 @@ new PerformanceMonitor()
 
 ### 2. Performance Budgets
 
-```javascript
+```js
 // performance-budget.js
 const performanceBudget = {
   // Size budgets
@@ -631,8 +636,8 @@ function App() {
 import { ref, computed, defineAsyncComponent } from "vue"
 
 // Async components for code splitting
-const HeavyComponent = defineAsyncComponent(() =>
-  import("./HeavyComponent.vue"),
+const HeavyComponent = defineAsyncComponent(
+  () => import("./HeavyComponent.vue"),
 )
 
 // Computed properties for expensive calculations
@@ -646,7 +651,7 @@ const expensiveValue = computed(() => {
 
 ### 1. Edge Computing and CDN Optimization
 
-```javascript
+```js
 // Cloudflare Workers example for edge optimization
 addEventListener("fetch", (event) => {
   event.respondWith(handleRequest(event.request))
@@ -671,7 +676,7 @@ async function handleRequest(request) {
 
 ### 2. AI-Powered Performance Optimization
 
-```javascript
+```js
 // Predictive prefetching based on user behavior
 class PredictivePrefetcher {
   constructor() {

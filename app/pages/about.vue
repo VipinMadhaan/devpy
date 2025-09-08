@@ -33,111 +33,60 @@ useHead({
 <template>
   <div>
     <div class="space-y-32">
-      <!-- Page Header -->
-      <div class="text-center space-y-6">
-        <h1>The Full Story</h1>
-
-        <p class="max-w-4xl mx-auto">
-          Here's the complete picture of my professional journey, from education
-          to expertise, and everything that drives my passion for creating
-          exceptional web experiences.
-        </p>
-      </div>
-
       <!-- Professional Experience -->
       <section class="space-y-12">
         <div class="text-center space-y-6">
-          <h2>Professional Experience</h2>
-
+          <h2>My Story</h2>
           <p class="max-w-3xl mx-auto">
-            A decade of building innovative solutions and leading development
-            teams across various industries.
+            Hi there! I’m Vipin Kumar Madhaan, a Full Stack Lead Developer from
+            India with over 10 years of experience in the world of web
+            development. My passion lies in building web applications and web
+            services that not only function well but also engage and delight
+            users.
           </p>
         </div>
-
-        <div class="space-y-8">
-          <div
-            v-for="experience in professionalJourney?.experiences"
-            :key="experience.id"
-          >
-            <div />
-            <UCard class="relative">
-              <div class="space-y-6">
-                <!-- Experience Header -->
-                <div
-                  class="flex flex-col md:flex-row md:items-center md:justify-between gap-4"
-                >
-                  <div>
-                    <h3 class="text-lg font-bold">{{ experience.title }}</h3>
-                    <p>
-                      {{ experience.company }}
-                    </p>
-                    <p>
-                      {{ experience.location }}
-                    </p>
-                  </div>
-                  <div class="text-right absolute top-0 right-0">
-                    <UBadge :label="experience.period" variant="outline" />
-                  </div>
-                </div>
-
-                <!-- Description -->
-                <p>
-                  {{ experience.description }}
-                </p>
-
-                <!-- Responsibilities -->
-                <div>
-                  <h4 class="mb-3">Key Responsibilities:</h4>
-                  <ul class="space-y-2">
-                    <li
-                      v-for="(
-                        responsibility, respIndex
-                      ) in experience.responsibilities"
-                      :key="`resp-${experience.id}-${respIndex}`"
-                      class="flex items-start gap-2 align-baseline"
-                    >
-                      {{ responsibility }}
-                    </li>
-                  </ul>
-                </div>
-
-                <!-- Technologies -->
-                <div>
-                  <h4 class="mb-3">Technologies Used:</h4>
-                  <div class="flex flex-wrap gap-2">
-                    <UBadge
-                      v-for="tech in experience.technologies"
-                      :key="tech"
-                      :label="tech"
-                      variant="soft"
-                      size="xl"
-                    />
-                  </div>
-                </div>
-
-                <!-- Achievements -->
-                <div
-                  v-if="
-                    experience.achievements &&
-                    experience.achievements.length > 0
-                  "
-                >
-                  <h4 class="mb-3">Key Achievements:</h4>
-                  <ul class="space-y-2">
-                    <li
-                      v-for="(achievement, achIndex) in experience.achievements"
-                      :key="`ach-${experience.id}-${achIndex}`"
-                      class="flex items-start gap-2"
-                    >
-                      <UIcon name="i-ph-trophy" />
-                      {{ achievement }}
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </UCard>
-          </div>
+      </section>
+           <section class="space-y-12">
+        <div class="text-center space-y-6">
+          <h2>Expertise and Experience</h2>
+          <p class="max-w-3xl mx-auto">
+            My journey into coding began in 2013, focusing primarily on
+            JavaScript and Python. Over the years, I’ve honed my skills in
+            various aspects of web development, including:
+            <ul>
+              <li>
+                <strong>Websites Development:</strong> Bringing static and
+                dynamic websites to life, ensuring seamless user experiences.
+              </li>
+              <li>
+                <strong>Web Automation:</strong> Streamlining workflows and
+                processes with automated solutions.
+              </li>
+              <li>
+                <strong>Chat Bots:</strong> Building interactive and engaging
+                chatbots for various purposes.
+              </li>
+              <li>
+                <strong>Web RTC:</strong> Enabling real-time communication
+                features like video chat and peer-to-peer connections.
+              </li>
+              <li>
+                <strong>Open-Source Projects:</strong> Contributing to and creating
+                open-source projects, fostering collaboration and knowledge sharing.
+              </li>
+            </ul>
+          </p>
+        </div>
+      </section>
+       <section class="space-y-12">
+        <div class="text-center space-y-6">
+          <h2>Passion for Learning and Innovation</h2>
+          <p class="max-w-3xl mx-auto">
+            Beyond my core expertise, I’m always eager to explore new
+            technologies and trends. Recently, I’ve been delving into the
+            fascinating world of Artificial Intelligence, expanding my knowledge
+            and skills in this ever-evolvng field.
+          </p>
         </div>
       </section>
 
@@ -152,7 +101,7 @@ useHead({
           </p>
         </div>
 
-        <div class="grid gap-6 md:grid-cols-2">
+        <div class="grid gap-6 md:grid-cols-1">
           <div
             v-for="edu in professionalJourney?.education"
             :key="edu.id"
@@ -207,7 +156,7 @@ useHead({
         </div>
       </section>
 
-      <!-- Certifications -->
+      <!-- Certifications 
       <section class="space-y-12">
         <div class="text-center space-y-6">
           <h2>Certifications & Awards</h2>
@@ -245,7 +194,7 @@ useHead({
             </UCard>
           </div>
         </div>
-      </section>
+      </section> -->
 
       <!-- Call to Action -->
       <section class="space-y-12">

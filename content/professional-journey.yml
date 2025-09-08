@@ -97,22 +97,22 @@ experiences:
       - "Recognized as 'Most Improved Developer' in first year"
 
 education:
-  - id: 1
-    degree: "Master of Science in Project Management"
-    institution: "University of Management and Technology"
-    location: "Lahore, Pakistan"
-    period: "2017 - 2019"
-    description: "Specialized in IT project management, agile methodologies, and team leadership."
-    achievements:
-      - "Graduated with Distinction (CGPA: 3.8/4.0)"
-      - "Thesis: 'Agile Project Management in Software Development'"
-      - "Member of Project Management Society"
+  # - id: 1
+  #   degree: "Master of Science in Project Management"
+  #   institution: "University of Management and Technology"
+  #   location: "Lahore, Pakistan"
+  #   period: "2017 - 2019"
+  #   description: "Specialized in IT project management, agile methodologies, and team leadership."
+  #   achievements:
+  #     - "Graduated with Distinction (CGPA: 3.8/4.0)"
+  #     - "Thesis: 'Agile Project Management in Software Development'"
+  #     - "Member of Project Management Society"
 
   - id: 2
-    degree: "Bachelor of Science in Software Engineering"
-    institution: "University of Engineering and Technology"
-    location: "Lahore, Pakistan"
-    period: "2008 - 2012"
+    degree: "Bachelor of Technology in Computer Science & Engineering"
+    institution: "Uttar Pradesh Technical University"
+    location: "Noida, India"
+    period: "2013"
     description: "Comprehensive study of software engineering principles, programming languages, and system design."
     achievements:
       - "Graduated Cum Laude (CGPA: 3.6/4.0)"

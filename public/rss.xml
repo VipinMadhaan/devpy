@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Vipin Kumar Madhaan - Blog</title>
+    <description>Thoughts, tutorials, and insights on modern web development from Vipin Kumar Madhaan</description>
+    <link>https://devpy.de</link>
+    <atom:link href="https://devpy.de/rss.xml" rel="self" type="application/rss+xml"/>
+    <language>en</language>
+    <lastBuildDate>2025-09-08T15:32:00.000Z</lastBuildDate>
+    <generator>Nuxt 3</generator>
+    
+    <item>
+      <title><![CDATA[Vue 3 Composition API: Best Practices for Modern Development]]></title>
+      <description><![CDATA[Discover the most effective patterns and practices for using Vue 3's Composition API in production applications.]]></description>
+      <link>https://devpy.de/blog/5-vue-3-composition-api-best-practices</link>
+      <guid>https://devpy.de/blog/5-vue-3-composition-api-best-practices</guid>
+      <pubDate>Thu, 12 Dec 2024 12:00:00 GMT</pubDate>
+      <category>Vue.js</category>
+      <category>JavaScript</category>
+      <category>Frontend</category>
+    </item>
+    
+    <item>
+      <title><![CDATA[TypeScript + Node.js in Production: A Complete Guide]]></title>
+      <description><![CDATA[Learn how to build, deploy, and maintain TypeScript Node.js applications in production environments with best practices and real-world examples.]]></description>
+      <link>https://devpy.de/blog/6-typescript-nodejs-production-guide</link>
+      <guid>https://devpy.de/blog/6-typescript-nodejs-production-guide</guid>
+      <pubDate>Wed, 28 Feb 2024 09:00:00 GMT</pubDate>
+      <category>TypeScript</category>
+      <category>Node.js</category>
+      <category>Backend</category>
+    </item>
+    
+    <item>
+      <title><![CDATA[Kickstart Your Browser Extension Development]]></title>
+      <description><![CDATA[Quickly start building browser extensions with Vite, Vue 3, and Manifest V3. Discover a feature-rich, accessible starter template for modern web extension development.]]></description>
+      <link>https://devpy.de/blog/3-vite-vue3-browser-extension-v3</link>
+      <guid>https://devpy.de/blog/3-vite-vue3-browser-extension-v3</guid>
+      <pubDate>Tue, 13 Aug 2024 10:00:00 GMT</pubDate>
+      <category>Vue.js</category>
+      <category>Browser Extensions</category>
+      <category>Vite</category>
+    </item>
+  </channel>
+</rss>

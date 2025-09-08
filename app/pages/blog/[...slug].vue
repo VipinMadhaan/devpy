@@ -65,7 +65,9 @@ if (page.value) {
     link: [{ rel: "canonical", href: url }],
   })
 
-  defineOgImage(page.value.ogImage)
+  if (page.value.ogImage) {
+    defineOgImage(page.value.ogImage)
+  }
   defineOgImageComponent("NuxtSeo")
 
   // Register BlogPosting JSON-LD via Nuxt SEO
@@ -146,7 +148,7 @@ const formatDate = (date: string | Date) => {
           :src="page.image"
           :alt="page.title"
           class="w-full h-full object-cover"
-        >
+        />
       </div>
 
       <!-- Post Content -->

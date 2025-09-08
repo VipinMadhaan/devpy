@@ -133,7 +133,6 @@ export default defineNuxtConfig({
 
   sitemap: {
     excludeAppSources: true,
-    sources: ["/api/sitemap/blog", "/api/sitemap/pages"],
   },
 
   ssr: true,

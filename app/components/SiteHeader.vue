@@ -1,15 +1,15 @@
 <template>
   <header
     :class="[
-      'fixed left-1/2 top-4 md:top-8 transform -translate-x-1/2 z-50 w-auto max-w-3xl bg-white/80 dark:bg-neutral-900/80 hover:shadow-lg rounded-2xl backdrop-blur-lg transition-all duration-300 border-b-2 border-neutral-300/80 dark:border-neutral-800/80',
+      'fixed left-1/2 md:top-2 transform -translate-x-1/2 z-50 w-full max-w-3xl bg-white/80 dark:bg-neutral-900/80 hover:shadow-lg md:rounded-2xl backdrop-blur-lg transition-all duration-300 border-b-2 border-neutral-300/80 dark:border-neutral-800/80',
       scrolled ? 'shadow-lg scale-103' : '',
     ]"
     style="padding: 0"
   >
     <div class="relative">
-      <div class="flex justify-center items-center px-6 py-2">
+      <div class="flex justify-center items-center px-2 md:px-6 py-2">
         <nav
-          class="flex justify-center items-center gap-8 w-full text-sm"
+          class="flex justify-between items-center gap-8 w-full text-sm"
           role="navigation"
           aria-label="Main navigation"
         >
@@ -22,7 +22,7 @@
             <div class="w-8 h-8 flex items-center justify-center">
               <UIcon name="i-ph-code" />
             </div>
-            <span class="hidden sm:inline">Vipin Madhaan</span>
+            <span>Vipin Madhaan</span>
           </ULink>
 
           <!-- Desktop Navigation -->
@@ -48,22 +48,42 @@
           </div>
 
           <!-- Action Buttons & Mobile Menu -->
-          <div class="flex items-center gap-3 justify-center">
-            <!-- Enhanced Contact CTA -->
-            <!-- <UButton
-            to="/contact"
-            class="hidden lg:flex hover:shadow transition-shadow duration-300 ease-in-out"
-          >
-            <UIcon name="i-ph-rocket-launch" />
-            <span>Start Project</span>
-          </UButton> -->
+          <div class="flex items-center md:gap-2 justify-center">
+            <!-- Social Links -->
+            <UButton
+              to="https://github.com/VipinMadhaan"
+              external
+              aria-label="GitHub Profile"
+              variant="ghost"
+              class="transition-transform duration-200 ease-in-out hover:scale-105"
+            >
+              <UIcon name="i-ph-github-logo" />
+            </UButton>
+            <UButton
+              to="https://linkedin.com/in/VipinMadhaan"
+              external
+              aria-label="LinkedIn Profile"
+              variant="ghost"
+              class="transition-transform duration-200 ease-in-out hover:scale-105"
+            >
+              <UIcon name="i-ph-linkedin-logo" />
+            </UButton>
+            <UButton
+              to="https://x.com/VipinMadhaan"
+              external
+              aria-label="X Profile"
+              variant="ghost"
+              class="transition-transform duration-200 ease-in-out hover:scale-105"
+            >
+              <UIcon name="i-ph-x-logo" />
+            </UButton>
 
             <!-- Theme Switcher -->
             <ThemeSwitcher />
 
             <!-- Mobile menu button -->
             <UButton
-              class="lg:hidden p-2 shadow hover:shadow-lg transition-shadow duration-300 ease-in-out hover:scale-105"
+              class="lg:hidden ml-2 p-2 shadow hover:shadow-lg transition-shadow duration-300 ease-in-out hover:scale-105"
               :aria-expanded="mobileMenuOpen"
               aria-label="Toggle mobile menu"
               aria-controls="mobile-menu"

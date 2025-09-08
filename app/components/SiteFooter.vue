@@ -67,9 +67,9 @@
           </ul>
         </div>
 
-        <!-- More -->
+        <!-- More Links -->
         <div>
-          <h3 class="mb-4">More</h3>
+          <h3 class="mb-4">More Links</h3>
           <ul class="space-y-3">
             <li>
               <ULink to="/contact"> Get In Touch </ULink>

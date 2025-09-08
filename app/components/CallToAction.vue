@@ -76,27 +76,25 @@ const { data: profile } = await useAsyncData("profile", () => {
             <UIcon name="i-ph-list" />
             View All Services & Pricing
           </UButton>
-          <!--
-              <UButton
-                href="https://cal.com/VipinMadhaan"
-                external
-                size="xl"
-                variant="soft"
-
-              >
-                <UIcon name="i-ph-calendar-check" />
-                Book Free Consultation
-              </UButton> -->
+          <UButton
+            href="https://cal.com/VipinMadhaan"
+            external
+            size="xl"
+            variant="soft"
+          >
+            <UIcon name="i-ph-calendar-check" />
+            Book Free Consultation
+          </UButton>
         </div>
 
-        <!-- Availability Note -->
+        <!-- Availability Note 
         <div v-if="profile?.availability?.status === 'available'">
           <UBadge variant="outline" size="xl">
             Only {{ profile?.availability?.slotsAvailable || 3 }} project slots
             available for
             {{ profile?.availability?.startDate || "August 2025" }}
           </UBadge>
-        </div>
+        </div> -->
       </div>
     </UCard>
   </div>

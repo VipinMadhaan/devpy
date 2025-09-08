@@ -220,10 +220,10 @@ useHead({
                 Start Your Project
               </UButton>
 
-              <UButton to="/#testimonials" size="xl" variant="outline">
+              <!-- <UButton to="/#testimonials" size="xl" variant="outline">
                 <UIcon name="i-ph-users" />
                 See Client Reviews
-              </UButton>
+              </UButton> -->
             </div>
 
             <!-- Trust Indicators -->

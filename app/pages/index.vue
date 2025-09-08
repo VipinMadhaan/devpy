@@ -128,7 +128,7 @@ if (profile.value) {
         >
           <div class="flex items-center gap-1">
             <span class="text-xl font-semibold">
-              {{ profile?.experience || "12" }}+
+              {{ profile?.experience || "10" }}+
             </span>
             <span>Years Experience</span>
           </div>
@@ -137,7 +137,7 @@ if (profile.value) {
 
           <div class="flex items-center gap-1">
             <span class="text-xl font-semibold">
-              {{ profile?.projectsDelivered || "125" }}+
+              {{ profile?.projectsDelivered || "100" }}+
             </span>
             <span>Projects Delivered</span>
           </div>
@@ -241,7 +241,7 @@ if (profile.value) {
         </div>
       </section>
 
-      <TestimonialsPreview />
+      <!-- <TestimonialsPreview /> -->
 
       <ServicesPreview />
 

@@ -29,7 +29,7 @@ const { data: profile } = await useAsyncData("profile", () => {
               <div class="space-y-3">
                 <h3>Technical Excellence</h3>
                 <p>
-                  {{ profile?.experience || "12" }}+ years of deep technical
+                  {{ profile?.experience || "10" }}+ years of deep technical
                   expertise across full-stack development, DevOps, and modern
                   architectures.
                 </p>

@@ -13,14 +13,19 @@ const toggleTheme = () => {
     <UButton
       :aria-label="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
       variant="ghost"
+      size="sm"
+      square
       class="transition-transform duration-200 ease-in-out active:scale-95 hover:scale-105"
       @click="toggleTheme"
     >
-      <UIcon v-if="isDark" name="i-ph-moon" />
-      <UIcon v-if="!isDark" name="i-ph-sun" />
+      <!-- Theme icons - using standard phosphor names -->
+      <UIcon v-if="isDark" name="i-ph-moon" class="w-5 h-5" />
+      <UIcon v-else name="i-ph-sun" class="w-5 h-5" />
     </UButton>
     <template #fallback>
-      <div class="h-6 w-6" />
+      <UButton variant="ghost" size="sm" square disabled class="opacity-50">
+        <UIcon name="i-ph-circle-notch" class="w-5 h-5 animate-spin" />
+      </UButton>
     </template>
   </ClientOnly>
 </template>

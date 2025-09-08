@@ -15,6 +15,13 @@ socialImage:
   alt: Screenshot of VSCode with Minimal Mist theme in dark mode
   width: 1200
   height: 630
+readingTime: 8
+category: tutorial
+tags:
+  - vscode
+  - setup
+  - productivity
+  - theme
 featured: true
 ---
 

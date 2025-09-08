@@ -7,6 +7,12 @@ export default defineAppConfig({
       primary: "blue",
       neutral: "stone",
     },
+    variables: {
+      dark: {
+        background: "0 0% 3.9%",
+        foreground: "0 0% 98%",
+      },
+    },
     badge: {
       defaultVariants: {
         variant: "soft",
@@ -20,6 +26,11 @@ export default defineAppConfig({
         variant: {
           outline: "border border-neutral-200 dark:border-neutral-800",
         },
+      },
+    },
+    button: {
+      defaultVariants: {
+        size: "md",
       },
     },
   },

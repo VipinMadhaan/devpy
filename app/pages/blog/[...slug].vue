@@ -146,7 +146,7 @@ const formatDate = (date: string | Date) => {
           :src="page.image"
           :alt="page.title"
           class="w-full h-full object-cover"
-        />
+        >
       </div>
 
       <!-- Post Content -->

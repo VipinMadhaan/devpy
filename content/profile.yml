@@ -2,17 +2,28 @@ name: Vipin Kumar Madhaan
 title: Senior Software Engineer | Full-Stack Developer | DevOps Enthusiast
 avatar: /vipin.webp
 description: Delivering robust, scalable, and user-focused software solutions that drive business success.
-tagline: I ship clean, scalable systems—from SaaS platforms to browser extensions—with a focus on developer ergonomics and velocity. 10+ years deep in the stack, currently exploring DevOps and infra. B.Tech Computer Science & Engineering (2013)
+tagline: I ship clean, scalable systems—from SaaS platforms to browser extensions—with a focus on developer ergonomics and velocity.
+bio: Hi there! I'm Vipin Kumar Madhaan, a Senior Software Engineer with over 10 years of experience in creating digital solutions that make a difference. My journey in technology started with curiosity and has evolved into a passion for building exceptional web applications and developer tools.
+location: India
+topSkills:
+  - TypeScript
+  - Vue.js
+  - Node.js
+  - Docker
+  - AWS
+  - PostgreSQL
+interests:
+  - Open Source
+  - Developer Tools
+  - Performance Optimization
+  - Mentoring
+  - AI/ML Integration
+  - Cloud Architecture
 social:
-  - name: GitHub
-    url: https://github.com/VipinMadhaan
-    icon: i-ph-github-logo
-  - name: LinkedIn
-    url: https://www.linkedin.com/in/VipinMadhaan
-    icon: i-ph-linkedin-logo
-  - name: X
-    url: https://x.com/VipinMadhaan
-    icon: i-ph-x-logo
+  github: https://github.com/VipinMadhaan
+  linkedin: https://www.linkedin.com/in/VipinMadhaan
+  twitter: https://x.com/VipinMadhaan
+  email: Vipin.Madhaan@gmail.com
 workApproach:
   - Architecting solutions and managing product lifecycles - optimizing performance, scalability, and security
   - Leading agile teams and collaborating with clients - Ensuring clarity, timeliness, and adaptability in all project phases
@@ -21,22 +32,5 @@ currentFocus:
   - Infrastructure as Code (IaC)
   - Cloud-native tooling and observability
   - AI-assisted development workflows
-clientSatisfaction: 100
-projectsDelivered: 100
+  - Developer experience optimization
 experience: 10
-availability:
-  status: available
-  statusText: Available for new projects
-  startDate: August 2025
-  startDateContext: "Next opening"
-  description: Open to freelance, consulting, and collaborative projects. Flexible with remote, async, and agile workflows. Comfortable working across time zones and with distributed teams.
-  responseTime: 6h
-  slotsAvailable: 2
-  paymentTerms: "20% upfront, rest on milestones"
-  cta:
-    text: Email Now To Discuss Your Project Or Idea
-    url: mailto:Vipin.Madhaan@gmail.com
-  note: I aim to reply as quickly as possible with the attention your message deserves.
-footer:
-  message: Thank you for your interest. I look forward to collaborating and building something exceptional together.
-  lastUpdated: 2025-06-28T12:00:00.000Z

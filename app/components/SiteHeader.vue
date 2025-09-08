@@ -28,28 +28,22 @@
           <!-- Desktop Navigation -->
           <div class="hidden lg:flex items-center gap-3 justify-center">
             <ULink
-              to="/about"
-              class="hover:scale-105 transition-transform duration-200 ease-in-out"
-            >
-              About
-            </ULink>
-            <ULink
-              to="/services"
-              class="hover:scale-105 transition-transform duration-200 ease-in-out"
-            >
-              Services
-            </ULink>
-            <!-- <ULink
-            to="/projects"
-            class="hover:scale-105 transition-transform duration-200 ease-in-out"
-          >
-            Projects
-          </ULink> -->
-            <ULink
               to="/blog"
               class="hover:scale-105 transition-transform duration-200 ease-in-out"
             >
               Blog
+            </ULink>
+            <ULink
+              to="/projects"
+              class="hover:scale-105 transition-transform duration-200 ease-in-out"
+            >
+              Projects
+            </ULink>
+            <ULink
+              to="/about"
+              class="hover:scale-105 transition-transform duration-200 ease-in-out"
+            >
+              About
             </ULink>
           </div>
 
@@ -110,12 +104,12 @@
 
             <!-- Mobile CTA with Enhanced Styling -->
             <ULink
-              to="/contact"
+              :to="'mailto:Vipin.Madhaan@gmail.com'"
               class="flex items-center justify-center gap-3 px-6 py-4 min-h-[48px] bg-primary-500 hover:bg-primary-600 text-white rounded-lg transition-colors duration-300"
               @click="closeMobileMenu"
             >
               <UIcon name="i-ph-envelope" />
-              <span>Let's Talk</span>
+              <span>Get in Touch</span>
             </ULink>
           </nav>
         </div>
@@ -130,10 +124,9 @@ const mobileMenuOpen = ref(false)
 
 // Navigation items configuration
 const navigationItems = [
-  { path: "/about", label: "About", icon: "i-ph-user" },
-  { path: "/services", label: "Services", icon: "i-ph-briefcase" },
-  { path: "/projects", label: "Projects", icon: "i-ph-folder-open" },
   { path: "/blog", label: "Blog", icon: "i-ph-article" },
+  { path: "/projects", label: "Projects", icon: "i-ph-folder-open" },
+  { path: "/about", label: "About", icon: "i-ph-user" },
 ]
 
 // Header shadow on scroll

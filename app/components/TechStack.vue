@@ -22,9 +22,9 @@ const { data: techStack } = await useAsyncData("tech-stack", () => {
         class="grid gap-8 md:grid-cols-2 lg:grid-cols-3 justify-center items-center text-center content-center justify-items-center"
       >
         <UCard
-          class="text-center h-full mx-auto w-full max-w-md"
           v-for="category in techStack.categories"
           :key="category.title"
+          class="text-center h-full mx-auto w-full max-w-md"
         >
           <div class="space-y-6">
             <div class="space-y-3">

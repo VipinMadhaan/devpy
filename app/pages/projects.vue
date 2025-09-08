@@ -1,202 +1,419 @@
 <script setup lang="ts">
-definePageMeta({
-  title: "Projects - Vipin Kumar Madhaan",
+// Fetch projects data
+const { data: projectsData } = await useAsyncData("projects", () =>
+  queryCollection("projects").first(),
+)
+
+// Enhanced SEO
+useSeo({
+  title: "Projects",
   description:
-    "Explore my portfolio of web applications, browser extensions, and open source contributions.",
+    "A showcase of my latest projects, open source contributions, and developer tools that demonstrate my passion for creating meaningful software solutions.",
+  type: "website",
 })
 
-// Fetch projects data from Nuxt Content collection
-const { data: projects } = await useAsyncData("projects", async () => {
-  return queryCollection("projects").first()
-})
-
-useHead({
-  title: "Projects - Vipin Kumar Madhaan",
-  meta: [
-    {
-      name: "description",
-      content:
-        "Explore my portfolio of web applications, browser extensions, and open source contributions.",
-    },
-  ],
-})
-
+// Filter state
 const selectedCategory = ref("All")
+const searchQuery = ref("")
 
+// Get all unique categories
+const categories = computed(() => {
+  if (!projectsData.value?.projects) return []
+  const cats = [
+    ...new Set(
+      projectsData.value.projects.map((p) => p.category).filter(Boolean),
+    ),
+  ]
+  return ["All", ...cats.sort()]
+})
+
+// Filter projects
 const filteredProjects = computed(() => {
-  if (selectedCategory.value === "All") {
-    return projects.value?.projects || []
+  if (!projectsData.value?.projects) return []
+
+  let filtered = projectsData.value.projects
+
+  // Filter by category
+  if (selectedCategory.value !== "All") {
+    filtered = filtered.filter((p) => p.category === selectedCategory.value)
   }
 
-  return (
-    projects.value?.projects.filter(
-      (p) => p.category === selectedCategory.value,
-    ) || []
-  )
+  // Filter by search
+  if (searchQuery.value) {
+    const query = searchQuery.value.toLowerCase()
+    filtered = filtered.filter(
+      (p) =>
+        p.title?.toLowerCase().includes(query) ||
+        p.name?.toLowerCase().includes(query) ||
+        p.description?.toLowerCase().includes(query) ||
+        p.tech?.some((t) => t.toLowerCase().includes(query)) ||
+        p.technologies?.some((t) => t.toLowerCase().includes(query)),
+    )
+  }
+
+  return filtered.sort((a, b) => {
+    // Featured projects first
+    if (a.featured !== b.featured) {
+      return b.featured ? 1 : -1
+    }
+    // Then by year (newest first)
+    return (b.year || 0) - (a.year || 0)
+  })
 })
+
+// Featured projects
+const featuredProjects = computed(() => {
+  return projectsData.value?.projects?.filter((p) => p.featured) || []
+})
+
+// Clear filters
+const clearFilters = () => {
+  selectedCategory.value = "All"
+  searchQuery.value = ""
+}
 </script>
 
 <template>
-  <div>
-    <div class="space-y-32">
-      <!-- Page Header -->
-      <div class="text-center space-y-6">
-        <h1>My Projects</h1>
-
-        <p class="max-w-4xl mx-auto">
-          A showcase of web applications, open source contributions, and
-          development tools I've built
+  <div class="container mx-auto px-4 py-12">
+    <div class="max-w-6xl mx-auto">
+      <!-- Hero Section -->
+      <div class="text-center mb-16">
+        <h1 class="text-4xl lg:text-5xl font-bold mb-6">Projects</h1>
+        <p class="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+          A showcase of my latest work, open source contributions, and passion
+          projects that demonstrate my commitment to creating meaningful
+          software solutions.
         </p>
       </div>
 
-      <!-- Featured Projects -->
-      <FeaturedProjects :hide-link="true" />
-
-      <!-- All Projects -->
-      <section class="space-y-12">
-        <div class="text-center space-y-6">
-          <h2>Explore My Work</h2>
-          <p class="max-w-3xl mx-auto">
-            Browse through a diverse range of projects, from web apps to open
-            source tools.
-          </p>
-        </div>
-
-        <!-- Category Filter -->
-        <div class="flex flex-wrap justify-center gap-2 mb-8">
-          <UButton
-            v-for="category in projects?.categories"
-            :key="category.name"
-            :variant="selectedCategory === category.name ? 'solid' : 'outline'"
-            @click="selectedCategory = category.name"
-          >
-            {{ category.name }}
-            <UBadge
-              v-if="category.name !== 'All'"
-              :label="category.count.toString()"
-              variant="soft"
+      <!-- Search and Filters -->
+      <div class="mb-12">
+        <div
+          class="flex flex-col md:flex-row gap-4 items-center justify-between"
+        >
+          <!-- Search -->
+          <div class="w-full md:w-96">
+            <UInput
+              v-model="searchQuery"
+              placeholder="Search projects..."
+              icon="i-ph-magnifying-glass"
+              size="lg"
+              class="w-full"
             />
-          </UButton>
+          </div>
+
+          <!-- Category Filter -->
+          <div class="flex flex-wrap gap-2 items-center">
+            <UButton
+              v-for="category in categories"
+              :key="category"
+              :variant="selectedCategory === category ? 'solid' : 'outline'"
+              size="sm"
+              @click="selectedCategory = category"
+            >
+              {{ category }}
+            </UButton>
+            <UButton
+              v-if="selectedCategory !== 'All' || searchQuery"
+              variant="ghost"
+              size="sm"
+              icon="i-ph-x"
+              @click="clearFilters"
+            >
+              Clear
+            </UButton>
+          </div>
         </div>
+      </div>
 
+      <!-- Featured Projects -->
+      <section
+        v-if="
+          featuredProjects.length && selectedCategory === 'All' && !searchQuery
+        "
+        class="mb-16"
+      >
+        <h2 class="text-2xl font-semibold mb-8 flex items-center gap-2">
+          <UIcon name="i-ph-star" class="text-yellow-500" />
+          Featured Projects
+        </h2>
         <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          <div v-for="project in filteredProjects" :key="project.id">
-            <div />
-            <UCard class="">
-              <!-- Project Image -->
-              <div
-                class="mb-4 flex items-center justify-center overflow-hidden"
-              >
-                <img
-                  v-if="project.image"
-                  :src="project.image"
-                  :alt="project.title"
-                  class="w-full h-full object-cover"
-                />
-                <UIcon v-else name="i-ph-folder-open" />
-              </div>
-
-              <!-- Project Content -->
+          <article
+            v-for="project in featuredProjects"
+            :key="project.id"
+            class="group"
+          >
+            <UCard class="h-full hover:shadow-lg transition-all duration-200">
+              <NuxtImg
+                v-if="project.image"
+                :src="project.image"
+                :alt="project.title || project.name"
+                class="w-full h-48 object-cover rounded-lg mb-4"
+                loading="lazy"
+              />
               <div class="space-y-4">
-                <div>
-                  <div class="flex items-center justify-between mb-2">
-                    <h3>
-                      {{ project.title }}
+                <div class="flex items-start justify-between">
+                  <div class="flex-1">
+                    <h3
+                      class="text-lg font-semibold group-hover:text-primary transition-colors"
+                    >
+                      {{ project.title || project.name }}
                     </h3>
-                    <UBadge :label="project.category" variant="soft" />
+                    <UBadge variant="soft" size="xs" class="mt-1"
+                      >Featured</UBadge
+                    >
                   </div>
-                  <p>
-                    {{ project.description }}
-                  </p>
+                  <UBadge v-if="project.year" variant="outline" size="xs">
+                    {{ project.year }}
+                  </UBadge>
                 </div>
 
-                <!-- Technologies -->
-                <div class="flex flex-wrap gap-1.5">
+                <p class="text-gray-600 dark:text-gray-400 text-sm">
+                  {{ project.description }}
+                </p>
+
+                <!-- Tech Stack -->
+                <div
+                  v-if="project.tech?.length || project.technologies?.length"
+                  class="flex flex-wrap gap-1"
+                >
                   <UBadge
-                    v-for="tech in project.technologies.slice(0, 4)"
+                    v-for="tech in (project.tech || project.technologies).slice(
+                      0,
+                      4,
+                    )"
                     :key="tech"
-                    :label="tech"
                     variant="outline"
-                  />
+                    size="xs"
+                  >
+                    {{ tech }}
+                  </UBadge>
                   <UBadge
-                    v-if="project.technologies.length > 4"
-                    :label="`+${project.technologies.length - 4}`"
-                    variant="soft"
-                  />
-                </div>
-
-                <!-- Status and Date -->
-                <div class="flex items-center justify-between">
-                  <UBadge
-                    :label="project.status"
-                    :color="project.status === 'active' ? 'success' : 'neutral'"
-                    variant="soft"
-                    size="sm"
-                  />
-                  <span>
-                    {{ new Date(project.startDate).getFullYear() }}
-                  </span>
+                    v-if="(project.tech || project.technologies).length > 4"
+                    variant="outline"
+                    size="xs"
+                  >
+                    +{{ (project.tech || project.technologies).length - 4 }}
+                  </UBadge>
                 </div>
 
                 <!-- Links -->
-                <div class="flex items-center gap-2 pt-2">
+                <div class="flex gap-2">
                   <UButton
-                    v-if="project.links.demo"
-                    :to="project.links.demo"
-                    external
-                    variant="solid"
-                    size="sm"
-                    class="flex-1 justify-center"
-                  >
-                    <UIcon name="i-ph-eye" />
-                    Live Demo
-                  </UButton>
-
-                  <UButton
-                    v-if="project.links.github"
-                    :to="project.links.github"
-                    external
+                    v-if="project.github || project.links?.github"
+                    :to="project.github || project.links?.github"
                     variant="outline"
-                    size="sm"
+                    size="xs"
+                    icon="i-ph-github-logo"
+                    external
                   >
-                    <UIcon name="i-ph-github-logo" />
+                    Code
                   </UButton>
-
                   <UButton
-                    v-if="project.links.case_study"
+                    v-if="project.demo || project.links?.demo"
+                    :to="project.demo || project.links?.demo"
+                    variant="outline"
+                    size="xs"
+                    icon="i-ph-globe"
+                    external
+                  >
+                    Demo
+                  </UButton>
+                  <UButton
+                    v-if="project.links?.case_study"
                     :to="project.links.case_study"
                     variant="outline"
-                    size="sm"
+                    size="xs"
+                    icon="i-ph-file-text"
                   >
-                    <UIcon name="i-ph-article" />
+                    Case Study
                   </UButton>
                 </div>
               </div>
             </UCard>
-          </div>
+          </article>
         </div>
       </section>
 
-      <!-- GitHub Integration -->
-      <section class="text-center py-16">
-        <div class="p-8">
-          <h2 class="mb-4">More on GitHub</h2>
-          <p class="mb-8 max-w-3xl mx-auto">
-            Explore my complete portfolio of open source projects,
-            contributions, and experiments on GitHub.
-          </p>
+      <!-- All Projects -->
+      <section>
+        <div class="flex items-center justify-between mb-8">
+          <h2 class="text-2xl font-semibold">
+            {{
+              selectedCategory !== "All" || searchQuery
+                ? "Filtered Projects"
+                : "All Projects"
+            }}
+            <span class="text-sm font-normal text-gray-600 dark:text-gray-400">
+              ({{ filteredProjects.length }}
+              {{ filteredProjects.length === 1 ? "project" : "projects" }})
+            </span>
+          </h2>
+        </div>
 
-          <UButton
-            to="https://github.com/VipinMadhaan"
-            external
-            size="xl"
-            variant="solid"
+        <!-- Projects Grid -->
+        <div
+          v-if="filteredProjects.length"
+          class="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
+        >
+          <article
+            v-for="project in filteredProjects"
+            :key="project.id"
+            class="group"
           >
-            <UIcon name="i-ph-github-logo" />
-            <span>View GitHub Profile</span>
+            <UCard class="h-full hover:shadow-lg transition-all duration-200">
+              <NuxtImg
+                v-if="project.image"
+                :src="project.image"
+                :alt="project.title || project.name"
+                class="w-full h-40 object-cover rounded-lg mb-4"
+                loading="lazy"
+              />
+              <div class="space-y-3">
+                <div class="flex items-start justify-between">
+                  <div class="flex-1">
+                    <h3
+                      class="font-semibold group-hover:text-primary transition-colors line-clamp-2"
+                    >
+                      {{ project.title || project.name }}
+                    </h3>
+                    <div class="flex gap-2 mt-1">
+                      <UBadge v-if="project.featured" variant="soft" size="xs"
+                        >Featured</UBadge
+                      >
+                      <UBadge
+                        v-if="project.category"
+                        variant="outline"
+                        size="xs"
+                        >{{ project.category }}</UBadge
+                      >
+                    </div>
+                  </div>
+                  <UBadge v-if="project.year" variant="outline" size="xs">
+                    {{ project.year }}
+                  </UBadge>
+                </div>
+
+                <p
+                  class="text-gray-600 dark:text-gray-400 text-sm line-clamp-3"
+                >
+                  {{ project.description }}
+                </p>
+
+                <!-- Tech Stack -->
+                <div
+                  v-if="project.tech?.length || project.technologies?.length"
+                  class="flex flex-wrap gap-1"
+                >
+                  <UBadge
+                    v-for="tech in (project.tech || project.technologies).slice(
+                      0,
+                      3,
+                    )"
+                    :key="tech"
+                    variant="outline"
+                    size="xs"
+                  >
+                    {{ tech }}
+                  </UBadge>
+                  <UBadge
+                    v-if="(project.tech || project.technologies).length > 3"
+                    variant="outline"
+                    size="xs"
+                  >
+                    +{{ (project.tech || project.technologies).length - 3 }}
+                  </UBadge>
+                </div>
+
+                <!-- Links -->
+                <div class="flex gap-2">
+                  <UButton
+                    v-if="project.github || project.links?.github"
+                    :to="project.github || project.links?.github"
+                    variant="outline"
+                    size="xs"
+                    icon="i-ph-github-logo"
+                    external
+                  >
+                    Code
+                  </UButton>
+                  <UButton
+                    v-if="project.demo || project.links?.demo"
+                    :to="project.demo || project.links?.demo"
+                    variant="outline"
+                    size="xs"
+                    icon="i-ph-globe"
+                    external
+                  >
+                    Demo
+                  </UButton>
+                </div>
+              </div>
+            </UCard>
+          </article>
+        </div>
+
+        <!-- No Projects Found -->
+        <div v-else class="text-center py-16">
+          <UIcon name="i-ph-folder-open" class="text-6xl text-gray-400 mb-4" />
+          <h3 class="text-xl font-semibold mb-2">No projects found</h3>
+          <p class="text-gray-600 dark:text-gray-400 mb-6">
+            Try adjusting your search terms or filters.
+          </p>
+          <UButton variant="outline" @click="clearFilters">
+            Clear filters
           </UButton>
+        </div>
+      </section>
+
+      <!-- Call to Action -->
+      <section class="mt-20 text-center">
+        <div
+          class="bg-gradient-to-r from-primary/10 to-purple-600/10 rounded-lg p-8"
+        >
+          <h2 class="text-2xl font-semibold mb-4">
+            Interested in Collaborating?
+          </h2>
+          <p class="text-gray-600 dark:text-gray-300 mb-6 max-w-2xl mx-auto">
+            I'm always open to discussing new projects, creative ideas, or
+            opportunities to be part of your visions.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <UButton
+              to="mailto:Vipin.Madhaan@gmail.com"
+              size="lg"
+              icon="i-ph-envelope"
+            >
+              Get in Touch
+            </UButton>
+            <UButton
+              to="https://github.com/VipinMadhaan"
+              variant="outline"
+              size="lg"
+              icon="i-ph-github-logo"
+              external
+            >
+              View on GitHub
+            </UButton>
+          </div>
         </div>
       </section>
     </div>
   </div>
 </template>
+
+<style scoped>
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+</style>

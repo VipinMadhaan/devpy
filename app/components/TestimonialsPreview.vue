@@ -129,7 +129,7 @@ function togglePause() {
                           ((e.target as HTMLImageElement).style.display =
                             'none')
                       "
-                    />
+                    >
                     <UIcon v-if="!testimonial.avatar" name="i-ph-user" />
                   </div>
                   <div

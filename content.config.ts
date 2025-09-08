@@ -45,6 +45,10 @@ export default defineContentConfig({
           image: z.string().optional(),
           tags: z.array(z.string()).optional(),
           featured: z.boolean().optional().default(false),
+          readingTime: z.number().optional(),
+          category: z
+            .enum(["tech", "personal", "tutorial", "thoughts"])
+            .default("tech"),
         }),
       }),
     ),
@@ -143,37 +147,44 @@ export default defineContentConfig({
         avatar: z.string(),
         description: z.string(),
         tagline: z.string(),
-        social: z.array(
-          z.object({
-            name: z.string(),
-            url: z.string().url(),
-            icon: z.string(),
-          }),
-        ),
+        bio: z.string(),
+        location: z.string(),
+        topSkills: z.array(z.string()),
+        interests: z.array(z.string()),
+        social: z.object({
+          github: z.string().optional(),
+          linkedin: z.string().optional(),
+          twitter: z.string().optional(),
+          email: z.string(),
+        }),
         workApproach: z.array(z.string()),
         currentFocus: z.array(z.string()),
-        clientSatisfaction: z.number().min(0).max(100),
-        projectsDelivered: z.number().min(0),
+        clientSatisfaction: z.number().min(0).max(100).optional(),
+        projectsDelivered: z.number().min(0).optional(),
         experience: z.number().min(0),
-        availability: z.object({
-          status: z.string(),
-          statusText: z.string(),
-          startDate: z.string(),
-          startDateContext: z.string(),
-          description: z.string(),
-          responseTime: z.string(),
-          slotsAvailable: z.number(),
-          paymentTerms: z.string(),
-          cta: z.object({
-            text: z.string(),
-            url: z.string(),
-          }),
-          note: z.string(),
-        }),
-        footer: z.object({
-          message: z.string(),
-          lastUpdated: z.string(),
-        }),
+        availability: z
+          .object({
+            status: z.string(),
+            statusText: z.string(),
+            startDate: z.string(),
+            startDateContext: z.string(),
+            description: z.string(),
+            responseTime: z.string(),
+            slotsAvailable: z.number(),
+            paymentTerms: z.string(),
+            cta: z.object({
+              text: z.string(),
+              url: z.string(),
+            }),
+            note: z.string(),
+          })
+          .optional(),
+        footer: z
+          .object({
+            message: z.string(),
+            lastUpdated: z.string(),
+          })
+          .optional(),
       }),
     }),
     projects: defineCollection({
@@ -183,35 +194,44 @@ export default defineContentConfig({
         projects: z.array(
           z.object({
             id: z.number(),
+            name: z.string(),
             title: z.string(),
             description: z.string(),
-            longDescription: z.string(),
-            image: z.string(),
+            longDescription: z.string().optional(),
+            image: z.string().optional(),
+            tech: z.array(z.string()),
             technologies: z.array(z.string()),
             category: z.string(),
-            featured: z.boolean(),
+            featured: z.boolean().default(false),
             status: z.string(),
-            startDate: z.string(),
-            endDate: z.string().nullable(),
-            links: z.object({
-              github: z.string().optional(),
-              demo: z.string().optional(),
-              npm: z.string().optional(),
-              documentation: z.string().optional(),
-              case_study: z.string().optional(),
-            }),
+            year: z.number(),
+            startDate: z.string().optional(),
+            endDate: z.string().nullable().optional(),
+            github: z.string().optional(),
+            demo: z.string().optional(),
+            links: z
+              .object({
+                github: z.string().optional(),
+                demo: z.string().optional(),
+                npm: z.string().optional(),
+                documentation: z.string().optional(),
+                case_study: z.string().optional(),
+              })
+              .optional(),
             stats: z.record(z.union([z.string(), z.number()])).optional(),
-            features: z.array(z.string()),
-            challenges: z.array(z.string()),
-            outcomes: z.array(z.string()),
+            features: z.array(z.string()).optional(),
+            challenges: z.array(z.string()).optional(),
+            outcomes: z.array(z.string()).optional(),
           }),
         ),
-        categories: z.array(
-          z.object({
-            name: z.string(),
-            count: z.number(),
-          }),
-        ),
+        categories: z
+          .array(
+            z.object({
+              name: z.string(),
+              count: z.number(),
+            }),
+          )
+          .optional(),
       }),
     }),
     services: defineCollection({

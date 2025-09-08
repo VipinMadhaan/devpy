@@ -1,226 +1,209 @@
 <script setup lang="ts">
-definePageMeta({
-  title: "About - Vipin Kumar Madhaan",
-  description:
-    "Learn about my professional journey, experience, education, and skills in web development.",
-})
-
-// Fetch professional journey data from Nuxt Content collection
-const { data: professionalJourney } = await useAsyncData(
-  "professional-journey",
-  () => {
-    return queryCollection("professionalJourney").first()
-  },
+// Fetch profile and journey data
+const { data: profile } = await useAsyncData("about-profile", () =>
+  queryCollection("profile").first(),
 )
 
-// Fetch profile journey data from Nuxt Content collection
-const { data: _profile } = await useAsyncData("profile", () => {
-  return queryCollection("profile").first()
+const { data: professionalJourney } = await useAsyncData("about-journey", () =>
+  queryCollection("professionalJourney").first(),
+)
+
+// Enhanced SEO
+useSeo({
+  title: "About Me",
+  description:
+    "Learn more about my background, journey in software development, skills, and what drives my passion for creating exceptional digital experiences.",
+  type: "website",
 })
 
-useHead({
-  title: "About - Vipin Kumar Madhaan",
-  meta: [
-    {
-      name: "description",
-      content:
-        "Learn about my professional journey, experience, education, and skills in web development.",
-    },
-  ],
-})
+usePersonalSeo()
 </script>
 
 <template>
-  <div>
-    <div class="space-y-32">
-      <!-- Professional Experience -->
-      <section class="space-y-12">
-        <div class="text-center space-y-6">
-          <h2>My Story</h2>
-          <p class="max-w-3xl mx-auto">
-            Hi there! I’m Vipin Kumar Madhaan, a Full Stack Lead Developer from
-            India with over 10 years of experience in the world of web
-            development. My passion lies in building web applications and web
-            services that not only function well but also engage and delight
-            users.
-          </p>
+  <div class="container mx-auto px-4 pt-12">
+    <div class="max-w-4xl mx-auto">
+      <!-- Hero Section -->
+      <div class="text-center mb-16">
+        <div class="mb-8">
+          <NuxtImg
+            :src="profile?.avatar || '/vipin.webp'"
+            :alt="profile?.name || 'Vipin Kumar Madhaan'"
+            class="w-40 h-40 rounded-full mx-auto mb-6 ring-4 ring-primary/20"
+            width="160"
+            height="160"
+          />
         </div>
-      </section>
-           <section class="space-y-12">
-        <div class="text-center space-y-6">
-          <h2>Expertise and Experience</h2>
-          <p class="max-w-3xl mx-auto">
-            My journey into coding began in 2013, focusing primarily on
-            JavaScript and Python. Over the years, I’ve honed my skills in
-            various aspects of web development, including:
-            <ul>
-              <li>
-                <strong>Websites Development:</strong> Bringing static and
-                dynamic websites to life, ensuring seamless user experiences.
-              </li>
-              <li>
-                <strong>Web Automation:</strong> Streamlining workflows and
-                processes with automated solutions.
-              </li>
-              <li>
-                <strong>Chat Bots:</strong> Building interactive and engaging
-                chatbots for various purposes.
-              </li>
-              <li>
-                <strong>Web RTC:</strong> Enabling real-time communication
-                features like video chat and peer-to-peer connections.
-              </li>
-              <li>
-                <strong>Open-Source Projects:</strong> Contributing to and creating
-                open-source projects, fostering collaboration and knowledge sharing.
-              </li>
-            </ul>
-          </p>
-        </div>
-      </section>
-       <section class="space-y-12">
-        <div class="text-center space-y-6">
-          <h2>Passion for Learning and Innovation</h2>
-          <p class="max-w-3xl mx-auto">
-            Beyond my core expertise, I’m always eager to explore new
-            technologies and trends. Recently, I’ve been delving into the
-            fascinating world of Artificial Intelligence, expanding my knowledge
-            and skills in this ever-evolvng field.
-          </p>
-        </div>
-      </section>
+        <h1 class="text-4xl lg:text-5xl font-bold mb-6">About Me</h1>
+        <p class="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+          {{
+            profile?.description ||
+            "Senior Software Engineer specializing in modern web technologies, crafting scalable applications with passion and precision."
+          }}
+        </p>
+      </div>
 
-      <!-- Education -->
-      <section class="space-y-12">
-        <div class="text-center space-y-6">
-          <h2>Education & Learning</h2>
-
-          <p class="max-w-3xl mx-auto">
-            Strong academic foundation combined with continuous learning and
-            professional development.
-          </p>
-        </div>
-
-        <div class="grid gap-6 md:grid-cols-1">
-          <div
-            v-for="edu in professionalJourney?.education"
-            :key="edu.id"
-            class="h-full"
-          >
-            <div />
-            <UCard class="">
-              <div class="space-y-4">
-                <div class="flex items-start gap-4">
-                  <div class="flex items-center justify-center flex-shrink-0">
-                    <UIcon
-                      name="i-ph-graduation-cap"
-                      size="3em"
-                      class="text-info"
-                    />
-                  </div>
-                  <div class="flex-1 space-y-3">
-                    <h3>{{ edu.degree }}</h3>
-                    <p>
-                      {{ edu.institution }}
-                    </p>
-                    <p>
-                      {{ edu.location }}
-                    </p>
-                    <UBadge :label="edu.period" variant="soft" />
-                  </div>
-                </div>
-
-                <p>
-                  {{ edu.description }}
-                </p>
-
-                <!-- <div>
-                <h4 class="mb-2">Achievements:</h4>
-                <ul class="space-y-1">
-                  <li
-                    v-for="(achievement, index) in edu.achievements"
-                    :key="index"
-                    class="flex items-start gap-2"
-                  >
-                    <UIcon
-                      name="i-ph-medal"
-                      class="w-3 h-3 mt-1 flex-shrink-0"
-                    />
-                    <span >{{ achievement }}</span>
-                  </li>
-                </ul>
-              </div> -->
-              </div>
-            </UCard>
+      <!-- My Story -->
+      <div class="prose prose-lg max-w-none mb-16">
+        <div class="bg-white dark:bg-gray-900 rounded-lg p-8 shadow-sm">
+          <h2 class="text-2xl font-semibold mb-6 text-gray-900 dark:text-white">
+            My Journey
+          </h2>
+          <div class="space-y-4 text-gray-700 dark:text-gray-300">
+            <p>
+              Hi there! I'm Vipin Kumar Madhaan, a Senior Software Engineer with
+              over {{ profile?.experience || 10 }} years of experience in
+              creating digital solutions that make a difference. My journey in
+              technology started with curiosity and has evolved into a passion
+              for building exceptional web applications and developer tools.
+            </p>
+            <p>
+              What drives me is the intersection of technology and human
+              experience. I believe that great software doesn't just work—it
+              empowers people, solves real problems, and creates value. Whether
+              I'm architecting a complex system or mentoring junior developers,
+              I approach every challenge with empathy, creativity, and a
+              commitment to excellence.
+            </p>
+            <p>
+              When I'm not coding, you'll find me exploring new technologies,
+              contributing to open source projects, or sharing my knowledge
+              through writing and speaking. I'm particularly passionate about
+              developer experience, performance optimization, and building tools
+              that make other developers' lives easier.
+            </p>
           </div>
         </div>
-      </section>
+      </div>
 
-      <!-- Certifications 
-      <section class="space-y-12">
-        <div class="text-center space-y-6">
-          <h2>Certifications & Awards</h2>
-
-          <p class="max-w-3xl mx-auto">
-            Industry-recognized certifications and achievements that validate
-            expertise and commitment to excellence.
-          </p>
-        </div>
-
-        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          <div
-            v-for="cert in professionalJourney?.certifications"
-            :key="cert.id"
-            class="h-full text-center"
-          >
-            <UCard class="">
-              <div class="space-y-4">
-                <div class="w-16 h-16 flex items-center justify-center mx-auto">
-                  <UIcon name="i-ph-certificate" size="4em" class="text-info" />
-                </div>
-
-                <div class="space-y-3">
-                  <h3>{{ cert.name }}</h3>
-                  <p>{{ cert.issuer }}</p>
-                  <UBadge :label="cert.date" variant="soft" />
-                </div>
-
-                <p>
-                  {{ cert.description }}
-                </p>
-
-                <div>ID: {{ cert.credentialId }}</div>
-              </div>
-            </UCard>
-          </div>
-        </div>
-      </section> -->
-
-      <!-- Call to Action -->
-      <section class="space-y-12">
-        <UCard class="text-center ring-2 ring-primary">
-          <div class="space-y-6">
-            <div class="space-y-3">
-              <h3>Ready to Work Together?</h3>
-              <p class="max-w-2xl mx-auto">
-                Now that you know my story, let's write the next chapter
-                together. I'd love to help bring your ideas to life.
-              </p>
-            </div>
-
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-              <UButton to="/services" size="lg" variant="solid">
-                <UIcon name="i-ph-briefcase" />
-                View Services
-              </UButton>
-              <UButton to="/contact" size="lg" variant="subtle">
-                <UIcon name="i-ph-envelope" />
-                Get In Touch
-              </UButton>
+      <!-- Skills & Expertise -->
+      <div class="mb-16">
+        <h2 class="text-2xl font-semibold mb-8 text-center">
+          Skills & Expertise
+        </h2>
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- Technical Skills -->
+          <div class="bg-white dark:bg-gray-900 rounded-lg p-6 shadow-sm">
+            <h3 class="font-semibold mb-4 flex items-center gap-2">
+              <UIcon name="i-ph-code" class="text-primary" />
+              Technical Skills
+            </h3>
+            <div v-if="profile?.topSkills?.length" class="flex flex-wrap gap-2">
+              <UBadge
+                v-for="skill in profile.topSkills"
+                :key="skill"
+                variant="soft"
+                size="md"
+              >
+                {{ skill }}
+              </UBadge>
             </div>
           </div>
-        </UCard>
-      </section>
+
+          <!-- Interests -->
+          <div class="bg-white dark:bg-gray-900 rounded-lg p-6 shadow-sm">
+            <h3 class="font-semibold mb-4 flex items-center gap-2">
+              <UIcon name="i-ph-heart" class="text-primary" />
+              Interests & Passions
+            </h3>
+            <div v-if="profile?.interests?.length" class="flex flex-wrap gap-2">
+              <UBadge
+                v-for="interest in profile.interests"
+                :key="interest"
+                variant="outline"
+                size="md"
+              >
+                {{ interest }}
+              </UBadge>
+            </div>
+            <div v-else class="flex flex-wrap gap-2">
+              <UBadge variant="outline" size="md">Open Source</UBadge>
+              <UBadge variant="outline" size="md">Developer Tools</UBadge>
+              <UBadge variant="outline" size="md">Performance</UBadge>
+              <UBadge variant="outline" size="md">Mentoring</UBadge>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Current Focus -->
+      <div v-if="profile?.currentFocus?.length" class="mb-16">
+        <div
+          class="bg-gradient-to-r from-primary/10 to-purple-600/10 rounded-lg p-8"
+        >
+          <h2 class="text-2xl font-semibold mb-6 text-center">Current Focus</h2>
+          <div class="grid gap-4">
+            <div
+              v-for="focus in profile.currentFocus"
+              :key="focus"
+              class="flex items-start gap-3"
+            >
+              <UIcon
+                name="i-ph-arrow-right"
+                class="text-primary mt-1 flex-shrink-0"
+              />
+              <span class="text-gray-700 dark:text-gray-300">{{ focus }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Connect Section -->
+      <div class="text-center">
+        <h2 class="text-2xl font-semibold mb-6">Let's Connect</h2>
+        <p class="text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
+          I'm always interested in discussing new opportunities, sharing
+          knowledge, or just connecting with fellow developers and technology
+          enthusiasts.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+          <UButton
+            :to="
+              profile?.social?.email
+                ? `mailto:${profile.social.email}`
+                : 'mailto:Vipin.Madhaan@gmail.com'
+            "
+            size="lg"
+            icon="i-ph-envelope"
+          >
+            Get in Touch
+          </UButton>
+          <UButton
+            to="https://cal.com/VipinMadhaan"
+            variant="outline"
+            size="lg"
+            icon="i-ph-calendar"
+            external
+          >
+            Schedule a Call
+          </UButton>
+        </div>
+
+        <!-- Social Links -->
+        <div class="flex justify-center gap-4">
+          <UButton
+            to="https://github.com/VipinMadhaan"
+            variant="ghost"
+            icon="i-ph-github-logo"
+            external
+            class="text-gray-600 hover:text-primary"
+          />
+          <UButton
+            to="https://linkedin.com/in/VipinMadhaan"
+            variant="ghost"
+            icon="i-ph-linkedin-logo"
+            external
+            class="text-gray-600 hover:text-primary"
+          />
+          <UButton
+            to="https://x.com/VipinMadhaan"
+            variant="ghost"
+            icon="i-ph-x-logo"
+            external
+            class="text-gray-600 hover:text-primary"
+          />
+        </div>
+      </div>
     </div>
   </div>
 </template>

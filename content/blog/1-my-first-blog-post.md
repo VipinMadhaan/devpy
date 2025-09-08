@@ -15,6 +15,13 @@ socialImage:
   alt: Mountain landscape with code editor
   width: 1200
   height: 630
+readingTime: 5
+category: personal
+tags:
+  - introduction
+  - blogging
+  - journey
+featured: true
 ---
 
 # My Journey into Tech Blogging

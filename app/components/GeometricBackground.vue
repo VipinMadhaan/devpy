@@ -67,7 +67,7 @@ onMounted(() => {
         ['--glow-b' as any]:
           colorMode.value === 'dark' ? '#c084fc12' : '#a78bfa12',
       }"
-    ></div>
+    />
 
     <!-- Subtle animated shimmer to avoid static feel -->
     <div
@@ -79,7 +79,7 @@ onMounted(() => {
         ['--glow-c' as any]:
           colorMode.value === 'dark' ? '#22d3ee0f' : '#06b6d40f',
       }"
-    ></div>
+    />
 
     <!-- Noise overlay -->
     <div
@@ -88,7 +88,7 @@ onMounted(() => {
         backgroundImage: noiseDataUri,
         opacity: colorMode.value === 'dark' ? 0.25 : 0.75,
       }"
-    ></div>
+    />
   </div>
 </template>
 

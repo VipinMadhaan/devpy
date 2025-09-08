@@ -12,186 +12,34 @@ const { data: professionalJourney } = await useAsyncData(
   },
 )
 
-// SEO Meta
+// Enhanced SEO using the new composable
 if (profile.value) {
-  useHead({
-    title: `${profile.value.name} - ${profile.value.title}`,
-    meta: [
-      {
-        name: "description",
-        content: profile.value.description,
-      },
-      {
-        property: "og:title",
-        content: `${profile.value.name} - ${profile.value.title}`,
-      },
-      {
-        property: "og:description",
-        content: profile.value.description,
-      },
-      {
-        property: "og:image",
-        content: profile.value.avatar,
-      },
-      {
-        property: "og:type",
-        content: "profile",
-      },
-      {
-        name: "twitter:card",
-        content: "summary_large_image",
-      },
-      {
-        name: "twitter:title",
-        content: `${profile.value.name} - ${profile.value.title}`,
-      },
-      {
-        name: "twitter:description",
-        content: profile.value.description,
-      },
-      {
-        name: "twitter:image",
-        content: profile.value.avatar,
-      },
-    ],
+  useSeo({
+    title: profile.value.name,
+    description: profile.value.description,
+    image: profile.value.avatar,
+    type: "website",
   })
 
-  // Structured data for SEO
-  useSchemaOrg([
-    defineWebSite({
-      name: profile.value.name,
-      description: profile.value.description,
-      url: "https://devpy.de",
-    }),
-    definePerson({
-      name: profile.value.name,
-      jobTitle: profile.value.title,
-      description: profile.value.description,
-      image: profile.value.avatar,
-      url: "https://devpy.de",
-      sameAs: profile.value.social?.map((s) => s.url) || [],
-    }),
-  ])
+  usePersonalSeo()
 }
 </script>
 
 <template>
   <div>
-    <section v-if="profile" class="text-center">
-      <div class="max-w-5xl mx-auto h-screen">
-        <!-- Avatar with Integrated Status - Redesigned -->
-        <div class="flex flex-col items-center mb-8 space-y-3">
-          <!-- Larger, cleaner avatar without ring -->
-          <div
-            class="w-32 h-32 md:w-40 md:h-40 shadow-md hover:shadow-lg transition-all duration-300 ease-in-out rounded-full"
-          >
-            <UAvatar
-              :src="profile.avatar"
-              :alt="profile.name"
-              class="w-full h-full transform hover:scale-105 transition-all duration-300 ease-in-out shadow hover:shadow-lg"
-            />
-          </div>
-          <!-- Status badge on avatar - bottom right positioned -->
-          <div
-            v-if="profile.availability"
-            class="flex gap-2 items-center justify-center text-xs"
-          >
-            <div
-              class="h-3 w-3 rounded-full"
-              :class="{
-                'bg-primary': profile.availability.status === 'available',
-                'bg-yellow-500': profile.availability.status !== 'available',
-                'animate-pulse': true,
-              }"
-            />
-            <div>
-              {{
-                profile.availability.statusText || "Available for new projects"
-              }}
-            </div>
-          </div>
-        </div>
+    <!-- New Enhanced Hero Section -->
+    <HeroSection />
 
-        <div class="space-y-6">
-          <h1>
-            {{ profile.name }}
-          </h1>
-          <p class="text-xl">{{ profile.title }}</p>
-          <p class="text-lg max-w-3xl mx-auto">
-            {{ profile.tagline }}
-          </p>
-        </div>
-
-        <!-- Key Metrics -->
-        <div
-          class="flex flex-wrap justify-center items-center gap-x-4 gap-y-2 mt-6 text-sm"
-        >
-          <div class="flex items-center gap-1">
-            <span class="text-xl font-semibold">
-              {{ profile?.experience || "10" }}+
-            </span>
-            <span>Years Experience</span>
-          </div>
-
-          <span class="hidden sm:inline">|</span>
-
-          <div class="flex items-center gap-1">
-            <span class="text-xl font-semibold">
-              {{ profile?.projectsDelivered || "100" }}+
-            </span>
-            <span>Projects Delivered</span>
-          </div>
-
-          <span class="hidden sm:inline">|</span>
-
-          <div class="flex items-center gap-1">
-            <span class="text-xl font-semibold">
-              {{ profile?.clientSatisfaction || "100" }}%
-            </span>
-            <span>Client Satisfaction</span>
-          </div>
-        </div>
-
-        <!-- Enhanced Action Buttons -->
-        <div class="flex flex-col sm:flex-row gap-4 justify-center mt-12">
-          <UButton to="/contact" size="xl" variant="solid">
-            <UIcon name="i-ph-rocket-launch" />
-            Start Your Project Today
-          </UButton>
-
-          <UButton
-            href="https://cal.com/VipinMadhaan"
-            external
-            size="xl"
-            variant="subtle"
-          >
-            <UIcon name="i-ph-calendar-check" />
-            Book Free Consultation
-          </UButton>
-        </div>
-
-        <!-- Social Links -->
-        <div class="flex justify-center gap-4 mt-8">
-          <UButton
-            v-for="social in profile.social"
-            :key="social.name"
-            :to="social.url"
-            external
-            variant="ghost"
-            size="xl"
-            :title="`Visit ${social.name} Profile`"
-          >
-            <UIcon :name="social.icon" /> {{ social.name }}
-          </UButton>
-        </div>
-      </div>
-    </section>
-
-    <div class="space-y-32">
+    <div class="space-y-16">
       <AboutPreview />
 
+      <!-- Featured Projects Section -->
+      <section class="space-y-6">
+        <FeaturedProjects />
+      </section>
+
       <!-- Technologies -->
-      <section class="space-y-12">
+      <section class="space-y-6">
         <div class="text-center space-y-6">
           <h2>Skills & Expertise</h2>
 
@@ -241,13 +89,51 @@ if (profile.value) {
         </div>
       </section>
 
-      <!-- <TestimonialsPreview /> -->
+      <!-- Recent Blog Posts with Enhanced Design -->
+      <section class="space-y-12">
+        <div class="text-center space-y-6">
+          <h2>Latest from the Blog</h2>
+          <p class="max-w-3xl mx-auto">
+            Thoughts, tutorials, and insights on modern web development.
+          </p>
+        </div>
+        <OptimizedBlogList :limit="6" :featured="true" />
+        <div class="text-center">
+          <UButton to="/blog" variant="outline" size="lg">
+            <UIcon name="i-ph-article" />
+            Read All Posts
+          </UButton>
+        </div>
+      </section>
 
-      <ServicesPreview />
-
-      <CallToAction />
-
-      <RecentBlogPosts />
+      <!-- Minimal Contact Section -->
+      <section class="space-y-12">
+        <div class="text-center space-y-6">
+          <h2>Let's Connect</h2>
+          <p class="max-w-3xl mx-auto">
+            Always interested in discussing new opportunities and exciting
+            projects.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <UButton
+              :to="'mailto:Vipin.Madhaan@gmail.com'"
+              size="lg"
+              icon="i-ph-envelope"
+            >
+              Get in Touch
+            </UButton>
+            <UButton
+              to="https://cal.com/VipinMadhaan"
+              variant="outline"
+              size="lg"
+              icon="i-ph-calendar"
+              external
+            >
+              Schedule a Call
+            </UButton>
+          </div>
+        </div>
+      </section>
     </div>
   </div>
 </template>

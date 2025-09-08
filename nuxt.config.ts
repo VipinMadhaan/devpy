@@ -55,6 +55,7 @@ export default defineNuxtConfig({
     headNext: true,
     lazyHydration: true,
     viewTransition: true,
+    payloadExtraction: false,
   },
 
   eslint: {},
@@ -69,19 +70,32 @@ export default defineNuxtConfig({
 
   // image: {},
 
+  image: {
+    quality: 80,
+    format: ["webp", "jpg"],
+    screens: {
+      xs: 320,
+      sm: 640,
+      md: 768,
+      lg: 1024,
+      xl: 1280,
+      xxl: 1536,
+    },
+  },
+
   modules: [
     "@nuxtjs/color-mode",
     "@nuxt/fonts",
     "@nuxt/icon",
     "@nuxt/ui",
-    // "@nuxt/image",
+    "@nuxt/image",
     // "@nuxtjs/mdc",
     "@nuxtjs/seo",
     // "nuxt-feedme",
     "@nuxt/content",
     "nuxt-mcp",
     "@nuxt/eslint",
-    "@nuxthub/core",
+    // "@nuxthub/core", // Disabled for development
   ],
 
   nitro: {
@@ -115,6 +129,11 @@ export default defineNuxtConfig({
       "Senior Software Engineer specializing in modern web technologies. Crafting scalable web applications and browser extensions for startups and founders.",
     defaultLocale: "en",
     enabled: true,
+  },
+
+  sitemap: {
+    excludeAppSources: true,
+    sources: ["/api/sitemap/blog", "/api/sitemap/pages"],
   },
 
   ssr: true,

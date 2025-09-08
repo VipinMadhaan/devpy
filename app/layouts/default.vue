@@ -11,7 +11,9 @@
     <SiteHeader />
 
     <!-- Main Content -->
-    <main class="py-24 md:py-32 lg:py-42 px-4 md:px-8 max-w-6xl mx-auto z-10">
+    <main
+      class="pt-6 py-12 md:py-18 lg:py-24 px-4 md:px-8 max-w-6xl mx-auto z-10"
+    >
       <slot />
     </main>
 

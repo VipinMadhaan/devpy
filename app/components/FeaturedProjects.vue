@@ -35,7 +35,7 @@ const { data: featuredProjects } = await useAsyncData(
       </p>
     </div>
 
-    <div class="grid gap-6 md:grid-cols-2">
+    <div class="grid gap-6 md:grid-cols-2 my-8">
       <UCard
         v-for="project in featuredProjects"
         :key="project.id"
@@ -43,10 +43,6 @@ const { data: featuredProjects } = await useAsyncData(
       >
         <div class="space-y-4">
           <!-- Project Header -->
-          <div class="flex items-center justify-center">
-            <UIcon name="i-ph-code" class="text-xl text-primary" />
-          </div>
-
           <div class="space-y-3">
             <div class="flex items-center justify-between">
               <h3 class="text-base font-semibold">
@@ -73,7 +69,7 @@ const { data: featuredProjects } = await useAsyncData(
     </div>
 
     <div v-if="!hideLink" class="text-center">
-      <UButton to="/projects" class="modern-btn">
+      <UButton to="/projects" variant="outline" size="lg">
         <UIcon name="i-ph-folder-open" />
         View All Projects
       </UButton>

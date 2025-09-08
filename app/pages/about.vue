@@ -183,25 +183,31 @@ usePersonalSeo()
         <div class="flex justify-center gap-4">
           <UButton
             to="https://github.com/VipinMadhaan"
-            variant="ghost"
-            icon="i-ph-github-logo"
             external
-            class="text-gray-600 hover:text-primary"
-          />
+            aria-label="GitHub Profile"
+            variant="ghost"
+            class="transition-transform duration-200 ease-in-out hover:scale-105"
+          >
+            <UIcon name="i-ph-github-logo" />
+          </UButton>
           <UButton
             to="https://linkedin.com/in/VipinMadhaan"
-            variant="ghost"
-            icon="i-ph-linkedin-logo"
             external
-            class="text-gray-600 hover:text-primary"
-          />
+            aria-label="LinkedIn Profile"
+            variant="ghost"
+            class="transition-transform duration-200 ease-in-out hover:scale-105"
+          >
+            <UIcon name="i-ph-linkedin-logo" />
+          </UButton>
           <UButton
             to="https://x.com/VipinMadhaan"
-            variant="ghost"
-            icon="i-ph-x-logo"
             external
-            class="text-gray-600 hover:text-primary"
-          />
+            aria-label="X Profile"
+            variant="ghost"
+            class="transition-transform duration-200 ease-in-out hover:scale-105"
+          >
+            <UIcon name="i-ph-x-logo" />
+          </UButton>
         </div>
       </div>
     </div>

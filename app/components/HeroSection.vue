@@ -51,7 +51,7 @@
           <UButton to="/projects" variant="outline" size="lg" icon="i-ph-code">
             View Projects
           </UButton>
-          <UButton to="/about" variant="ghost" size="lg" icon="i-ph-user">
+          <UButton to="/about" variant="outline" size="lg" icon="i-ph-user">
             About Me
           </UButton>
         </div>

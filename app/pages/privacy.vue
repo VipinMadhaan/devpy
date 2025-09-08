@@ -264,7 +264,7 @@ const lastUpdated = ref("December 1, 2024")
                   to="https://policies.google.com/privacy"
                   external
                   variant="ghost"
-                  size="xs"
+                  size="md"
                 >
                   Google Privacy Policy
                   <UIcon name="i-ph-arrow-square-out" />

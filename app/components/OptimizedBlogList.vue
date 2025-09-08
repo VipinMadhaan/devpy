@@ -3,13 +3,13 @@
     <article v-for="post in posts" :key="post.path" class="group">
       <NuxtLink :to="post.path" class="block">
         <div
-          class="flex gap-4 p-4 rounded-lg border border-gray-200 dark:border-gray-800 hover:border-primary/50 transition-all duration-200 hover:shadow-lg"
+          class="flex gap-4 p-4 rounded-sm border border-gray-200 dark:border-gray-800 hover:border-primary/50 transition-all duration-200 hover:shadow-lg"
         >
           <NuxtImg
             v-if="post.image"
             :src="post.image"
             :alt="post.title"
-            class="w-20 h-20 object-cover rounded-lg flex-shrink-0"
+            class="w-20 h-20 object-cover rounded-sm flex-shrink-0"
             loading="lazy"
             width="80"
             height="80"
@@ -23,18 +23,18 @@
                   {{ post.title }}
                 </h3>
                 <p
-                  class="text-gray-600 dark:text-gray-400 text-sm mt-1 line-clamp-2"
+                  class="text-gray-600 dark:text-gray-400 text-md mt-1 line-clamp-2"
                 >
                   {{ post.description }}
                 </p>
                 <div
-                  class="flex items-center gap-4 mt-3 text-xs text-gray-500 dark:text-gray-400"
+                  class="flex items-center gap-4 mt-3 text-sm text-gray-500 dark:text-gray-400"
                 >
                   <time>{{ formatDate(post.date) }}</time>
                   <span v-if="post.readingTime"
                     >{{ post.readingTime }} min read</span
                   >
-                  <UBadge v-if="post.category" variant="soft" size="xs">
+                  <UBadge v-if="post.category" variant="soft" size="md">
                     {{ post.category }}
                   </UBadge>
                 </div>
@@ -42,7 +42,7 @@
               <UBadge
                 v-if="post.featured"
                 variant="solid"
-                size="xs"
+                size="md"
                 class="flex-shrink-0"
               >
                 Featured
@@ -53,7 +53,7 @@
                 v-for="tag in post.tags.slice(0, 3)"
                 :key="tag"
                 variant="outline"
-                size="xs"
+                size="md"
               >
                 {{ tag }}
               </UBadge>

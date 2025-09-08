@@ -101,7 +101,7 @@ const clearFilters = () => {
           <div class="flex flex-wrap gap-2 items-center">
             <UButton
               :variant="!selectedCategory ? 'solid' : 'outline'"
-              size="sm"
+              size="md"
               @click="selectedCategory = ''"
             >
               All
@@ -110,7 +110,7 @@ const clearFilters = () => {
               v-for="category in categories"
               :key="category"
               :variant="selectedCategory === category ? 'solid' : 'outline'"
-              size="sm"
+              size="md"
               @click="selectedCategory = category || ''"
             >
               {{ category }}
@@ -118,7 +118,7 @@ const clearFilters = () => {
             <UButton
               v-if="selectedCategory || searchQuery"
               variant="ghost"
-              size="sm"
+              size="md"
               icon="i-ph-x"
               @click="clearFilters"
             >
@@ -164,8 +164,8 @@ const clearFilters = () => {
                   />
                   <div class="space-y-3">
                     <div class="flex items-center justify-between">
-                      <UBadge variant="soft" size="xs">Featured</UBadge>
-                      <UBadge v-if="post.category" variant="outline" size="xs">
+                      <UBadge variant="soft" size="md">Featured</UBadge>
+                      <UBadge v-if="post.category" variant="outline" size="md">
                         {{ post.category }}
                       </UBadge>
                     </div>
@@ -175,12 +175,12 @@ const clearFilters = () => {
                       {{ post.title }}
                     </h3>
                     <p
-                      class="text-gray-600 dark:text-gray-400 text-sm line-clamp-3"
+                      class="text-gray-600 dark:text-gray-400 text-md line-clamp-3"
                     >
                       {{ post.description }}
                     </p>
                     <div
-                      class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400"
+                      class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400"
                     >
                       <time>{{
                         new Date(post.date).toLocaleDateString("en-US", {
@@ -228,13 +228,13 @@ const clearFilters = () => {
               >
                 <NuxtLink :to="post.path" class="block">
                   <div
-                    class="flex gap-4 p-4 rounded-xs border border-gray-200 dark:border-gray-800 hover:border-primary/50 transition-all duration-200 hover:shadow-lg"
+                    class="flex gap-4 p-4 rounded-sm border border-gray-200 dark:border-gray-800 hover:border-primary/50 transition-all duration-200 hover:shadow-lg"
                   >
                     <NuxtImg
                       v-if="post.image"
                       :src="post.image"
                       :alt="post.title"
-                      class="w-20 h-20 object-cover rounded-lg flex-shrink-0"
+                      class="w-20 h-20 object-cover rounded-sm flex-shrink-0"
                       loading="lazy"
                       width="80"
                       height="80"
@@ -268,7 +268,7 @@ const clearFilters = () => {
                             <UBadge
                               v-if="post.category"
                               variant="soft"
-                              size="xs"
+                              size="md"
                             >
                               {{ post.category }}
                             </UBadge>
@@ -277,7 +277,7 @@ const clearFilters = () => {
                         <UBadge
                           v-if="post.featured"
                           variant="solid"
-                          size="xs"
+                          size="md"
                           class="flex-shrink-0"
                         >
                           Featured
@@ -291,7 +291,7 @@ const clearFilters = () => {
                           v-for="tag in post.tags.slice(0, 3)"
                           :key="tag"
                           variant="outline"
-                          size="xs"
+                          size="md"
                         >
                           {{ tag }}
                         </UBadge>

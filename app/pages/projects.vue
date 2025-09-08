@@ -108,7 +108,7 @@ const clearFilters = () => {
               v-for="category in categories"
               :key="category"
               :variant="selectedCategory === category ? 'solid' : 'outline'"
-              size="sm"
+              size="md"
               @click="selectedCategory = category"
             >
               {{ category }}
@@ -116,7 +116,7 @@ const clearFilters = () => {
             <UButton
               v-if="selectedCategory !== 'All' || searchQuery"
               variant="ghost"
-              size="sm"
+              size="md"
               icon="i-ph-x"
               @click="clearFilters"
             >
@@ -159,11 +159,11 @@ const clearFilters = () => {
                     >
                       {{ project.title || project.name }}
                     </h3>
-                    <UBadge variant="soft" size="xs" class="mt-1"
+                    <UBadge variant="soft" size="md" class="mt-1"
                       >Featured</UBadge
                     >
                   </div>
-                  <UBadge v-if="project.year" variant="outline" size="xs">
+                  <UBadge v-if="project.year" variant="outline" size="md">
                     {{ project.year }}
                   </UBadge>
                 </div>
@@ -184,14 +184,14 @@ const clearFilters = () => {
                     )"
                     :key="tech"
                     variant="outline"
-                    size="xs"
+                    size="md"
                   >
                     {{ tech }}
                   </UBadge>
                   <UBadge
                     v-if="(project.tech || project.technologies).length > 4"
                     variant="outline"
-                    size="xs"
+                    size="md"
                   >
                     +{{ (project.tech || project.technologies).length - 4 }}
                   </UBadge>
@@ -203,7 +203,7 @@ const clearFilters = () => {
                     v-if="project.github || project.links?.github"
                     :to="project.github || project.links?.github"
                     variant="outline"
-                    size="xs"
+                    size="md"
                     icon="i-ph-github-logo"
                     external
                   >
@@ -213,7 +213,7 @@ const clearFilters = () => {
                     v-if="project.demo || project.links?.demo"
                     :to="project.demo || project.links?.demo"
                     variant="outline"
-                    size="xs"
+                    size="md"
                     icon="i-ph-globe"
                     external
                   >
@@ -223,7 +223,7 @@ const clearFilters = () => {
                     v-if="project.links?.case_study"
                     :to="project.links.case_study"
                     variant="outline"
-                    size="xs"
+                    size="md"
                     icon="i-ph-file-text"
                   >
                     Case Study
@@ -278,18 +278,18 @@ const clearFilters = () => {
                       {{ project.title || project.name }}
                     </h3>
                     <div class="flex gap-2 mt-1">
-                      <UBadge v-if="project.featured" variant="soft" size="xs"
+                      <UBadge v-if="project.featured" variant="soft" size="md"
                         >Featured</UBadge
                       >
                       <UBadge
                         v-if="project.category"
                         variant="outline"
-                        size="xs"
+                        size="md"
                         >{{ project.category }}</UBadge
                       >
                     </div>
                   </div>
-                  <UBadge v-if="project.year" variant="outline" size="xs">
+                  <UBadge v-if="project.year" variant="outline" size="md">
                     {{ project.year }}
                   </UBadge>
                 </div>
@@ -312,14 +312,14 @@ const clearFilters = () => {
                     )"
                     :key="tech"
                     variant="outline"
-                    size="xs"
+                    size="md"
                   >
                     {{ tech }}
                   </UBadge>
                   <UBadge
                     v-if="(project.tech || project.technologies).length > 3"
                     variant="outline"
-                    size="xs"
+                    size="md"
                   >
                     +{{ (project.tech || project.technologies).length - 3 }}
                   </UBadge>
@@ -331,7 +331,7 @@ const clearFilters = () => {
                     v-if="project.github || project.links?.github"
                     :to="project.github || project.links?.github"
                     variant="outline"
-                    size="xs"
+                    size="md"
                     icon="i-ph-github-logo"
                     external
                   >
@@ -341,7 +341,7 @@ const clearFilters = () => {
                     v-if="project.demo || project.links?.demo"
                     :to="project.demo || project.links?.demo"
                     variant="outline"
-                    size="xs"
+                    size="md"
                     icon="i-ph-globe"
                     external
                   >

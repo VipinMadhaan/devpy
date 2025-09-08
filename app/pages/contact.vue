@@ -40,42 +40,22 @@ const contactMethods = ref([
     action: "https://cal.com/VipinMadhaan",
   },
 ])
-
-// Fetch FAQs from Nuxt Content using queryCollection
-const { data: faqsData } = await useAsyncData("faqs", () => {
-  return queryCollection("faqs").first()
-})
-
-// If the page was accessed via a link with `?faqs=true`, scroll to FAQs section
-onMounted(() => {
-  const {
-    query: { faqs: isFaqLink = false },
-  } = useRoute()
-
-  if (isFaqLink) {
-    window.scrollTo({
-      top: document.body.scrollHeight,
-      behavior: "smooth",
-    })
-  }
-})
 </script>
 
 <template>
   <div>
     <div class="space-y-32">
-      <!-- Page Header -->
-      <div class="text-center space-y-6">
-        <h1>Let's Work Together</h1>
-
-        <p class="max-w-4xl mx-auto">
-          Have a project in mind? I'd love to hear about it and discuss how we
-          can bring your ideas to life.
-        </p>
-      </div>
-
       <!-- Contact Methods -->
-      <section class="space-y-12">
+      <section class="space-y-6">
+        <!-- Page Header -->
+        <div class="text-center py-10">
+          <h1>Let's Work Together</h1>
+
+          <p class="max-w-4xl mx-auto">
+            Have a project in mind? I'd love to hear about it and discuss how we
+            can bring your ideas to life.
+          </p>
+        </div>
         <div class="text-center space-y-6">
           <h2>Choose Your Preferred Method</h2>
           <p class="max-w-3xl mx-auto">
@@ -113,24 +93,6 @@ onMounted(() => {
               </div>
             </div>
           </UCard>
-        </div>
-      </section>
-
-      <!-- FAQ -->
-      <section
-        v-if="faqsData && faqsData.list.length > 0"
-        id="faqs"
-        class="space-y-12"
-      >
-        <div class="text-center space-y-6">
-          <h2>Frequently Asked Questions</h2>
-          <p class="max-w-3xl mx-auto">
-            Find answers to common inquiries about my services and processes.
-          </p>
-        </div>
-
-        <div>
-          <UAccordion :items="faqsData.list" variant="soft" size="lg" />
         </div>
       </section>
     </div>

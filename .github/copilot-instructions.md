@@ -25,7 +25,7 @@ Purpose: make AI agents effective fast with repo-specific patterns (not generic 
 
 - Collections (`content.config.ts`):
   - Pages: `blog` (Markdown with `title`, `description`, `date`, optional `dateUpdated`, `tags`, `image`/`socialImage`, `featured`, `author`).
-  - Data: `authors`, `testimonials`, `faqs`, `professionalJourney`, `profile`, `projects`, `services`, `techStack`.
+  - Data: `authors`, `testimonials`, `professionalJourney`, `profile`, `projects`, `services`, `techStack`.
 - Query examples:
   - Recent posts: `queryCollection('blog').order('date','DESC').limit(2).all()` (see `app/components/RecentBlogPosts.vue`).
   - Post by path: `queryCollection('blog').path(route.path).first()` (see `app/pages/blog/[...slug].vue`).

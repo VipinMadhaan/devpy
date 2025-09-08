@@ -72,10 +72,6 @@ const { data: profile } = await useAsyncData("profile", () => {
             <UIcon name="i-ph-rocket-launch" />
             {{ profile?.availability?.cta?.text || "Start Your Project" }}
           </UButton>
-          <UButton to="/services" variant="subtle" size="xl">
-            <UIcon name="i-ph-list" />
-            View All Services & Pricing
-          </UButton>
           <UButton
             href="https://cal.com/VipinMadhaan"
             external

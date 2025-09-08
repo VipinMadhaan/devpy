@@ -31,7 +31,7 @@ const lastUpdated = ref("December 1, 2024")
 <template>
   <div>
     <!-- Header -->
-    <div class="text-center space-y-4">
+    <div class="text-center space-y-8 pt-12">
       <h1>Terms of Service</h1>
       <p class="max-w-2xl mx-auto">
         These terms govern the use of my website and the provision of my

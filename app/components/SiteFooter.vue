@@ -67,22 +67,19 @@
           </ul>
         </div>
 
-        <!-- Services -->
+        <!-- More -->
         <div>
-          <h3 class="mb-4">Services</h3>
+          <h3 class="mb-4">More</h3>
           <ul class="space-y-3">
             <li>
-              <ULink to="/services"> Web Development </ULink>
-            </li>
-            <li>
-              <ULink to="/services"> Technical Consulting </ULink>
-            </li>
-            <li>
-              <ULink to="/services"> Code Review </ULink>
-            </li>
-            <!-- <li>
               <ULink to="/contact"> Get In Touch </ULink>
-            </li> -->
+            </li>
+            <li>
+              <ULink to="/privacy"> Privacy Policy </ULink>
+            </li>
+            <li>
+              <ULink to="/terms"> Terms of Service </ULink>
+            </li>
           </ul>
         </div>
       </div>
@@ -97,9 +94,8 @@
             reserved.
           </p>
           <div class="flex items-center gap-6">
-            <ULink to="/contact?faqs=1"> FAQs </ULink>
-            <ULink to="/privacy"> Privacy Policy </ULink>
-            <ULink to="/terms"> Terms of Service </ULink>
+            <ULink to="/rss.xml" external> RSS Feed </ULink>
+            <ULink to="/sitemap.xml" external> Sitemap </ULink>
           </div>
         </div>
       </div>

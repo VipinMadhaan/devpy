@@ -116,7 +116,6 @@ A modern, high-performance personal portfolio and blog website built with **Nuxt
 │   ├── authors/             # Author profiles
 │   ├── blog/                # Blog posts (Markdown)
 │   ├── testimonials/        # Client testimonials
-│   ├── faqs.yml             # Frequently asked questions
 │   ├── professional-journey.yml
 │   ├── profile.yml          # Personal profile data
 │   ├── projects.yml         # Portfolio projects

@@ -73,19 +73,6 @@ export default defineContentConfig({
         rating: z.number().min(0).max(5),
       }),
     }),
-    faqs: defineCollection({
-      type: "data",
-      source: "faqs.{json,yml,yaml}", // Points to content/faqs.yml
-      schema: z.object({
-        list: z.array(
-          z.object({
-            label: z.string(),
-            content: z.string(),
-            // Add other fields if your FAQs have them, e.g., id, category
-          }),
-        ),
-      }),
-    }),
     professionalJourney: defineCollection({
       type: "data",
       source: "professional-journey.{json,yml,yaml}",
@@ -232,52 +219,6 @@ export default defineContentConfig({
             }),
           )
           .optional(),
-      }),
-    }),
-    services: defineCollection({
-      type: "data",
-      source: "services.{json,yml,yaml}",
-      schema: z.object({
-        services: z.array(
-          z.object({
-            id: z.number(),
-            title: z.string(),
-            description: z.string(),
-            icon: z.string(),
-            category: z.string(),
-            featured: z.boolean(),
-            features: z.array(z.string()),
-            pricing: z.object({
-              hourly: z.number().nullable(),
-              currency: z.string(),
-              description: z.string(),
-            }),
-            timeline: z.string(),
-            suitable: z.string(),
-            technologies: z.array(z.string()),
-          }),
-        ),
-        process: z.array(
-          z.object({
-            step: z.number(),
-            title: z.string(),
-            description: z.string(),
-            icon: z.string(),
-            details: z.array(z.string()),
-          }),
-        ),
-        packages: z.array(
-          z.object({
-            name: z.string(),
-            price: z.number().nullable(),
-            currency: z.string(),
-            period: z.string(),
-            description: z.string(),
-            features: z.array(z.string()),
-            highlighted: z.boolean(),
-            category: z.string(),
-          }),
-        ),
       }),
     }),
     techStack: defineCollection({

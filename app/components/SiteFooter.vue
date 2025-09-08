@@ -37,13 +37,13 @@
               <UIcon name="i-ph-linkedin-logo" />
             </UButton>
             <UButton
-              to="https://twitter.com/VipinMadhaan"
+              to="https://x.com/VipinMadhaan"
               external
-              aria-label="Twitter Profile"
+              aria-label="X Profile"
               variant="ghost"
               class="transition-transform duration-200 ease-in-out hover:scale-105"
             >
-              <UIcon name="i-ph-twitter-logo" />
+              <UIcon name="i-ph-x-logo" />
             </UButton>
           </div>
         </div>

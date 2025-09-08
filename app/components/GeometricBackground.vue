@@ -53,8 +53,8 @@ onMounted(() => {
       class="absolute inset-0 w-full h-full"
       :style="{
         backgroundImage: `
-          linear-gradient(var(--grid-color) 1px, transparent 1px),
-          linear-gradient(90deg, var(--grid-color) 1px, transparent 1px),
+          linear-gradient(var(--grid-color) 0px, transparent 0px),
+          linear-gradient(90deg, var(--grid-color) 0px, transparent 0px),
           radial-gradient(1200px 800px at 20% 10%, var(--glow-a), transparent 60%),
           radial-gradient(1000px 700px at 80% 30%, var(--glow-b), transparent 65%)
         `,

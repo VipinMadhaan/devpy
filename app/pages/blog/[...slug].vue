@@ -150,7 +150,7 @@ const formatDate = (date: string | Date) => {
       </div>
 
       <!-- Post Content -->
-      <article class="prose prose-lg max-w-none mx-auto">
+      <article class="prose prose-lg max-w-none mx-auto dark:prose-invert">
         <ContentRenderer :value="page" />
       </article>
 

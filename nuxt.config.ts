@@ -27,16 +27,7 @@ export default defineNuxtConfig({
             rel: "noopener noreferer",
           },
         },
-        highlight: {
-          theme: {
-            // Default theme (same as single string)
-            default: "github-light",
-            // Theme used if `html.dark`
-            dark: "github-dark",
-            // Theme used if `html.sepia`
-            sepia: "monokai",
-          },
-        },
+        highlight: false,
         toc: {
           depth: 2,
           searchDepth: 2,
@@ -156,7 +147,7 @@ export default defineNuxtConfig({
       email: "Vipin.Madhaan@gmail.com",
       url: "https://devpy.de",
       sameAs: [
-        "https://twitter.com/VipinMadhaan",
+        "https://x.com/VipinMadhaan",
         "https://github.com/VipinMadhaan",
         "https://linkedin.com/in/VipinMadhaan",
       ],

@@ -48,7 +48,7 @@ const { data: profile } = await useAsyncData("profile", () => {
               <div class="space-y-3">
                 <h3>Proven Results</h3>
                 <p>
-                  {{ profile?.projectsDelivered || "125" }}+ successful projects
+                  {{ profile?.projectsDelivered || "100" }}+ successful projects
                   delivered with {{ profile?.clientSatisfaction || "100" }}%
                   client satisfaction rate.
                 </p>

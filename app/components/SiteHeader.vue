@@ -9,7 +9,7 @@
     <div class="relative">
       <div class="flex justify-center items-center px-2 md:px-6 py-2">
         <nav
-          class="flex justify-between items-center gap-8 w-full text-sm"
+          class="flex justify-between items-center gap-8 w-full text-sm md:text-base"
           role="navigation"
           aria-label="Main navigation"
         >
@@ -26,7 +26,9 @@
           </ULink>
 
           <!-- Desktop Navigation -->
-          <div class="hidden lg:flex items-center gap-3 justify-center">
+          <div
+            class="hidden lg:flex items-center gap-5 justify-center text-base"
+          >
             <ULink
               to="/blog"
               class="hover:scale-105 transition-transform duration-200 ease-in-out"

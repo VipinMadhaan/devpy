@@ -48,7 +48,7 @@ const contactMethods = ref([
       <!-- Contact Methods -->
       <section class="space-y-6">
         <!-- Page Header -->
-        <div class="text-center py-10">
+        <div class="text-center py-10 space-y-6">
           <h1>Let's Work Together</h1>
 
           <p class="max-w-4xl mx-auto">

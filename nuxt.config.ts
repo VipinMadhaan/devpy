@@ -5,6 +5,9 @@ import { definePerson } from "nuxt-schema-org/schema"
 const IS_DEV = import.meta.dev
 
 export default defineNuxtConfig({
+  alias: {
+    "#entry": "./.nuxt/index.js", // fallback to prevent client error
+  },
   colorMode: {
     preference: "system",
     fallback: "light",

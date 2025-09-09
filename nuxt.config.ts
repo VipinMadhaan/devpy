@@ -5,9 +5,6 @@ import { definePerson } from "nuxt-schema-org/schema"
 const IS_DEV = import.meta.dev
 
 export default defineNuxtConfig({
-  alias: {
-    "#entry": "./.nuxt/index.js", // fallback to prevent client error
-  },
   colorMode: {
     preference: "system",
     fallback: "light",
@@ -34,7 +31,6 @@ export default defineNuxtConfig({
           // any Shiki theme like synthwave-84, one-dark-pro, andromeeda
           // ['json', 'js', 'ts', 'html', 'css', 'vue', 'shell', 'mdc', 'md', 'yaml']
           theme: {
-            // Default theme (same as single string)
             default: "andromeeda",
             // Theme used if `html.dark`
             dark: "andromeeda",
@@ -70,6 +66,7 @@ export default defineNuxtConfig({
     lazyHydration: true,
     viewTransition: true,
     payloadExtraction: false,
+    appManifest: false,
   },
 
   eslint: {},
@@ -112,15 +109,30 @@ export default defineNuxtConfig({
     "@nuxthub/core",
   ],
 
+  hub: {
+    analytics: false,
+    blob: false,
+    cache: false,
+    database: false,
+    kv: false,
+  },
+
   nitro: {
     prerender: {
       crawlLinks: true,
       failOnError: false,
       autoSubfolderIndex: true,
+      routes: ["/blog"],
     },
     compressPublicAssets: {
       brotli: true,
       gzip: true,
+    },
+    alias: {
+      "#entry": "virtual:entry",
+    },
+    rollupConfig: {
+      external: ["#entry"],
     },
   },
 
@@ -128,6 +140,11 @@ export default defineNuxtConfig({
     "/**": {
       static: true,
       prerender: true,
+    },
+    "/blog": {
+      static: true,
+      prerender: true,
+      isr: false,
     },
     "/blog/**": {
       static: true,
@@ -157,6 +174,14 @@ export default defineNuxtConfig({
 
   vite: {
     plugins: [tailwindcss()],
+    define: {
+      __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: false,
+    },
+    build: {
+      rollupOptions: {
+        external: ["#entry"],
+      },
+    },
   },
 
   schemaOrg: {

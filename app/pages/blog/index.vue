@@ -7,9 +7,23 @@ useSeo({
   type: "website",
 })
 
-// Fetch all blog posts with proper typing
-const { data: posts, pending } = await useAsyncData("blog-posts", () =>
-  queryCollection("blog").order("date", "DESC").all(),
+// Fetch all blog posts with proper typing and better error handling
+const { data: posts, pending } = await useAsyncData(
+  "all-blog-posts",
+  async () => {
+    try {
+      const allPosts = await queryCollection("blog").order("date", "DESC").all()
+      return allPosts || []
+    } catch (error) {
+      console.error("Failed to load blog posts:", error)
+      return []
+    }
+  },
+  {
+    server: true,
+    client: true,
+    default: () => [],
+  },
 )
 
 // Get unique categories for filtering

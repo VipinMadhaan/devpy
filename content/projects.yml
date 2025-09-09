@@ -181,7 +181,7 @@ projects:
     startDate: "2023-11-01"
     endDate: "9999-12-31"
     links:
-      github: "https://github.com/VipinMadhaan/portfolio"
+      github: "https://github.com/VipinMadhaan/devpy"
       demo: "https://devpy.de"
     stats:
       lighthouse: "100"

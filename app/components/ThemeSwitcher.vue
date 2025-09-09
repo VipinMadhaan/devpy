@@ -6,6 +6,12 @@ const isDark = computed(() => colorMode.value === "dark")
 const toggleTheme = () => {
   colorMode.preference = colorMode.value === "dark" ? "light" : "dark"
 }
+
+// Ensure proper hydration and prevent flickering
+const mounted = ref(false)
+onMounted(() => {
+  mounted.value = true
+})
 </script>
 
 <template>
@@ -18,7 +24,10 @@ const toggleTheme = () => {
     @click="toggleTheme"
   >
     <!-- Theme icons - using standard phosphor names -->
-    <UIcon v-if="isDark" name="i-ph-moon" class="w-5 h-5" />
-    <UIcon v-else name="i-ph-sun" class="w-5 h-5" />
+    <UIcon
+      :name="mounted && isDark ? 'i-ph-moon' : 'i-ph-sun'"
+      class="w-5 h-5 transition-opacity duration-150"
+      :class="{ 'opacity-50': !mounted }"
+    />
   </UButton>
 </template>

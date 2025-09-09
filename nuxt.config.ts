@@ -9,6 +9,8 @@ export default defineNuxtConfig({
     preference: "system",
     fallback: "light",
     classSuffix: "",
+    storageKey: "nuxt-color-mode",
+    storage: "localStorage",
   },
 
   css: ["./app/assets/css/main.css"],
@@ -118,6 +120,7 @@ export default defineNuxtConfig({
   },
 
   nitro: {
+    preset: "cloudflare-pages",
     prerender: {
       crawlLinks: true,
       failOnError: false,
@@ -130,9 +133,18 @@ export default defineNuxtConfig({
     },
     alias: {
       "#entry": "virtual:entry",
+      "#app/entry": "virtual:entry",
     },
     rollupConfig: {
-      external: ["#entry"],
+      external: ["#entry", "#app/entry"],
+      output: {
+        manualChunks: undefined,
+      },
+    },
+    esbuild: {
+      options: {
+        target: "es2022",
+      },
     },
   },
 
@@ -178,9 +190,16 @@ export default defineNuxtConfig({
       __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: false,
     },
     build: {
+      target: "es2022",
       rollupOptions: {
-        external: ["#entry"],
+        external: ["#entry", "#app/entry"],
+        output: {
+          manualChunks: undefined,
+        },
       },
+    },
+    optimizeDeps: {
+      exclude: ["#entry", "#app/entry"],
     },
   },
 

@@ -101,7 +101,6 @@ projects:
     endDate: "2023-10-15"
     links:
       demo: "https://example-ecommerce.com"
-      case_study: "/case-studies/ecommerce-platform"
     stats:
       revenue: "$100k+"
       orders: "5k+"
@@ -143,7 +142,6 @@ projects:
     endDate: 9999-12-31
     links:
       demo: "https://example-tasks.com"
-      case_study: "/case-studies/task-management-saas"
     stats:
       users: "2k+"
       teams: "500+"
@@ -268,7 +266,6 @@ projects:
     endDate: "2022-02-28"
     links:
       demo: "https://example-chat.com"
-      case_study: "/case-studies/chat-application"
     stats:
       concurrent_users: "5k+"
       messages_sent: "1M+"

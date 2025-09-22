@@ -135,7 +135,6 @@ export default defineContentConfig({
                 demo: z.string().optional(),
                 npm: z.string().optional(),
                 documentation: z.string().optional(),
-                case_study: z.string().optional(),
               })
               .optional(),
             stats: z.record(z.union([z.string(), z.number()])).optional(),

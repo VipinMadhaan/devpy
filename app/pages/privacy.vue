@@ -30,9 +30,6 @@ const lastUpdated = ref("December 1, 2024")
 
 <template>
   <div>
-    <!-- Breadcrumb -->
-    <Breadcrumb />
-
     <div class="max-w-4xl mx-auto py-16 px-4 md:px-8 space-y-8">
       <!-- Header -->
       <div class="text-center space-y-4">

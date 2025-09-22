@@ -84,8 +84,8 @@ export default defineNuxtConfig({
   // image: {},
 
   image: {
-    quality: 80,
-    format: ["webp", "jpg"],
+    quality: 85,
+    format: ["avif", "webp", "jpg"],
     screens: {
       xs: 320,
       sm: 640,
@@ -93,6 +93,33 @@ export default defineNuxtConfig({
       lg: 1024,
       xl: 1280,
       xxl: 1536,
+    },
+    densities: [1, 2],
+    presets: {
+      avatar: {
+        modifiers: {
+          format: "avif,webp,jpg",
+          quality: 90,
+          width: 128,
+          height: 128,
+        },
+      },
+      blog: {
+        modifiers: {
+          format: "avif,webp,jpg",
+          quality: 85,
+          width: 800,
+          height: 400,
+        },
+      },
+      thumbnail: {
+        modifiers: {
+          format: "avif,webp,jpg",
+          quality: 80,
+          width: 320,
+          height: 180,
+        },
+      },
     },
   },
 
@@ -108,16 +135,7 @@ export default defineNuxtConfig({
     "@nuxt/content",
     "nuxt-mcp",
     "@nuxt/eslint",
-    "@nuxthub/core",
   ],
-
-  hub: {
-    analytics: false,
-    blob: false,
-    cache: false,
-    database: false,
-    kv: false,
-  },
 
   nitro: {
     preset: "cloudflare-pages",

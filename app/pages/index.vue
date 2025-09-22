@@ -48,7 +48,7 @@ if (profile.value) {
 
         <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           <div
-            v-for="category in techStack.categories"
+            v-for="category in techStack?.categories || []"
             :key="category.title"
             class="h-full"
           >

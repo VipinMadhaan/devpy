@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { transformBlogPath, formatDate } from '~/utils/blog'
+
 const { count, title } = defineProps({
   count: {
     type: Number,
@@ -22,13 +24,6 @@ const { data: featuredPosts } = await useAsyncData(
       .all()
   },
 )
-
-// Function to transform blog paths to remove number prefix
-const transformBlogPath = (path: string | undefined) => {
-  if (!path) return path
-  // Remove number prefix from blog paths (e.g., "/blog/1-my-post" -> "/blog/my-post")
-  return path.replace(/\/blog\/\d+-/, '/blog/')
-}
 </script>
 
 <template>
@@ -78,11 +73,7 @@ const transformBlogPath = (path: string | undefined) => {
                 <span>
                   {{
                     post.date
-                      ? new Date(post.date).toLocaleDateString("en-US", {
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                        })
+                      ? formatDate(post.date)
                       : "Recent"
                   }}
                 </span>

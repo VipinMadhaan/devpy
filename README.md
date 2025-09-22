@@ -19,7 +19,7 @@ A modern, high-performance personal portfolio and blog website built with **Nuxt
 ### 📝 **Content Management**
 
 - **Blog system** with markdown support and syntax highlighting
-- **Project showcase** with detailed case studies
+- **Project showcase** with detailed information
 - **Contact forms** with email integration
 
 ### ⚡ **Performance & SEO**

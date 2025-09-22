@@ -81,6 +81,13 @@ const clearFilters = () => {
   selectedCategory.value = ""
   searchQuery.value = ""
 }
+
+// Function to transform blog paths to remove number prefix
+const transformBlogPath = (path: string | undefined) => {
+  if (!path) return path
+  // Remove number prefix from blog paths (e.g., "/blog/1-my-post" -> "/blog/my-post")
+  return path.replace(/\/blog\/\d+-/, '/blog/')
+}
 </script>
 
 <template>
@@ -165,7 +172,7 @@ const clearFilters = () => {
               :key="post.path"
               class="group"
             >
-              <NuxtLink :to="post.path" class="block">
+              <NuxtLink :to="transformBlogPath(post.path)" class="block">
                 <UCard
                   class="h-full hover:shadow-lg transition-all duration-200"
                 >
@@ -240,7 +247,7 @@ const clearFilters = () => {
                 :key="post.path"
                 class="group"
               >
-                <NuxtLink :to="post.path" class="block">
+                <NuxtLink :to="transformBlogPath(post.path)" class="block">
                   <div
                     class="flex gap-4 p-4 rounded-sm border border-gray-200 dark:border-gray-800 hover:border-primary/50 transition-all duration-200 hover:shadow-lg"
                   >

@@ -7,7 +7,21 @@ const { data: page, error } = await useAsyncData(
   `blog-${route.path}`,
   async () => {
     try {
-      const result = await queryCollection("blog").path(route.path).first()
+      // First try to find the post with the exact path
+      let result = await queryCollection("blog").path(route.path).first()
+      
+      // If not found and path doesn't have a number prefix, try to find a numbered version
+      if (!result && route.path.startsWith('/blog/')) {
+        const slug = route.path.replace('/blog/', '')
+        // Try to find any blog post that ends with this slug (with number prefix)
+        const allPosts = await queryCollection("blog").all()
+        result = allPosts.find(post => {
+          if (!post.path) return false
+          const postSlug = post.path.replace('/blog/', '')
+          return postSlug.match(/^\d+-/) && postSlug.replace(/^\d+-/, '') === slug
+        })
+      }
+      
       return result
     } catch (err) {
       console.error("Error fetching blog post:", err)

@@ -1,6 +1,6 @@
 # Vipin Kumar Madhaan - Personal Portfolio & Blog
 
-A modern, high-performance personal portfolio and blog website built with **Nuxt 3**, showcasing professional experience, projects, services, and technical insights.
+A modern, high-performance personal portfolio and blog website built with **Nuxt 3**, showcasing projects, and technical insights.
 
 ## 🌟 Live
 
@@ -20,8 +20,6 @@ A modern, high-performance personal portfolio and blog website built with **Nuxt
 
 - **Blog system** with markdown support and syntax highlighting
 - **Project showcase** with detailed case studies
-- **Services portfolio** with pricing and packages
-- **Professional testimonials** from clients
 - **Contact forms** with email integration
 
 ### ⚡ **Performance & SEO**
@@ -95,7 +93,6 @@ A modern, high-performance personal portfolio and blog website built with **Nuxt
 │   │   ├── ServicesPreview.vue
 │   │   ├── SiteFooter.vue
 │   │   ├── SiteHeader.vue
-│   │   ├── TestimonialsPreview.vue
 │   │   └── ThemeSwitcher.vue
 │   ├── layouts/             # Layout templates
 │   │   └── default.vue
@@ -105,7 +102,6 @@ A modern, high-performance personal portfolio and blog website built with **Nuxt
 │   │   ├── index.vue
 │   │   ├── privacy.vue
 │   │   ├── projects.vue
-│   │   ├── services.vue
 │   │   ├── terms.vue
 │   │   └── blog/
 │   ├── assets/css/          # Stylesheets
@@ -115,11 +111,8 @@ A modern, high-performance personal portfolio and blog website built with **Nuxt
 ├── content/                 # Content files
 │   ├── authors/             # Author profiles
 │   ├── blog/                # Blog posts (Markdown)
-│   ├── testimonials/        # Client testimonials
-│   ├── professional-journey.yml
 │   ├── profile.yml          # Personal profile data
 │   ├── projects.yml         # Portfolio projects
-│   └── services.yml         # Service offerings
 ├── public/                  # Static assets
 │   ├── img/                 # Images and media
 │   ├── favicon.png           # Brand assets
@@ -225,10 +218,6 @@ projects:
       demo: "https://demo.example.com"
 ```
 
-### Updating Services
-
-Modify [`content/services.yml`](./content/services.yml) to manage service offerings and pricing.
-
 ## 🎯 Key Pages & Features
 
 | Page                      | Description                    | Features                                |
@@ -236,8 +225,7 @@ Modify [`content/services.yml`](./content/services.yml) to manage service offeri
 | **[Home](/)**             | Landing page with hero section | Profile showcase, featured content, CTA |
 | **[About](/about)**       | Professional background        | Journey timeline, skills, approach      |
 | **[Projects](/projects)** | Portfolio showcase             | Filterable grid, detailed project cards |
-| **[Blog](/blog)**         | Technical articles             | Pagination, search, categories          |
-| **[Services](/services)** | Service offerings              | Pricing packages, process workflow      |
+| **[Blog](/blog)**         | Technical articles             | Pagination, search, categories      |
 | **[Contact](/contact)**   | Get in touch                   | Contact form, social links              |
 
 ## 📊 Performance Metrics

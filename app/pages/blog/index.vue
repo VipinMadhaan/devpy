@@ -39,6 +39,43 @@ const categories = computed(() => {
 const selectedCategory = ref<string>("")
 const searchQuery = ref("")
 
+// Pagination state
+const route = useRoute()
+const router = useRouter()
+const currentPage = ref(1)
+const postsPerPage = 10
+
+// Initialize current page from URL query
+onMounted(() => {
+  const page = parseInt(route.query.page as string) || 1
+  currentPage.value = page
+})
+
+// Watch for route changes to sync pagination with URL
+watch(() => route.query.page, (newPage) => {
+  const page = parseInt(newPage as string) || 1
+  if (currentPage.value !== page) {
+    currentPage.value = page
+  }
+})
+
+// Watch for page changes and update URL
+watch(currentPage, async (newPage) => {
+  const query = { ...route.query }
+  if (newPage > 1) {
+    query.page = newPage.toString()
+  } else {
+    delete query.page
+  }
+  
+  await router.push({ query })
+}, { flush: 'post' })
+
+// Reset to page 1 when filters change
+watch([selectedCategory, searchQuery], () => {
+  currentPage.value = 1
+})
+
 // Filtered posts
 const filteredPosts = computed(() => {
   if (!posts.value) return []
@@ -71,15 +108,68 @@ const featuredPosts = computed(() => {
   return posts.value?.filter((post) => post.featured) || []
 })
 
-// Recent posts (excluding featured)
-const _recentPosts = computed(() => {
-  return posts.value?.filter((post) => !post.featured).slice(0, 10) || []
+// Pagination calculations
+const totalPages = computed(() => {
+  return Math.ceil(filteredPosts.value.length / postsPerPage)
+})
+
+// Paginated posts - slice the filtered posts based on current page
+const paginatedPosts = computed(() => {
+  const start = (currentPage.value - 1) * postsPerPage
+  const end = start + postsPerPage
+  return filteredPosts.value.slice(start, end)
+})
+
+// Pagination controls
+const canGoToPrevious = computed(() => currentPage.value > 1)
+const canGoToNext = computed(() => currentPage.value < totalPages.value)
+
+// Generate page numbers for pagination
+const visiblePages = computed(() => {
+  const pages = []
+  const total = totalPages.value
+  const current = currentPage.value
+  
+  // Always show first page
+  if (total > 0) pages.push(1)
+  
+  // Add ellipsis and pages around current page
+  if (current > 3) pages.push('...')
+  
+  for (let i = Math.max(2, current - 1); i <= Math.min(total - 1, current + 1); i++) {
+    if (i !== 1 && i !== total) pages.push(i)
+  }
+  
+  // Add ellipsis and last page
+  if (current < total - 2) pages.push('...')
+  if (total > 1) pages.push(total)
+  
+  return pages
 })
 
 // Clear filters
 const clearFilters = () => {
   selectedCategory.value = ""
   searchQuery.value = ""
+}
+
+// Pagination navigation functions
+const goToPage = (page: number) => {
+  if (page >= 1 && page <= totalPages.value) {
+    currentPage.value = page
+  }
+}
+
+const goToPrevious = () => {
+  if (canGoToPrevious.value) {
+    currentPage.value--
+  }
+}
+
+const goToNext = () => {
+  if (canGoToNext.value) {
+    currentPage.value++
+  }
 }
 
 // Function to transform blog paths to remove number prefix
@@ -91,7 +181,7 @@ const transformBlogPath = (path: string | undefined) => {
 </script>
 
 <template>
-  <div class="container mx-auto px-4 py-12">
+  <div class="container mx-auto px-4 pt-12">
     <div class="max-w-6xl mx-auto">
       <!-- Hero Section -->
       <div class="text-center mb-16">
@@ -234,7 +324,11 @@ const transformBlogPath = (path: string | undefined) => {
                 class="text-sm font-normal text-gray-600 dark:text-gray-400"
               >
                 ({{ filteredPosts.length }}
-                {{ filteredPosts.length === 1 ? "post" : "posts" }})
+                {{ filteredPosts.length === 1 ? "post" : "posts" }}
+                <template v-if="totalPages > 1">
+                  • Page {{ currentPage }} of {{ totalPages }}
+                </template>
+                )
               </span>
             </h2>
           </div>
@@ -243,7 +337,7 @@ const transformBlogPath = (path: string | undefined) => {
           <div v-if="filteredPosts.length">
             <div class="space-y-6">
               <article
-                v-for="post in filteredPosts"
+                v-for="post in paginatedPosts"
                 :key="post.path"
                 class="group"
               >
@@ -321,6 +415,53 @@ const transformBlogPath = (path: string | undefined) => {
                   </div>
                 </NuxtLink>
               </article>
+            </div>
+            
+            <!-- Pagination Controls -->
+            <div v-if="totalPages > 1" class="mt-12 flex justify-center">
+              <div class="flex items-center gap-2">
+                <!-- Previous Button -->
+                <UButton
+                  :disabled="!canGoToPrevious"
+                  variant="outline"
+                  size="md"
+                  icon="i-ph-arrow-left"
+                  @click="goToPrevious"
+                >
+                  Previous
+                </UButton>
+
+                <!-- Page Numbers -->
+                <template v-for="page in visiblePages" :key="page">
+                  <UButton
+                    v-if="page === '...'"
+                    variant="ghost"
+                    size="md"
+                    disabled
+                  >
+                    ...
+                  </UButton>
+                  <UButton
+                    v-else
+                    :variant="currentPage === page ? 'solid' : 'outline'"
+                    size="md"
+                    @click="goToPage(page)"
+                  >
+                    {{ page }}
+                  </UButton>
+                </template>
+
+                <!-- Next Button -->
+                <UButton
+                  :disabled="!canGoToNext"
+                  variant="outline"
+                  size="md"
+                  @click="goToNext"
+                >
+                  Next
+                  <UIcon name="i-ph-arrow-right" class="ml-2" />
+                </UButton>
+              </div>
             </div>
           </div>
 

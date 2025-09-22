@@ -5,7 +5,7 @@ defineProps<{
 }>()
 
 // Fetch profile data from Nuxt Content collection
-const { data: profile } = await useAsyncData("profile", () => {
+const { data: profile } = await useAsyncData("cta-profile", () => {
   return queryCollection("profile").first()
 })
 </script>

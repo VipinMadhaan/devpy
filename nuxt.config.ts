@@ -1,4 +1,5 @@
 import tailwindcss from "@tailwindcss/vite"
+import { VitePWA } from 'vite-plugin-pwa'
 import { definePerson } from "nuxt-schema-org/schema"
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
@@ -69,6 +70,8 @@ export default defineNuxtConfig({
     viewTransition: true,
     payloadExtraction: false,
     appManifest: false,
+    componentIslands: true,
+    asyncEntry: true,
   },
 
   eslint: {},
@@ -131,7 +134,7 @@ export default defineNuxtConfig({
     "@nuxt/image",
     // "@nuxtjs/mdc",
     "@nuxtjs/seo",
-    // "nuxt-feedme",
+    // "nuxt-feedme", // Removed due to compatibility issues
     "@nuxt/content",
     "nuxt-mcp",
     "@nuxt/eslint",
@@ -143,12 +146,13 @@ export default defineNuxtConfig({
       crawlLinks: true,
       failOnError: false,
       autoSubfolderIndex: true,
-      routes: ["/blog"],
+      routes: ["/blog", "/rss.xml"],
     },
     compressPublicAssets: {
       brotli: true,
       gzip: true,
     },
+    minify: true,
     alias: {
       "#entry": "virtual:entry",
       "#app/entry": "virtual:entry",
@@ -156,7 +160,29 @@ export default defineNuxtConfig({
     rollupConfig: {
       external: ["#entry", "#app/entry"],
       output: {
-        manualChunks: undefined,
+        manualChunks: (id) => {
+          // Vendor chunks for better caching
+          if (id.includes('node_modules')) {
+            if (id.includes('vue') || id.includes('nuxt')) {
+              return 'vue-core'
+            }
+            if (id.includes('tailwind') || id.includes('css')) {
+              return 'styles'
+            }
+            if (id.includes('icon') || id.includes('image')) {
+              return 'assets'
+            }
+            return 'vendor'
+          }
+          // Component chunks
+          if (id.includes('components/')) {
+            return 'components'
+          }
+          // Utils chunks
+          if (id.includes('utils/') || id.includes('composables/')) {
+            return 'utils'
+          }
+        },
       },
     },
     esbuild: {
@@ -203,21 +229,114 @@ export default defineNuxtConfig({
   },
 
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [
+      tailwindcss(),
+      VitePWA({
+        registerType: 'autoUpdate',
+        includeAssets: ['favicon.png', 'apple-touch-icon.png', 'masked-icon.svg'],
+        workbox: {
+          globPatterns: ['**/*.{js,css,html,png,svg,ico,webp,jpg,jpeg}'],
+          runtimeCaching: [
+            {
+              urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+              handler: 'CacheFirst',
+              options: {
+                cacheName: 'google-fonts-cache',
+                expiration: {
+                  maxEntries: 10,
+                  maxAgeSeconds: 60 * 60 * 24 * 365 // 365 days
+                },
+                cacheableResponse: {
+                  statuses: [0, 200]
+                }
+              }
+            },
+            {
+              urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
+              handler: 'CacheFirst',
+              options: {
+                cacheName: 'gstatic-fonts-cache',
+                expiration: {
+                  maxEntries: 10,
+                  maxAgeSeconds: 60 * 60 * 24 * 365 // 365 days
+                },
+                cacheableResponse: {
+                  statuses: [0, 200]
+                }
+              }
+            }
+          ]
+        },
+        manifest: {
+          name: 'Vipin Kumar Madhaan - Full Stack Engineer',
+          short_name: 'DevPy',
+          description: 'Senior Software Engineer specializing in modern web technologies. Crafting scalable web applications and browser extensions for startups and founders.',
+          theme_color: '#3b82f6',
+          background_color: '#ffffff',
+          display: 'standalone',
+          orientation: 'portrait',
+          scope: '/',
+          start_url: '/',
+          icons: [
+            {
+              src: '/favicon.png',
+              sizes: '192x192',
+              type: 'image/png'
+            },
+            {
+              src: '/favicon.png',
+              sizes: '512x512',
+              type: 'image/png'
+            },
+            {
+              src: '/favicon.png',
+              sizes: '512x512',
+              type: 'image/png',
+              purpose: 'any maskable'
+            }
+          ]
+        }
+      })
+    ],
     define: {
       __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: false,
     },
     build: {
       target: "es2022",
+      cssCodeSplit: true,
+      minify: 'esbuild',
       rollupOptions: {
         external: ["#entry", "#app/entry"],
         output: {
-          manualChunks: undefined,
+          manualChunks: (id) => {
+            // Vendor chunks for better caching
+            if (id.includes('node_modules')) {
+              if (id.includes('vue') || id.includes('nuxt')) {
+                return 'vue-core'
+              }
+              if (id.includes('tailwind') || id.includes('css')) {
+                return 'styles'
+              }
+              if (id.includes('icon') || id.includes('image')) {
+                return 'assets'
+              }
+              return 'vendor'
+            }
+            // Component chunks
+            if (id.includes('components/')) {
+              return 'components'
+            }
+            // Utils chunks
+            if (id.includes('utils/') || id.includes('composables/')) {
+              return 'utils'
+            }
+          },
         },
       },
     },
     optimizeDeps: {
       exclude: ["#entry", "#app/entry"],
+      include: ['lodash-es']
     },
   },
 

@@ -1,20 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
-    <title>Vipin Kumar Madhaan - Blog</title>
-    <description>Thoughts, tutorials, and insights on modern web development from Vipin Kumar Madhaan</description>
+    <title>Vipin Kumar Madhaan - DevPy Blog</title>
+    <description>Latest blog posts from Vipin Kumar Madhaan on web development, technology, and programming. Senior Software Engineer sharing insights on modern web technologies, Vue.js, TypeScript, and full-stack development.</description>
     <link>https://devpy.de</link>
     <atom:link href="https://devpy.de/rss.xml" rel="self" type="application/rss+xml"/>
     <language>en</language>
-    <lastBuildDate>2025-09-08T15:32:00.000Z</lastBuildDate>
-    <generator>Nuxt 3</generator>
+    <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
+    <generator>Nuxt 4.1.2</generator>
+    <managingEditor>Vipin.Madhaan@gmail.com (Vipin Kumar Madhaan)</managingEditor>
+    <webMaster>Vipin.Madhaan@gmail.com (Vipin Kumar Madhaan)</webMaster>
+    <image>
+      <url>https://devpy.de/vipin.webp</url>
+      <title>Vipin Kumar Madhaan - DevPy Blog</title>
+      <link>https://devpy.de</link>
+      <width>144</width>
+      <height>144</height>
+    </image>
     
     <item>
       <title><![CDATA[Vue 3 Composition API: Best Practices for Modern Development]]></title>
       <description><![CDATA[Discover the most effective patterns and practices for using Vue 3's Composition API in production applications.]]></description>
-      <link>https://devpy.de/blog/5-vue-3-composition-api-best-practices</link>
-      <guid>https://devpy.de/blog/5-vue-3-composition-api-best-practices</guid>
+      <link>https://devpy.de/blog/vue-composition-api-best-practices</link>
+      <guid>https://devpy.de/blog/vue-composition-api-best-practices</guid>
       <pubDate>Thu, 12 Dec 2024 12:00:00 GMT</pubDate>
+      <dc:creator>Vipin Kumar Madhaan</dc:creator>
       <category>Vue.js</category>
       <category>JavaScript</category>
       <category>Frontend</category>
@@ -23,9 +33,10 @@
     <item>
       <title><![CDATA[TypeScript + Node.js in Production: A Complete Guide]]></title>
       <description><![CDATA[Learn how to build, deploy, and maintain TypeScript Node.js applications in production environments with best practices and real-world examples.]]></description>
-      <link>https://devpy.de/blog/6-typescript-nodejs-production-guide</link>
-      <guid>https://devpy.de/blog/6-typescript-nodejs-production-guide</guid>
+      <link>https://devpy.de/blog/typescript-nodejs-production-guide</link>
+      <guid>https://devpy.de/blog/typescript-nodejs-production-guide</guid>
       <pubDate>Wed, 28 Feb 2024 09:00:00 GMT</pubDate>
+      <dc:creator>Vipin Kumar Madhaan</dc:creator>
       <category>TypeScript</category>
       <category>Node.js</category>
       <category>Backend</category>
@@ -34,9 +45,10 @@
     <item>
       <title><![CDATA[Kickstart Your Browser Extension Development]]></title>
       <description><![CDATA[Quickly start building browser extensions with Vite, Vue 3, and Manifest V3. Discover a feature-rich, accessible starter template for modern web extension development.]]></description>
-      <link>https://devpy.de/blog/3-vite-vue3-browser-extension-v3</link>
-      <guid>https://devpy.de/blog/3-vite-vue3-browser-extension-v3</guid>
+      <link>https://devpy.de/blog/vite-vue-browser-extension-v3</link>
+      <guid>https://devpy.de/blog/vite-vue-browser-extension-v3</guid>
       <pubDate>Tue, 13 Aug 2024 10:00:00 GMT</pubDate>
+      <dc:creator>Vipin Kumar Madhaan</dc:creator>
       <category>Vue.js</category>
       <category>Browser Extensions</category>
       <category>Vite</category>

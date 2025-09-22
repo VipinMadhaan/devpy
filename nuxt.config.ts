@@ -146,7 +146,7 @@ export default defineNuxtConfig({
       crawlLinks: true,
       failOnError: false,
       autoSubfolderIndex: true,
-      routes: ["/blog", "/rss.xml"],
+      routes: ["/blog", "/rss.xml", "/sitemap.xml"],
     },
     compressPublicAssets: {
       brotli: true,

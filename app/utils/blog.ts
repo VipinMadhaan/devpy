@@ -31,7 +31,7 @@ export const calculateReadingTime = (content: string | any): number => {
   }
   
   // Average reading speed: 200 words per minute
-  const wordsPerMinute = 200
+  const wordsPerMinute = 500
   const words = textContent.trim().split(/\s+/).length
   const readingTime = Math.ceil(words / wordsPerMinute)
   

@@ -30,9 +30,10 @@
   "name": "devpy.de",
   "private": true,
   "scripts": {
-    "build": "nuxt build",
+    "build": "npm run build:feeds && nuxt build",
+    "build:feeds": "node scripts/build-feeds.mjs",
     "dev": "nuxt dev",
-    "generate": "nuxt generate",
+    "generate": "npm run build:feeds && nuxt generate",
     "postinstall": "nuxt prepare",
     "preview": "nuxt preview",
     "type-check": "nuxt typecheck",

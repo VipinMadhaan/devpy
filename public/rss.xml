@@ -6,7 +6,7 @@
     <link>https://devpy.de</link>
     <atom:link href="https://devpy.de/rss.xml" rel="self" type="application/rss+xml"/>
     <language>en</language>
-    <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
+    <lastBuildDate>Mon, 22 Sep 2025 07:52:11 GMT</lastBuildDate>
     <generator>Nuxt 4.1.2</generator>
     <managingEditor>Vipin.Madhaan@gmail.com (Vipin Kumar Madhaan)</managingEditor>
     <webMaster>Vipin.Madhaan@gmail.com (Vipin Kumar Madhaan)</webMaster>
@@ -19,15 +19,124 @@
     </image>
     
     <item>
+      <title><![CDATA[Advanced TypeScript Patterns for Enterprise Applications]]></title>
+      <description><![CDATA[Master advanced TypeScript patterns including conditional types, template literals, and design patterns for building robust enterprise applications.]]></description>
+      <link>https://devpy.de/blog/typescript-advanced-patterns</link>
+      <guid>https://devpy.de/blog/typescript-advanced-patterns</guid>
+      <pubDate>Sat, 22 Feb 2025 16:45:00 GMT</pubDate>
+      <dc:creator>Vipin Kumar Madhaan</dc:creator>
+      
+      
+    </item>
+    
+    <item>
       <title><![CDATA[Vue 3 Composition API: Best Practices for Modern Development]]></title>
       <description><![CDATA[Discover the most effective patterns and practices for using Vue 3's Composition API in production applications.]]></description>
-      <link>https://devpy.de/blog/vue-composition-api-best-practices</link>
-      <guid>https://devpy.de/blog/vue-composition-api-best-practices</guid>
+      <link>https://devpy.de/blog/vue-3-composition-api-best-practices</link>
+      <guid>https://devpy.de/blog/vue-3-composition-api-best-practices</guid>
       <pubDate>Thu, 12 Dec 2024 12:00:00 GMT</pubDate>
       <dc:creator>Vipin Kumar Madhaan</dc:creator>
-      <category>Vue.js</category>
-      <category>JavaScript</category>
-      <category>Frontend</category>
+      <category>Vue.js</category><category>JavaScript</category><category>Frontend</category><category>Composition API</category>
+      
+    </item>
+    
+    <item>
+      <title><![CDATA[Getting Started with Full Stack Development]]></title>
+      <description><![CDATA[Master full stack development with Node.js and Vue.js. Learn]]></description>
+      <link>https://devpy.de/blog/Full Stack Development</link>
+      <guid>https://devpy.de/blog/Full Stack Development</guid>
+      <pubDate>Tue, 19 Nov 2024 12:00:00 GMT</pubDate>
+      <dc:creator>Vipin Kumar Madhaan</dc:creator>
+      
+      
+    </item>
+    
+    <item>
+      <title><![CDATA[Kickstart Your Browser Extension Development]]></title>
+      <description><![CDATA[Quickly start building browser extensions with Vite, Vue 3, and]]></description>
+      <link>https://devpy.de/blog/vite-vue3-browser-extension-v3</link>
+      <guid>https://devpy.de/blog/vite-vue3-browser-extension-v3</guid>
+      <pubDate>Tue, 13 Aug 2024 12:00:00 GMT</pubDate>
+      <dc:creator>Vipin Kumar Madhaan</dc:creator>
+      
+      
+    </item>
+    
+    <item>
+      <title><![CDATA[My VSCode Setup | Blog]]></title>
+      <description><![CDATA[Discover my minimalist VSCode setup with the Minimal Mist theme and]]></description>
+      <link>https://devpy.de/blog/my-vscode-setup</link>
+      <guid>https://devpy.de/blog/my-vscode-setup</guid>
+      <pubDate>Wed, 17 Jul 2024 12:00:00 GMT</pubDate>
+      <dc:creator>Vipin Kumar Madhaan</dc:creator>
+      
+      <category>tutorial</category>
+    </item>
+    
+    <item>
+      <title><![CDATA[My First Blog Post | Blog]]></title>
+      <description><![CDATA[Welcome to my tech blog! Learn why I started blogging, what topics]]></description>
+      <link>https://devpy.de/blog/my-first-blog-post</link>
+      <guid>https://devpy.de/blog/my-first-blog-post</guid>
+      <pubDate>Tue, 16 Jul 2024 12:00:00 GMT</pubDate>
+      <dc:creator>Vipin Kumar Madhaan</dc:creator>
+      
+      <category>personal</category>
+    </item>
+    
+    <item>
+      <title><![CDATA[Docker and Microservices Deployment - Production-Ready Strategies]]></title>
+      <description><![CDATA[Master Docker containerization and microservices deployment with Kubernetes, monitoring, and CI/CD pipelines for scalable applications.]]></description>
+      <link>https://devpy.de/blog/docker-microservices-deployment</link>
+      <guid>https://devpy.de/blog/docker-microservices-deployment</guid>
+      <pubDate>Tue, 18 Jun 2024 13:30:00 GMT</pubDate>
+      <dc:creator>Vipin Kumar Madhaan</dc:creator>
+      
+      
+    </item>
+    
+    <item>
+      <title><![CDATA[Next.js 14 App Router Complete Guide - Server Components and Beyond]]></title>
+      <description><![CDATA[Master Next.js 14 App Router with Server Components, streaming, caching strategies, and migration patterns for modern React applications.]]></description>
+      <link>https://devpy.de/blog/nextjs-14-app-router-guide</link>
+      <guid>https://devpy.de/blog/nextjs-14-app-router-guide</guid>
+      <pubDate>Wed, 10 Apr 2024 11:20:00 GMT</pubDate>
+      <dc:creator>Vipin Kumar Madhaan</dc:creator>
+      
+      
+    </item>
+    
+    <item>
+      <title><![CDATA[Modern JavaScript ES2024 Features Every Developer Should Know]]></title>
+      <description><![CDATA[Explore the latest JavaScript ES2024 features including temporal API, decorators, and pattern matching that are revolutionizing modern web development.]]></description>
+      <link>https://devpy.de/blog/modern-javascript-es2024-features</link>
+      <guid>https://devpy.de/blog/modern-javascript-es2024-features</guid>
+      <pubDate>Fri, 15 Mar 2024 10:00:00 GMT</pubDate>
+      <dc:creator>Vipin Kumar Madhaan</dc:creator>
+      
+      
+    </item>
+    
+    <item>
+      <title><![CDATA[GraphQL API Design Patterns - Building Scalable and Efficient APIs]]></title>
+      <description><![CDATA[Master GraphQL API design with advanced patterns, performance optimization, security best practices, and real-world implementation strategies.]]></description>
+      <link>https://devpy.de/blog/graphql-api-design-patterns</link>
+      <guid>https://devpy.de/blog/graphql-api-design-patterns</guid>
+      <pubDate>Fri, 08 Mar 2024 08:45:00 GMT</pubDate>
+      <dc:creator>Vipin Kumar Madhaan</dc:creator>
+      
+      
+    </item>
+    
+    <item>
+      <title><![CDATA[React Server Components Deep Dive - The Future of React Architecture]]></title>
+      <description><![CDATA[Master React Server Components with practical examples, performance benefits, and migration strategies for modern web applications.]]></description>
+      <link>https://devpy.de/blog/react-server-components-deep-dive</link>
+      <guid>https://devpy.de/blog/react-server-components-deep-dive</guid>
+      <pubDate>Wed, 28 Feb 2024 14:30:00 GMT</pubDate>
+      <dc:creator>Vipin Kumar Madhaan</dc:creator>
+      
+      
     </item>
     
     <item>
@@ -35,23 +144,33 @@
       <description><![CDATA[Learn how to build, deploy, and maintain TypeScript Node.js applications in production environments with best practices and real-world examples.]]></description>
       <link>https://devpy.de/blog/typescript-nodejs-production-guide</link>
       <guid>https://devpy.de/blog/typescript-nodejs-production-guide</guid>
-      <pubDate>Wed, 28 Feb 2024 09:00:00 GMT</pubDate>
+      <pubDate>Wed, 28 Feb 2024 12:00:00 GMT</pubDate>
       <dc:creator>Vipin Kumar Madhaan</dc:creator>
-      <category>TypeScript</category>
-      <category>Node.js</category>
-      <category>Backend</category>
+      <category>TypeScript</category><category>Node.js</category><category>Backend</category><category>Production</category>
+      
     </item>
     
     <item>
-      <title><![CDATA[Kickstart Your Browser Extension Development]]></title>
-      <description><![CDATA[Quickly start building browser extensions with Vite, Vue 3, and Manifest V3. Discover a feature-rich, accessible starter template for modern web extension development.]]></description>
-      <link>https://devpy.de/blog/vite-vue-browser-extension-v3</link>
-      <guid>https://devpy.de/blog/vite-vue-browser-extension-v3</guid>
-      <pubDate>Tue, 13 Aug 2024 10:00:00 GMT</pubDate>
+      <title><![CDATA[Web Performance Optimization in 2024 - Complete Guide to Core Web Vitals]]></title>
+      <description><![CDATA[Master modern web performance optimization techniques, Core Web Vitals improvements, and advanced strategies for lightning-fast websites in 2024.]]></description>
+      <link>https://devpy.de/blog/web-performance-optimization-2024</link>
+      <guid>https://devpy.de/blog/web-performance-optimization-2024</guid>
+      <pubDate>Sat, 20 Jan 2024 09:15:00 GMT</pubDate>
       <dc:creator>Vipin Kumar Madhaan</dc:creator>
-      <category>Vue.js</category>
-      <category>Browser Extensions</category>
-      <category>Vite</category>
+      
+      
     </item>
+    
+    <item>
+      <title><![CDATA[CSS Grid and Flexbox Mastery - Modern Layout Techniques]]></title>
+      <description><![CDATA[Master CSS Grid and Flexbox with practical examples, responsive design patterns, and advanced layout techniques for modern web development.]]></description>
+      <link>https://devpy.de/blog/css-grid-flexbox-mastery</link>
+      <guid>https://devpy.de/blog/css-grid-flexbox-mastery</guid>
+      <pubDate>Fri, 12 Jan 2024 14:20:00 GMT</pubDate>
+      <dc:creator>Vipin Kumar Madhaan</dc:creator>
+      
+      
+    </item>
+    
   </channel>
 </rss>

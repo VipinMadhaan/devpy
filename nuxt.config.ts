@@ -139,12 +139,15 @@ export default defineNuxtConfig({
     "@nuxt/image",
     // "@nuxtjs/mdc",
     "@nuxtjs/seo",
-    // "nuxt-feedme", // Removed due to compatibility issues
     "@nuxt/content",
     "nuxt-mcp",
     "@nuxt/eslint",
     "@nuxthub/core",
   ],
+
+  hub: {
+    database: true
+  },
 
   nitro: {
     preset: "cloudflare-pages",

@@ -5,7 +5,7 @@ compatibility_date = "2025-07-31"
 # D1 database binding for @nuxt/content
 [[d1_databases]]
 binding = "DB"
-database_name = "devpy-content"
+database_name = "devpy"
 database_id = "placeholder" # This will be replaced by NuxtHub CLI
 
 # Environment variables (optional)

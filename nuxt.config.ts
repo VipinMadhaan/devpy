@@ -64,14 +64,14 @@ export default defineNuxtConfig({
 
   experimental: {
     typedPages: true,
-    buildCache: true,
+    buildCache: false,
     headNext: true,
-    lazyHydration: true,
+    lazyHydration: false,
     viewTransition: true,
     payloadExtraction: false,
     appManifest: false,
-    componentIslands: true,
-    asyncEntry: true,
+    componentIslands: false,
+    asyncEntry: false,
   },
 
   eslint: {},
@@ -160,29 +160,7 @@ export default defineNuxtConfig({
     rollupConfig: {
       external: ["#entry", "#app/entry"],
       output: {
-        manualChunks: (id) => {
-          // Vendor chunks for better caching
-          if (id.includes('node_modules')) {
-            if (id.includes('vue') || id.includes('nuxt')) {
-              return 'vue-core'
-            }
-            if (id.includes('tailwind') || id.includes('css')) {
-              return 'styles'
-            }
-            if (id.includes('icon') || id.includes('image')) {
-              return 'assets'
-            }
-            return 'vendor'
-          }
-          // Component chunks
-          if (id.includes('components/')) {
-            return 'components'
-          }
-          // Utils chunks
-          if (id.includes('utils/') || id.includes('composables/')) {
-            return 'utils'
-          }
-        },
+        manualChunks: undefined,
       },
     },
     esbuild: {
@@ -309,26 +287,21 @@ export default defineNuxtConfig({
         external: ["#entry", "#app/entry"],
         output: {
           manualChunks: (id) => {
-            // Vendor chunks for better caching
+            // Only chunk large third-party libraries, avoid framework internals
             if (id.includes('node_modules')) {
-              if (id.includes('vue') || id.includes('nuxt')) {
-                return 'vue-core'
+              // Don't split Vue/Nuxt core - let them bundle naturally
+              if (id.includes('vue') || id.includes('nuxt') || id.includes('@nuxt')) {
+                return undefined
               }
-              if (id.includes('tailwind') || id.includes('css')) {
+              // Safe to chunk these specific libraries
+              if (id.includes('tailwindcss')) {
                 return 'styles'
               }
-              if (id.includes('icon') || id.includes('image')) {
-                return 'assets'
+              if (id.includes('lodash')) {
+                return 'utils'
               }
+              // Generic vendor chunk for other libraries
               return 'vendor'
-            }
-            // Component chunks
-            if (id.includes('components/')) {
-              return 'components'
-            }
-            // Utils chunks
-            if (id.includes('utils/') || id.includes('composables/')) {
-              return 'utils'
             }
           },
         },

@@ -269,7 +269,7 @@ const transformBlogPath = (path: string | undefined) => {
                             {{ post.title }}
                           </h3>
                           <p
-                            class="text-gray-600 dark:text-gray-400 text-sm mt-1 line-clamp-2"
+                            class="text-gray-600 dark:text-gray-400 text-md mt-1 line-clamp-2"
                           >
                             {{ post.description }}
                           </p>

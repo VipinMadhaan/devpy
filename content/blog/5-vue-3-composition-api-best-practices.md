@@ -6,7 +6,6 @@ dateUpdated: 2024-12-12T12:00:00.000Z
 author: Vipin Kumar Madhaan
 tags: ["Vue.js", "JavaScript", "Frontend", "Composition API"]
 featured: true
-image: /img/blog/vue3-composition-api.webp
 ---
 
 # Vue 3 Composition API: Best Practices for Modern Development

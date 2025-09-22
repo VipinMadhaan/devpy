@@ -182,7 +182,7 @@ projects:
     endDate: "9999-12-31"
     links:
       github: "https://github.com/VipinMadhaan/devpy"
-      demo: "https://devpy.de"
+      demo: "/"
     stats:
       lighthouse: "100"
       visitors: "5k+"

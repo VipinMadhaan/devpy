@@ -19,6 +19,11 @@ export default defineNuxtConfig({
   compatibilityDate: "2025-07-31",
 
   content: {
+    // Use D1 database for NuxtHub deployment
+    database: {
+      type: 'd1',
+      bindingName: 'DB'
+    },
     renderer: {
       anchorLinks: false,
     },
@@ -138,6 +143,7 @@ export default defineNuxtConfig({
     "@nuxt/content",
     "nuxt-mcp",
     "@nuxt/eslint",
+    "@nuxthub/core",
   ],
 
   nitro: {

@@ -214,28 +214,27 @@ const shareUrls = computed(() => {
         <img
           :src="page.image"
           :alt="page.title"
-          class="w-full h-full object-cover"
-        />
+          class="w-full h-full object-cover">
       </div>
 
       <!-- Main Content with Sidebar Layout -->
       <div class="relative max-w-7xl mx-auto">
         <div class="lg:grid lg:grid-cols-12 lg:gap-8">
           <!-- Main Content -->
-          <div class="lg:col-span-8">
+          <div class="lg:col-span-8 min-h-screen">
             <article class="prose prose-lg max-w-none dark:prose-invert">
               <ContentRenderer :value="page" />
             </article>
           </div>
 
           <!-- Sidebar -->
-          <div class="hidden xl:block xl:col-span-4 lg:col-span-4 mt-8 lg:mt-0">
+          <div class="hidden xl:block xl:col-span-4 lg:col-span-4">
             <!-- Table of Contents -->
             <BlogTableOfContents :toc="page.body?.toc?.links" />
           </div>
         </div>
         <!-- Social Share Section -->
-        <section class="border-t border-gray-200 dark:border-gray-700 pt-12">
+        <section class="border-t border-gray-200 dark:border-gray-700 pt-12 lg:col-span-12">
           <div class="max-w-2xl mx-auto text-center">
             <h3 class="text-xl font-semibold mb-6">Share this article</h3>
             <div class="flex justify-center gap-3">

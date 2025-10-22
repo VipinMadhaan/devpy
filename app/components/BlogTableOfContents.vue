@@ -16,6 +16,8 @@ const props = defineProps<Props>()
 
 // Track active heading for highlighting
 const activeId = ref('')
+// Ref to the TOC nav container so we can auto-scroll it
+const tocNavRef = ref<HTMLElement | null>(null)
 
 // Scroll to heading with smooth behavior
 const scrollToHeading = (id: string) => {
@@ -67,14 +69,12 @@ onMounted(() => {
   })
 })
 
-
-
 // Check if heading is active
 const isActive = (id: string) => activeId.value === id
 </script>
 
 <template>
-  <div v-if="toc && toc.length > 0" class="sticky top-24 space-y-6">
+  <div v-if="toc && toc.length > 0" class="toc-outer">
     <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
       <h3 class="text-lg font-semibold mb-4 flex items-center">
         <svg class="w-5 h-5 mr-2 text-blue-500 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -82,9 +82,9 @@ const isActive = (id: string) => activeId.value === id
         </svg>
         Table of Contents
       </h3>
-      
+
       <nav class="toc-nav text-sm">
-        <nav id="TableOfContents">
+        <nav id="TableOfContents" ref="tocNavRef">
           <ul>
             <template v-for="item in toc" :key="item.id">
               <li>
@@ -121,7 +121,15 @@ const isActive = (id: string) => activeId.value === id
   </div>
 </template>
 
-<style scoped>
+<style>
+/* Make the TOC sticky - simpler approach */
+.toc-outer {
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  top: 96px !important;
+  align-self: flex-start !important;
+}
+
 .toc-nav ul {
   list-style: none;
   padding: 0;

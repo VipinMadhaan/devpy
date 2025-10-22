@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="min-h-screen relative overflow-hidden">
+  <div class="min-h-screen relative overflow-x-hidden">
     <!-- Geometric Background -->
     <ClientOnly>
       <GeometricBackground />

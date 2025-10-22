@@ -1,5 +1,10 @@
 <script lang="ts" setup>
-import { formatDate, calculateReadingTime, getRelatedPosts, generateShareUrls } from '~/utils/blog'
+import {
+  formatDate,
+  calculateReadingTime,
+  getRelatedPosts,
+  generateShareUrls,
+} from "~/utils/blog"
 
 const route = useRoute()
 const site = useSiteConfig()
@@ -11,19 +16,22 @@ const { data: page, error } = await useAsyncData(
     try {
       // First try to find the post with the exact path
       let result = await queryCollection("blog").path(route.path).first()
-      
+
       // If not found and path doesn't have a number prefix, try to find a numbered version
-      if (!result && route.path.startsWith('/blog/')) {
-        const slug = route.path.replace('/blog/', '')
+      if (!result && route.path.startsWith("/blog/")) {
+        const slug = route.path.replace("/blog/", "")
         // Try to find any blog post that ends with this slug (with number prefix)
         const allPosts = await queryCollection("blog").all()
-        result = allPosts.find(post => {
-          if (!post.path) return false
-          const postSlug = post.path.replace('/blog/', '')
-          return postSlug.match(/^\d+-/) && postSlug.replace(/^\d+-/, '') === slug
-        }) || null
+        result =
+          allPosts.find((post) => {
+            if (!post.path) return false
+            const postSlug = post.path.replace("/blog/", "")
+            return (
+              postSlug.match(/^\d+-/) && postSlug.replace(/^\d+-/, "") === slug
+            )
+          }) || null
       }
-      
+
       return result
     } catch (err) {
       console.error("Error fetching blog post:", err)
@@ -125,13 +133,14 @@ const copyToClipboard = async () => {
       copied.value = false
     }, 2000)
   } catch (err) {
-    console.error('Failed to copy to clipboard:', err)
+    console.error("Failed to copy to clipboard:", err)
   }
 }
 
 // Fetch all posts for related posts functionality
-const { data: allPosts } = await useAsyncData('all-blog-posts-for-related', () =>
-  queryCollection("blog").order("date", "DESC").all()
+const { data: allPosts } = await useAsyncData(
+  "all-blog-posts-for-related",
+  () => queryCollection("blog").order("date", "DESC").all(),
 )
 
 // Get related posts
@@ -142,7 +151,7 @@ const relatedPosts = computed(() => {
 
 // Generate share URLs
 const shareUrls = computed(() => {
-  if (!page.value) return { twitter: '', linkedin: '', facebook: '' }
+  if (!page.value) return { twitter: "", linkedin: "", facebook: "" }
   const site = useSiteConfig()
   const fullUrl = new URL(route.fullPath, site.url).toString()
   return generateShareUrls(page.value.title, fullUrl)
@@ -173,12 +182,20 @@ const shareUrls = computed(() => {
             />
             <span>{{ formatDate(page.date) }}</span>
           </div>
-          <div v-if="page.readingTime || (page.body && calculateReadingTime(page.body))" class="flex items-center gap-2">
+          <div
+            v-if="
+              page.readingTime || (page.body && calculateReadingTime(page.body))
+            "
+            class="flex items-center gap-2"
+          >
             <UIcon
               name="i-ph-clock"
               class="w-5 h-5 text-primary-500 dark:text-primary-400"
             />
-            <span>{{ page.readingTime || calculateReadingTime(page.body) }} min read</span>
+            <span
+              >{{ page.readingTime || calculateReadingTime(page.body) }} min
+              read</span
+            >
           </div>
         </div>
 
@@ -201,70 +218,92 @@ const shareUrls = computed(() => {
         />
       </div>
 
-      <!-- Post Content -->
-      <article class="prose prose-lg max-w-none mx-auto dark:prose-invert">
-        <ContentRenderer :value="page" />
-      </article>
+      <!-- Main Content with Sidebar Layout -->
+      <div class="relative max-w-7xl mx-auto">
+        <div class="lg:grid lg:grid-cols-12 lg:gap-8">
+          <!-- Main Content -->
+          <div class="lg:col-span-8">
+            <article class="prose prose-lg max-w-none dark:prose-invert">
+              <ContentRenderer :value="page" />
+            </article>
+          </div>
 
-      <!-- Social Share Section -->
-      <section class="border-t border-gray-200 dark:border-gray-700 pt-12">
-        <div class="max-w-2xl mx-auto text-center">
-          <h3 class="text-xl font-semibold mb-6">Share this article</h3>
-          <div class="flex justify-center gap-3">
-            <UButton
-              :to="shareUrls.twitter"
-              external
-              variant="outline"
-              size="lg"
-              aria-label="Share on X"
-              class="hover:scale-105 transition-all duration-200"
-            >
-              <UIcon name="i-ph-x-logo" class="text-lg" />
-              <span class="hidden sm:inline ml-2">X</span>
-            </UButton>
-            
-            <UButton
-              :to="shareUrls.linkedin"
-              external
-              variant="outline"
-              size="lg"
-              aria-label="Share on LinkedIn"
-              class="hover:scale-105 transition-all duration-200"
-            >
-              <UIcon name="i-ph-linkedin-logo" class="text-lg" />
-              <span class="hidden sm:inline ml-2">LinkedIn</span>
-            </UButton>
-            
-            <UButton
-              :to="shareUrls.facebook"
-              external
-              variant="outline"
-              size="lg"
-              aria-label="Share on Facebook"
-              class="hover:scale-105 transition-all duration-200"
-            >
-              <UIcon name="i-ph-facebook-logo" class="text-lg" />
-              <span class="hidden sm:inline ml-2">Facebook</span>
-            </UButton>
-            
-            <UButton
-              @click="copyToClipboard"
-              variant="outline"
-              size="lg"
-              aria-label="Copy link"
-              class="hover:scale-105 transition-all duration-200"
-            >
-              <UIcon :name="copied ? 'i-ph-check' : 'i-ph-copy'" class="text-lg" />
-              <span class="hidden sm:inline ml-2">{{ copied ? 'Copied!' : 'Copy' }}</span>
-            </UButton>
+          <!-- Sidebar -->
+          <div class="hidden xl:block xl:col-span-4 lg:col-span-4 mt-8 lg:mt-0">
+            <!-- Table of Contents -->
+            <BlogTableOfContents :toc="page.body?.toc?.links" />
           </div>
         </div>
-      </section>
+        <!-- Social Share Section -->
+        <section class="border-t border-gray-200 dark:border-gray-700 pt-12">
+          <div class="max-w-2xl mx-auto text-center">
+            <h3 class="text-xl font-semibold mb-6">Share this article</h3>
+            <div class="flex justify-center gap-3">
+              <UButton
+                :to="shareUrls.twitter"
+                external
+                variant="outline"
+                size="lg"
+                aria-label="Share on X"
+                class="hover:scale-105 transition-all duration-200"
+              >
+                <UIcon name="i-ph-x-logo" class="text-lg" />
+                <span class="hidden sm:inline ml-2">X</span>
+              </UButton>
+
+              <UButton
+                :to="shareUrls.linkedin"
+                external
+                variant="outline"
+                size="lg"
+                aria-label="Share on LinkedIn"
+                class="hover:scale-105 transition-all duration-200"
+              >
+                <UIcon name="i-ph-linkedin-logo" class="text-lg" />
+                <span class="hidden sm:inline ml-2">LinkedIn</span>
+              </UButton>
+
+              <UButton
+                :to="shareUrls.facebook"
+                external
+                variant="outline"
+                size="lg"
+                aria-label="Share on Facebook"
+                class="hover:scale-105 transition-all duration-200"
+              >
+                <UIcon name="i-ph-facebook-logo" class="text-lg" />
+                <span class="hidden sm:inline ml-2">Facebook</span>
+              </UButton>
+
+              <UButton
+                variant="outline"
+                size="lg"
+                aria-label="Copy link"
+                class="hover:scale-105 transition-all duration-200"
+                @click="copyToClipboard"
+              >
+                <UIcon
+                  :name="copied ? 'i-ph-check' : 'i-ph-copy'"
+                  class="text-lg"
+                />
+                <span class="hidden sm:inline ml-2">{{
+                  copied ? "Copied!" : "Copy"
+                }}</span>
+              </UButton>
+            </div>
+          </div>
+        </section>
+      </div>
 
       <!-- Related Posts -->
-      <section v-if="relatedPosts.length" class="border-t border-gray-200 dark:border-gray-700 pt-16">
-        <div class="max-w-4xl mx-auto">
-          <h2 class="text-2xl font-bold text-center mb-12">You might also like</h2>
+      <section
+        v-if="relatedPosts.length"
+        class="border-t border-gray-200 dark:border-gray-700 pt-16"
+      >
+        <div class="mx-auto">
+          <h2 class="text-2xl font-bold text-center mb-12">
+            You might also like
+          </h2>
           <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             <article
               v-for="post in relatedPosts"
@@ -272,8 +311,13 @@ const shareUrls = computed(() => {
               class="group"
             >
               <NuxtLink :to="post.path" class="block">
-                <UCard class="h-full hover:shadow-lg transition-all duration-200">
-                  <div v-if="post.image" class="aspect-[16/9] overflow-hidden rounded-lg mb-4">
+                <UCard
+                  class="h-full hover:shadow-lg transition-all duration-200"
+                >
+                  <div
+                    v-if="post.image"
+                    class="aspect-[16/9] overflow-hidden rounded-lg mb-4"
+                  >
                     <NuxtImg
                       :src="post.image"
                       :alt="post.title"
@@ -282,27 +326,45 @@ const shareUrls = computed(() => {
                       preset="blog"
                     />
                   </div>
-                  
+
                   <div class="space-y-3">
-                    <h3 class="font-semibold text-lg group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors line-clamp-2">
+                    <h3
+                      class="font-semibold text-lg group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors line-clamp-2"
+                    >
                       {{ post.title }}
                     </h3>
-                    
-                    <p v-if="post.description" class="text-gray-600 dark:text-gray-400 text-sm line-clamp-2">
+
+                    <p
+                      v-if="post.description"
+                      class="text-gray-600 dark:text-gray-400 text-sm line-clamp-2"
+                    >
                       {{ post.description }}
                     </p>
-                    
-                    <div class="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
+
+                    <div
+                      class="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400"
+                    >
                       <div class="flex items-center gap-1">
                         <UIcon name="i-ph-calendar" class="w-4 h-4" />
                         <span>{{ formatDate(post.date) }}</span>
                       </div>
-                      <div v-if="post.readingTime || (post.body && calculateReadingTime(post.body))" class="flex items-center gap-1">
+                      <div
+                        v-if="
+                          post.readingTime ||
+                          (post.body && calculateReadingTime(post.body))
+                        "
+                        class="flex items-center gap-1"
+                      >
                         <UIcon name="i-ph-clock" class="w-4 h-4" />
-                        <span>{{ post.readingTime || calculateReadingTime(post.body) }} min</span>
+                        <span
+                          >{{
+                            post.readingTime || calculateReadingTime(post.body)
+                          }}
+                          min</span
+                        >
                       </div>
                     </div>
-                    
+
                     <div v-if="post.tags" class="flex flex-wrap gap-1">
                       <UBadge
                         v-for="tag in post.tags.slice(0, 2)"
@@ -348,6 +410,11 @@ const shareUrls = computed(() => {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* Ensure headings have space from top when navigated via anchor links (account for sticky header) */
+article :where(h1, h2, h3, h4, h5, h6) {
+  scroll-margin-top: 96px;
 }
 </style>
 

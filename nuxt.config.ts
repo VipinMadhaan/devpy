@@ -47,8 +47,8 @@ export default defineNuxtConfig({
           },
         },
         toc: {
-          depth: 2,
-          searchDepth: 2,
+          depth: 3,
+          searchDepth: 3,
         },
       },
     },
@@ -179,8 +179,33 @@ export default defineNuxtConfig({
     },
   },
 
+  hooks: {
+    async 'nitro:config'(nitroConfig) {
+      if (nitroConfig.prerender?.routes) {
+        const { readdir } = await import('fs/promises')
+        const { join } = await import('path')
+        
+        try {
+          const contentDir = join(process.cwd(), 'content/blog')
+          const files = await readdir(contentDir)
+          const blogRoutes = files
+            .filter(file => file.endsWith('.md'))
+            .map(file => {
+              let slug = file.replace('.md', '')
+              slug = slug.replace(/^\d+-/, '')
+              return `/blog/${slug}`
+            })
+          
+          nitroConfig.prerender.routes.push(...blogRoutes)
+        } catch (error) {
+          console.warn('Could not read blog content directory:', error)
+        }
+      }
+    }
+  },
+
   routeRules: {
-    "/**": {
+    "/": {
       static: true,
       prerender: true,
     },
@@ -190,6 +215,27 @@ export default defineNuxtConfig({
       isr: false,
     },
     "/blog/**": {
+      static: true,
+      prerender: true,
+      isr: false,
+    },
+    "/about": {
+      static: true,
+      prerender: true,
+    },
+    "/contact": {
+      static: true,
+      prerender: true,
+    },
+    "/projects": {
+      static: true,
+      prerender: true,
+    },
+    "/privacy": {
+      static: true,
+      prerender: true,
+    },
+    "/terms": {
       static: true,
       prerender: true,
     },

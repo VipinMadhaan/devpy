@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { cleanBlogPath } from "~/utils/blogPaths"
+
 // Enhanced SEO for blog listing page
 useSeo({
   title: "Blog",
@@ -21,7 +23,6 @@ const { data: posts, pending } = await useAsyncData(
   },
   {
     server: true,
-    client: true,
     default: () => [],
   },
 )
@@ -165,7 +166,7 @@ const clearFilters = () => {
               :key="post.path"
               class="group"
             >
-              <NuxtLink :to="post.path" class="block">
+              <NuxtLink :to="cleanBlogPath(post.path)" class="block">
                 <UCard
                   class="h-full hover:shadow-lg transition-all duration-200"
                 >
@@ -240,7 +241,7 @@ const clearFilters = () => {
                 :key="post.path"
                 class="group"
               >
-                <NuxtLink :to="post.path" class="block">
+                <NuxtLink :to="cleanBlogPath(post.path)" class="block">
                   <div
                     class="flex gap-4 p-4 rounded-sm border border-gray-200 dark:border-gray-800 hover:border-primary/50 transition-all duration-200 hover:shadow-lg"
                   >

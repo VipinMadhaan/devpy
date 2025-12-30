@@ -19,7 +19,8 @@
     "nuxt-mcp": "^0.2.4",
     "tailwindcss": "^4.1.13",
     "vite-plugin-eslint2": "^5.0.4",
-    "vue-tsc": "^3.0.6"
+    "vue-tsc": "^3.0.6",
+    "wrangler": "^4.37.1"
   },
   "engines": {
     "node": ">=23",

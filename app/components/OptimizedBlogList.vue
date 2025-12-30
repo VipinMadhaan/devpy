@@ -1,7 +1,7 @@
 <template>
   <div class="space-y-6">
     <article v-for="post in posts" :key="post.path" class="group">
-      <NuxtLink :to="post.path" class="block">
+      <NuxtLink :to="cleanBlogPath(post.path)" class="block">
         <div
           class="flex gap-4 p-4 rounded-sm border border-gray-200 dark:border-gray-800 hover:border-primary/50 transition-all duration-200 hover:shadow-lg"
         >
@@ -74,6 +74,8 @@
 </template>
 
 <script setup lang="ts">
+import { cleanBlogPath } from "~/utils/blogPaths"
+
 interface Props {
   limit?: number
   featured?: boolean

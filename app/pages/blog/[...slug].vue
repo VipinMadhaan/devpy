@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { cleanBlogPath } from "~/utils/blogPaths"
+
 const route = useRoute()
 const site = useSiteConfig()
 
@@ -7,8 +9,15 @@ const { data: page, error } = await useAsyncData(
   `blog-${route.path}`,
   async () => {
     try {
-      const result = await queryCollection("blog").path(route.path).first()
-      return result
+      const allPosts = await queryCollection("blog").all()
+
+      const directMatch = allPosts.find((post) => post.path === route.path)
+      if (directMatch) return directMatch
+
+      const cleanMatch = allPosts.find(
+        (post) => cleanBlogPath(post.path) === route.path,
+      )
+      return cleanMatch || null
     } catch (err) {
       console.error("Error fetching blog post:", err)
       throw createError({
@@ -35,9 +44,19 @@ if (!page.value) {
   })
 }
 
+// Canonicalize numbered URLs to the clean URL.
+// Note: on fully static hosting this becomes a client-side redirect.
+if (page.value?.path) {
+  const canonicalPath = cleanBlogPath(page.value.path)
+  if (canonicalPath && route.path !== canonicalPath) {
+    await navigateTo(canonicalPath, { redirectCode: 301 })
+  }
+}
+
 // SEO: page meta, canonical, OG/Twitter, and BlogPosting schema
 if (page.value) {
-  const url = new URL(route.fullPath, site.url).toString()
+  const canonicalPath = page.value.path ? cleanBlogPath(page.value.path) : route.path
+  const url = new URL(canonicalPath, site.url).toString()
   const title = page.value.title || site.name
   const description = page.value.description || site.description
   const image = page.value.image || page.value.socialImage?.src
@@ -148,7 +167,7 @@ const formatDate = (date: string | Date) => {
           :src="page.image"
           :alt="page.title"
           class="w-full h-full object-cover"
-        />
+        >
       </div>
 
       <!-- Post Content -->

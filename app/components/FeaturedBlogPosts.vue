@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { cleanBlogPath } from "~/utils/blogPaths"
+
 const { count, title } = defineProps({
   count: {
     type: Number,
@@ -47,7 +49,7 @@ const { data: featuredPosts } = await useAsyncData(
           v-for="(post, index) in featuredPosts"
           :key="post.path || `post-${index}`"
           class="cursor-pointer h-full"
-          @click="navigateTo(post.path || '/blog')"
+          @click="navigateTo(post.path ? cleanBlogPath(post.path) : '/blog')"
         >
           <div class="space-y-4">
             <!-- Blog post image placeholder -->

@@ -122,7 +122,7 @@
               <span>{{ item.label }}</span>
             </ULink>
 
-            <br />
+            <br >
 
             <!-- Mobile CTA with Enhanced Styling -->
             <ULink

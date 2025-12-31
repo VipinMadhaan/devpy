@@ -40,6 +40,32 @@ const categories = computed(() => {
 const selectedCategory = ref<string>("")
 const searchQuery = ref("")
 
+// Pagination state
+const route = useRoute()
+const router = useRouter()
+const currentPage = ref(parseInt(route.query.page as string) || 1)
+const postsPerPage = 10
+
+// Keep pagination in sync with URL
+watch(
+  () => route.query.page,
+  (newPage) => {
+    const page = parseInt(newPage as string) || 1
+    if (currentPage.value !== page) currentPage.value = page
+  },
+)
+
+watch(
+  currentPage,
+  async (newPage) => {
+    const query = { ...route.query }
+    if (newPage > 1) query.page = newPage.toString()
+    else delete query.page
+    await router.push({ query })
+  },
+  { flush: "post" },
+)
+
 // Filtered posts
 const filteredPosts = computed(() => {
   if (!posts.value) return []
@@ -67,6 +93,11 @@ const filteredPosts = computed(() => {
   return filtered
 })
 
+// Reset to page 1 when filters change
+watch([selectedCategory, searchQuery], () => {
+  currentPage.value = 1
+})
+
 // Featured posts
 const featuredPosts = computed(() => {
   return posts.value?.filter((post) => post.featured) || []
@@ -76,6 +107,59 @@ const featuredPosts = computed(() => {
 const _recentPosts = computed(() => {
   return posts.value?.filter((post) => !post.featured).slice(0, 10) || []
 })
+
+// Pagination calculations
+const totalPages = computed(() => {
+  return Math.max(1, Math.ceil(filteredPosts.value.length / postsPerPage))
+})
+
+watch(totalPages, (tp) => {
+  if (currentPage.value > tp) currentPage.value = tp
+})
+
+const paginatedPosts = computed(() => {
+  const start = (currentPage.value - 1) * postsPerPage
+  const end = start + postsPerPage
+  return filteredPosts.value.slice(start, end)
+})
+
+const canGoToPrevious = computed(() => currentPage.value > 1)
+const canGoToNext = computed(() => currentPage.value < totalPages.value)
+
+const visiblePages = computed(() => {
+  const pages: Array<number | string> = []
+  const total = totalPages.value
+  const current = currentPage.value
+
+  if (total <= 1) return [1]
+
+  pages.push(1)
+  if (current > 3) pages.push("...")
+
+  for (
+    let i = Math.max(2, current - 1);
+    i <= Math.min(total - 1, current + 1);
+    i++
+  ) {
+    pages.push(i)
+  }
+
+  if (current < total - 2) pages.push("...")
+  pages.push(total)
+  return pages
+})
+
+const goToPage = (page: number) => {
+  if (page >= 1 && page <= totalPages.value) currentPage.value = page
+}
+
+const goToPrevious = () => {
+  if (canGoToPrevious.value) currentPage.value--
+}
+
+const goToNext = () => {
+  if (canGoToNext.value) currentPage.value++
+}
 
 // Clear filters
 const clearFilters = () => {
@@ -228,7 +312,11 @@ const clearFilters = () => {
                 class="text-sm font-normal text-gray-600 dark:text-gray-400"
               >
                 ({{ filteredPosts.length }}
-                {{ filteredPosts.length === 1 ? "post" : "posts" }})
+                {{ filteredPosts.length === 1 ? "post" : "posts" }}
+                <template v-if="totalPages > 1">
+                  • Page {{ currentPage }} of {{ totalPages }}
+                </template>
+                )
               </span>
             </h2>
           </div>
@@ -237,7 +325,7 @@ const clearFilters = () => {
           <div v-if="filteredPosts.length">
             <div class="space-y-6">
               <article
-                v-for="post in filteredPosts"
+                v-for="post in paginatedPosts"
                 :key="post.path"
                 class="group"
               >
@@ -315,6 +403,45 @@ const clearFilters = () => {
                   </div>
                 </NuxtLink>
               </article>
+            </div>
+
+            <!-- Pagination Controls -->
+            <div v-if="totalPages > 1" class="mt-12 flex justify-center">
+              <div class="flex items-center gap-2">
+                <UButton
+                  :disabled="!canGoToPrevious"
+                  variant="outline"
+                  size="md"
+                  icon="i-ph-arrow-left"
+                  @click="goToPrevious"
+                >
+                  Previous
+                </UButton>
+
+                <template v-for="page in visiblePages" :key="page">
+                  <UButton v-if="page === '...'" variant="ghost" size="md" disabled>
+                    ...
+                  </UButton>
+                  <UButton
+                    v-else
+                    :variant="currentPage === page ? 'solid' : 'outline'"
+                    size="md"
+                    @click="goToPage(Number(page))"
+                  >
+                    {{ page }}
+                  </UButton>
+                </template>
+
+                <UButton
+                  :disabled="!canGoToNext"
+                  variant="outline"
+                  size="md"
+                  @click="goToNext"
+                >
+                  Next
+                  <UIcon name="i-ph-arrow-right" class="ml-2" />
+                </UButton>
+              </div>
             </div>
           </div>
 

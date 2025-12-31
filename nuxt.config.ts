@@ -5,6 +5,15 @@ import { definePerson } from "nuxt-schema-org/schema"
 const IS_DEV = import.meta.dev
 
 export default defineNuxtConfig({
+  runtimeConfig: {
+    public: {
+      siteUrl: "https://devpy.de",
+      siteName: "Vipin Kumar Madhaan - Full Stack Engineer",
+      siteDescription:
+        "Senior Software Engineer specializing in modern web technologies. Crafting scalable web applications and browser extensions for startups and founders.",
+    },
+  },
+
   colorMode: {
     preference: "system",
     fallback: "light",
@@ -125,7 +134,7 @@ export default defineNuxtConfig({
       crawlLinks: true,
       failOnError: false,
       autoSubfolderIndex: true,
-      routes: ["/blog"],
+      routes: ["/blog", "/sitemap.xml", "/rss.xml"],
     },
     compressPublicAssets: {
       brotli: true,
@@ -175,7 +184,7 @@ export default defineNuxtConfig({
   },
 
   sitemap: {
-    excludeAppSources: true,
+    sources: ["/api/__sitemap__/urls"],
   },
 
   ssr: true,

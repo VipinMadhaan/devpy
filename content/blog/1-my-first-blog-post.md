@@ -21,6 +21,7 @@ tags:
   - introduction
   - blogging
   - journey
+featured: true
 ---
 
 # My Journey into Tech Blogging

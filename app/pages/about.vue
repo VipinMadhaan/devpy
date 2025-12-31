@@ -4,6 +4,10 @@ const { data: profile } = await useAsyncData("about-profile", () =>
   queryCollection("profile").first(),
 )
 
+const { data: professionalJourney } = await useAsyncData("about-journey", () =>
+  queryCollection("professionalJourney").first(),
+)
+
 // Enhanced SEO
 useSeo({
   title: "About Me",

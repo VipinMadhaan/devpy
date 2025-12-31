@@ -4,10 +4,13 @@ const { data: profile } = await useAsyncData("profile", () => {
   return queryCollection("profile").first()
 })
 
-// Fetch tech stack data from Nuxt Content collection
-const { data: techStack } = await useAsyncData("tech-stack", () => {
-  return queryCollection("techStack").first()
-})
+// Fetch professional journey data from Nuxt Content collection
+const { data: professionalJourney } = await useAsyncData(
+  "professional-journey",
+  () => {
+    return queryCollection("professionalJourney").first()
+  },
+)
 
 // Enhanced SEO using the new composable
 if (profile.value) {
@@ -48,8 +51,8 @@ if (profile.value) {
 
         <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           <div
-            v-for="category in techStack?.categories || []"
-            :key="category.title"
+            v-for="(skills, category) in professionalJourney?.technologies"
+            :key="category"
             class="h-full"
           >
             <div />
@@ -66,16 +69,16 @@ if (profile.value) {
                   <h3
                     class="capitalize text-center content-center items-center justify-center"
                   >
-                    {{ category.title.replace(/([A-Z])/g, " $1") }}
+                    {{ category.replace(/([A-Z])/g, " $1") }}
                   </h3>
                 </div>
                 <div
                   class="flex flex-wrap gap-2 text-center content-center items-center justify-center"
                 >
                   <UBadge
-                    v-for="item in category.items"
-                    :key="item"
-                    :label="item"
+                    v-for="skill in skills"
+                    :key="skill"
+                    :label="skill"
                     variant="outline"
                     size="xl"
                   />

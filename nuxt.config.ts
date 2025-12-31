@@ -78,14 +78,12 @@ export default defineNuxtConfig({
 
   experimental: {
     typedPages: true,
-    buildCache: false,
+    buildCache: true,
     headNext: true,
-    lazyHydration: false,
+    lazyHydration: true,
     viewTransition: true,
     payloadExtraction: false,
     appManifest: false,
-    componentIslands: false,
-    asyncEntry: false,
   },
 
   eslint: {},
@@ -148,6 +146,7 @@ export default defineNuxtConfig({
     "@nuxt/image",
     // "@nuxtjs/mdc",
     "@nuxtjs/seo",
+    // "nuxt-feedme",
     "@nuxt/content",
     "nuxt-mcp",
     "@nuxt/eslint",
@@ -155,7 +154,11 @@ export default defineNuxtConfig({
   ],
 
   hub: {
-    database: true
+    analytics: false,
+    blob: false,
+    cache: false,
+    database: true,
+    kv: false,
   },
 
   nitro: {
@@ -188,33 +191,8 @@ export default defineNuxtConfig({
     },
   },
 
-  hooks: {
-    async 'nitro:config'(nitroConfig) {
-      if (nitroConfig.prerender?.routes) {
-        const { readdir } = await import('fs/promises')
-        const { join } = await import('path')
-        
-        try {
-          const contentDir = join(process.cwd(), 'content/blog')
-          const files = await readdir(contentDir)
-          const blogRoutes = files
-            .filter(file => file.endsWith('.md'))
-            .map(file => {
-              let slug = file.replace('.md', '')
-              slug = slug.replace(/^\d+-/, '')
-              return `/blog/${slug}`
-            })
-          
-          nitroConfig.prerender.routes.push(...blogRoutes)
-        } catch (error) {
-          console.warn('Could not read blog content directory:', error)
-        }
-      }
-    }
-  },
-
   routeRules: {
-    "/": {
+    "/**": {
       static: true,
       prerender: true,
     },

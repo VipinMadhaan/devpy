@@ -6,6 +6,7 @@ dateUpdated: 2024-02-28T12:00:00.000Z
 author: Vipin Kumar Madhaan
 tags: ["TypeScript", "Node.js", "Backend", "Production"]
 featured: true
+image: /img/blog/typescript-nodejs.webp
 ---
 
 # TypeScript + Node.js in Production: A Complete Guide

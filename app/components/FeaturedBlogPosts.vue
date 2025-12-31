@@ -73,7 +73,11 @@ const { data: featuredPosts } = await useAsyncData(
                 <span>
                   {{
                     post.date
-                      ? formatDate(post.date)
+                      ? new Date(post.date).toLocaleDateString("en-US", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        })
                       : "Recent"
                   }}
                 </span>

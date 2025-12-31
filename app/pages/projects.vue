@@ -8,7 +8,7 @@ const { data: projectsData } = await useAsyncData("projects", () =>
 useSeo({
   title: "Projects",
   description:
-    "A showcase of my latest work, open source contributions, and passion projects that demonstrate my commitment to creating meaningful software solutions.",
+    "A showcase of my latest projects, open source contributions, and developer tools that demonstrate my passion for creating meaningful software solutions.",
   type: "website",
 })
 
@@ -218,6 +218,15 @@ const clearFilters = () => {
                     external
                   >
                     Demo
+                  </UButton>
+                  <UButton
+                    v-if="project.links?.case_study"
+                    :to="project.links.case_study"
+                    variant="outline"
+                    size="md"
+                    icon="i-ph-file-text"
+                  >
+                    Case Study
                   </UButton>
                 </div>
               </div>

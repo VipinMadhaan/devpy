@@ -166,31 +166,10 @@ const clearFilters = () => {
   selectedCategory.value = ""
   searchQuery.value = ""
 }
-
-// Pagination navigation functions
-const goToPage = (page: number) => {
-  if (page >= 1 && page <= totalPages.value) {
-    currentPage.value = page
-  }
-}
-
-const goToPrevious = () => {
-  if (canGoToPrevious.value) {
-    currentPage.value--
-  }
-}
-
-const goToNext = () => {
-  if (canGoToNext.value) {
-    currentPage.value++
-  }
-}
-
-// Using shared utilities from utils/blog.ts
 </script>
 
 <template>
-  <div class="container mx-auto px-4 pt-12">
+  <div class="container mx-auto px-4 py-12">
     <div class="max-w-6xl mx-auto">
       <!-- Hero Section -->
       <div class="text-center mb-16">
@@ -303,10 +282,14 @@ const goToNext = () => {
                       class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400"
                     >
                       <time>{{
-                        formatDate(post.date)
+                        new Date(post.date).toLocaleDateString("en-US", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        })
                       }}</time>
-                      <span v-if="post.readingTime || (post.body && calculateReadingTime(post.body))"
-                        >{{ post.readingTime || calculateReadingTime(post.body) }} min read</span
+                      <span v-if="post.readingTime"
+                        >{{ post.readingTime }} min read</span
                       >
                     </div>
                   </div>
@@ -334,11 +317,6 @@ const goToNext = () => {
                   • Page {{ currentPage }} of {{ totalPages }}
                 </template>
                 )
-                {{ filteredPosts.length === 1 ? "post" : "posts" }}
-                <template v-if="totalPages > 1">
-                  • Page {{ currentPage }} of {{ totalPages }}
-                </template>
-                )
               </span>
             </h2>
           </div>
@@ -347,7 +325,6 @@ const goToNext = () => {
           <div v-if="filteredPosts.length">
             <div class="space-y-6">
               <article
-                v-for="post in paginatedPosts"
                 v-for="post in paginatedPosts"
                 :key="post.path"
                 class="group"
@@ -374,7 +351,7 @@ const goToNext = () => {
                             {{ post.title }}
                           </h3>
                           <p
-                            class="text-gray-600 dark:text-gray-400 text-md mt-1 line-clamp-2"
+                            class="text-gray-600 dark:text-gray-400 text-sm mt-1 line-clamp-2"
                           >
                             {{ post.description }}
                           </p>
@@ -382,10 +359,14 @@ const goToNext = () => {
                             class="flex items-center gap-4 mt-3 text-xs text-gray-500 dark:text-gray-400"
                           >
                             <time>{{
-                              formatDate(post.date)
+                              new Date(post.date).toLocaleDateString("en-US", {
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                              })
                             }}</time>
-                            <span v-if="post.readingTime || (post.body && calculateReadingTime(post.body))"
-                              >{{ post.readingTime || calculateReadingTime(post.body) }} min read</span
+                            <span v-if="post.readingTime"
+                              >{{ post.readingTime }} min read</span
                             >
                             <UBadge
                               v-if="post.category"

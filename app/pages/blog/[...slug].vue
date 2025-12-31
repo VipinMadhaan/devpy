@@ -1,21 +1,35 @@
 <script lang="ts" setup>
-import { cleanBlogPath } from "~/utils/blogPaths"
+import { cleanBlogPath, normalizeRoutePath } from "~/utils/blogPaths"
 
 const route = useRoute()
 const site = useSiteConfig()
+const runtimeConfig = useRuntimeConfig()
+const appBaseURL = runtimeConfig.app?.baseURL || "/"
+
+const normalizeForMatch = (path: string) => {
+  const normalized = normalizeRoutePath(path)
+  if (appBaseURL !== "/" && normalized.startsWith(appBaseURL)) {
+    const stripped = normalized.slice(appBaseURL.length) || "/"
+    return normalizeRoutePath(stripped.startsWith("/") ? stripped : `/${stripped}`)
+  }
+  return normalized
+}
 
 // Fetch blog post with proper error handling
 const { data: page, error } = await useAsyncData(
-  `blog-${route.path}`,
+  `blog-${normalizeForMatch(route.path)}`,
   async () => {
     try {
+      const routePath = normalizeForMatch(route.path)
       const allPosts = await queryCollection("blog").all()
 
-      const directMatch = allPosts.find((post) => post.path === route.path)
+      const directMatch = allPosts.find(
+        (post) => post.path && normalizeForMatch(post.path) === routePath,
+      )
       if (directMatch) return directMatch
 
       const cleanMatch = allPosts.find(
-        (post) => cleanBlogPath(post.path) === route.path,
+        (post) => post.path && normalizeForMatch(cleanBlogPath(post.path)) === routePath,
       )
       return cleanMatch || null
     } catch (err) {
@@ -47,15 +61,21 @@ if (!page.value) {
 // Canonicalize numbered URLs to the clean URL.
 // Note: on fully static hosting this becomes a client-side redirect.
 if (page.value?.path) {
+  const routePath = normalizeForMatch(route.path)
+  const rawPath = normalizeForMatch(page.value.path)
   const canonicalPath = cleanBlogPath(page.value.path)
-  if (canonicalPath && route.path !== canonicalPath) {
+  const canonicalNormalized = normalizeForMatch(canonicalPath)
+
+  // Only redirect when the user is on the numbered (raw) URL.
+  // Avoid redirecting purely due to trailing-slash normalization.
+  if (canonicalPath && routePath === rawPath && routePath !== canonicalNormalized) {
     await navigateTo(canonicalPath, { redirectCode: 301 })
   }
 }
 
 // SEO: page meta, canonical, OG/Twitter, and BlogPosting schema
 if (page.value) {
-  const canonicalPath = page.value.path ? cleanBlogPath(page.value.path) : route.path
+  const canonicalPath = page.value.path ? cleanBlogPath(page.value.path) : normalizeForMatch(route.path)
   const url = new URL(canonicalPath, site.url).toString()
   const title = page.value.title || site.name
   const description = page.value.description || site.description
@@ -173,7 +193,7 @@ const copied = ref(false)
 const copyToClipboard = async () => {
   if (!import.meta.client) return
   try {
-    const canonicalPath = page.value?.path ? cleanBlogPath(page.value.path) : route.path
+    const canonicalPath = page.value?.path ? cleanBlogPath(page.value.path) : normalizeForMatch(route.path)
     const fullUrl = new URL(canonicalPath, site.url).toString()
     await navigator.clipboard.writeText(fullUrl)
     copied.value = true
@@ -187,7 +207,7 @@ const copyToClipboard = async () => {
 
 const shareUrls = computed(() => {
   if (!page.value) return { twitter: "", linkedin: "", facebook: "" }
-  const canonicalPath = page.value.path ? cleanBlogPath(page.value.path) : route.path
+  const canonicalPath = page.value.path ? cleanBlogPath(page.value.path) : normalizeForMatch(route.path)
   const fullUrl = new URL(canonicalPath, site.url).toString()
   return generateShareUrls(page.value.title, fullUrl)
 })

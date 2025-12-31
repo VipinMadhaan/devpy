@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 // Fetch profile data from Nuxt Content collection
-const { data: profile } = await useAsyncData("profile", () => {
+const { data: profile } = await useAsyncData("about-preview-profile", () => {
   return queryCollection("profile").first()
 })
 </script>
@@ -48,7 +48,7 @@ const { data: profile } = await useAsyncData("profile", () => {
               <div class="space-y-3">
                 <h3>Proven Results</h3>
                 <p>
-                  {{ profile?.projectsDelivered || "100" }}+ successful projects
+                  {{ profile?.projectsDelivered || "90" }}+ successful projects
                   delivered with {{ profile?.clientSatisfaction || "100" }}%
                   client satisfaction rate.
                 </p>

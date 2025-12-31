@@ -1,3 +1,38 @@
+<script setup lang="ts">
+import { transformBlogPath, formatDate, calculateReadingTime } from '~/utils/blog'
+
+interface Props {
+  limit?: number
+  featured?: boolean
+  category?: string
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  limit: 10,
+  featured: false,
+  category: undefined,
+})
+
+const { data: posts } = await useAsyncData(
+  `blog-posts-${props.limit}-${props.featured}-${props.category}`,
+  () => {
+    let query = queryCollection("blog").order("date", "DESC").limit(props.limit)
+
+    if (props.featured) {
+      query = query.where("featured", "=", true)
+    }
+
+    if (props.category) {
+      query = query.where("category", "=", props.category)
+    }
+
+    return query.all()
+  },
+)
+
+// No local functions needed - using shared utilities
+</script>
+
 <template>
   <div class="space-y-6">
     <article v-for="post in posts" :key="post.path" class="group">
@@ -31,8 +66,8 @@
                   class="flex items-center gap-4 mt-3 text-sm text-gray-500 dark:text-gray-400"
                 >
                   <time>{{ formatDate(post.date) }}</time>
-                  <span v-if="post.readingTime"
-                    >{{ post.readingTime }} min read</span
+                  <span v-if="post.readingTime || (post.body && calculateReadingTime(post.body))"
+                    >{{ post.readingTime || calculateReadingTime(post.body) }} min read</span
                   >
                   <UBadge v-if="post.category" variant="soft" size="md">
                     {{ post.category }}

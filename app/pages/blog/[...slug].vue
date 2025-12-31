@@ -521,3 +521,19 @@ const relatedPosts = computed(() => {
     <UButton to="/blog" class="mt-8">Back to Blog</UButton>
   </div>
 </template>
+
+<style scoped>
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Ensure headings have space from top when navigated via anchor links (account for sticky header) */
+article :where(h1, h2, h3, h4, h5, h6) {
+  scroll-margin-top: 96px;
+}
+</style>
+
+```

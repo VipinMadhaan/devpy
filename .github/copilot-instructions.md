@@ -25,7 +25,7 @@ Purpose: make AI agents effective fast with repo-specific patterns (not generic 
 
 - Collections (`content.config.ts`):
   - Pages: `blog` (Markdown with `title`, `description`, `date`, optional `dateUpdated`, `tags`, `image`/`socialImage`, `featured`, `author`).
-  - Data: `authors`, `testimonials`, `professionalJourney`, `profile`, `projects`, `services`, `techStack`.
+  - Data: `authors`, `profile`, `projects`, `techStack`.
 - Query examples:
   - Recent posts: `queryCollection('blog').order('date','DESC').limit(2).all()` (see `app/components/RecentBlogPosts.vue`).
   - Post by path: `queryCollection('blog').path(route.path).first()` (see `app/pages/blog/[...slug].vue`).
@@ -51,4 +51,4 @@ Purpose: make AI agents effective fast with repo-specific patterns (not generic 
 - Config: `nuxt.config.ts`, `content.config.ts`, `app/app.config.ts`, `eslint.config.mjs`, `.prettierrc`.
 - Pages: `app/pages/index.vue`, `app/pages/blog/[...slug].vue`.
 - Components: `app/components/RecentBlogPosts.vue`, `app/components/SiteHeader.vue`.
-- Content samples: `content/blog/*.md`, `content/profile.yml`, `content/projects.yml`, `content/services.yml`.
+- Content samples: `content/blog/*.md`, `content/profile.yml`, `content/projects.yml`

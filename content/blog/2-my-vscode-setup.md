@@ -22,7 +22,6 @@ tags:
   - setup
   - productivity
   - theme
-featured: true
 ---
 
 # My VSCode Setup: A Journey to Minimal Perfection

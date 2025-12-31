@@ -1,4 +1,5 @@
 import tailwindcss from "@tailwindcss/vite"
+import { VitePWA } from 'vite-plugin-pwa'
 import { definePerson } from "nuxt-schema-org/schema"
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
@@ -27,6 +28,11 @@ export default defineNuxtConfig({
   compatibilityDate: "2025-07-31",
 
   content: {
+    // Use D1 database for NuxtHub deployment
+    database: {
+      type: 'd1',
+      bindingName: 'DB'
+    },
     renderer: {
       anchorLinks: false,
     },
@@ -50,8 +56,8 @@ export default defineNuxtConfig({
           },
         },
         toc: {
-          depth: 2,
-          searchDepth: 2,
+          depth: 3,
+          searchDepth: 3,
         },
       },
     },
@@ -72,12 +78,14 @@ export default defineNuxtConfig({
 
   experimental: {
     typedPages: true,
-    buildCache: true,
+    buildCache: false,
     headNext: true,
-    lazyHydration: true,
+    lazyHydration: false,
     viewTransition: true,
     payloadExtraction: false,
     appManifest: false,
+    componentIslands: false,
+    asyncEntry: false,
   },
 
   eslint: {},
@@ -93,8 +101,8 @@ export default defineNuxtConfig({
   // image: {},
 
   image: {
-    quality: 80,
-    format: ["webp", "jpg"],
+    quality: 85,
+    format: ["avif", "webp", "jpg"],
     screens: {
       xs: 320,
       sm: 640,
@@ -102,6 +110,33 @@ export default defineNuxtConfig({
       lg: 1024,
       xl: 1280,
       xxl: 1536,
+    },
+    densities: [1, 2],
+    presets: {
+      avatar: {
+        modifiers: {
+          format: "avif,webp,jpg",
+          quality: 90,
+          width: 128,
+          height: 128,
+        },
+      },
+      blog: {
+        modifiers: {
+          format: "avif,webp,jpg",
+          quality: 85,
+          width: 800,
+          height: 400,
+        },
+      },
+      thumbnail: {
+        modifiers: {
+          format: "avif,webp,jpg",
+          quality: 80,
+          width: 320,
+          height: 180,
+        },
+      },
     },
   },
 
@@ -113,7 +148,6 @@ export default defineNuxtConfig({
     "@nuxt/image",
     // "@nuxtjs/mdc",
     "@nuxtjs/seo",
-    // "nuxt-feedme",
     "@nuxt/content",
     "nuxt-mcp",
     "@nuxt/eslint",
@@ -121,11 +155,7 @@ export default defineNuxtConfig({
   ],
 
   hub: {
-    analytics: false,
-    blob: false,
-    cache: false,
-    database: false,
-    kv: false,
+    database: true
   },
 
   nitro: {
@@ -140,6 +170,7 @@ export default defineNuxtConfig({
       brotli: true,
       gzip: true,
     },
+    minify: true,
     alias: {
       "#entry": "virtual:entry",
       "#app/entry": "virtual:entry",
@@ -157,8 +188,33 @@ export default defineNuxtConfig({
     },
   },
 
+  hooks: {
+    async 'nitro:config'(nitroConfig) {
+      if (nitroConfig.prerender?.routes) {
+        const { readdir } = await import('fs/promises')
+        const { join } = await import('path')
+        
+        try {
+          const contentDir = join(process.cwd(), 'content/blog')
+          const files = await readdir(contentDir)
+          const blogRoutes = files
+            .filter(file => file.endsWith('.md'))
+            .map(file => {
+              let slug = file.replace('.md', '')
+              slug = slug.replace(/^\d+-/, '')
+              return `/blog/${slug}`
+            })
+          
+          nitroConfig.prerender.routes.push(...blogRoutes)
+        } catch (error) {
+          console.warn('Could not read blog content directory:', error)
+        }
+      }
+    }
+  },
+
   routeRules: {
-    "/**": {
+    "/": {
       static: true,
       prerender: true,
     },
@@ -168,6 +224,27 @@ export default defineNuxtConfig({
       isr: false,
     },
     "/blog/**": {
+      static: true,
+      prerender: true,
+      isr: false,
+    },
+    "/about": {
+      static: true,
+      prerender: true,
+    },
+    "/contact": {
+      static: true,
+      prerender: true,
+    },
+    "/projects": {
+      static: true,
+      prerender: true,
+    },
+    "/privacy": {
+      static: true,
+      prerender: true,
+    },
+    "/terms": {
       static: true,
       prerender: true,
     },
@@ -194,21 +271,109 @@ export default defineNuxtConfig({
   },
 
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [
+      tailwindcss(),
+      VitePWA({
+        registerType: 'autoUpdate',
+        includeAssets: ['favicon.png', 'apple-touch-icon.png', 'masked-icon.svg'],
+        workbox: {
+          globPatterns: ['**/*.{js,css,html,png,svg,ico,webp,jpg,jpeg}'],
+          runtimeCaching: [
+            {
+              urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+              handler: 'CacheFirst',
+              options: {
+                cacheName: 'google-fonts-cache',
+                expiration: {
+                  maxEntries: 10,
+                  maxAgeSeconds: 60 * 60 * 24 * 365 // 365 days
+                },
+                cacheableResponse: {
+                  statuses: [0, 200]
+                }
+              }
+            },
+            {
+              urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
+              handler: 'CacheFirst',
+              options: {
+                cacheName: 'gstatic-fonts-cache',
+                expiration: {
+                  maxEntries: 10,
+                  maxAgeSeconds: 60 * 60 * 24 * 365 // 365 days
+                },
+                cacheableResponse: {
+                  statuses: [0, 200]
+                }
+              }
+            }
+          ]
+        },
+        manifest: {
+          name: 'Vipin Kumar Madhaan - Full Stack Engineer',
+          short_name: 'DevPy',
+          description: 'Senior Software Engineer specializing in modern web technologies. Crafting scalable web applications and browser extensions for startups and founders.',
+          theme_color: '#3b82f6',
+          background_color: '#ffffff',
+          display: 'standalone',
+          orientation: 'portrait',
+          scope: '/',
+          start_url: '/',
+          icons: [
+            {
+              src: '/favicon.png',
+              sizes: '192x192',
+              type: 'image/png'
+            },
+            {
+              src: '/favicon.png',
+              sizes: '512x512',
+              type: 'image/png'
+            },
+            {
+              src: '/favicon.png',
+              sizes: '512x512',
+              type: 'image/png',
+              purpose: 'any maskable'
+            }
+          ]
+        }
+      })
+    ],
     define: {
       __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: false,
     },
     build: {
       target: "es2022",
+      cssCodeSplit: true,
+      minify: 'esbuild',
       rollupOptions: {
         external: ["#entry", "#app/entry"],
         output: {
-          manualChunks: undefined,
+          manualChunks: (id) => {
+            // Only chunk large third-party libraries, avoid framework internals
+            if (id.includes('node_modules')) {
+              // Don't split Vue/Nuxt core - let them bundle naturally
+              if (id.includes('vue') || id.includes('nuxt') || id.includes('@nuxt')) {
+                return undefined
+              }
+              // Safe to chunk these specific libraries
+              if (id.includes('tailwindcss')) {
+                return 'styles'
+              }
+              if (id.includes('lodash')) {
+                return 'utils'
+              }
+              // Generic vendor chunk for other libraries
+              return 'vendor'
+            }
+          },
         },
       },
     },
     optimizeDeps: {
       exclude: ["#entry", "#app/entry"],
+      include: ['lodash-es']
     },
   },
 

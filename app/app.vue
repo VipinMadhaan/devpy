@@ -12,6 +12,12 @@ useHead({
       type: "image/png",
       href: "/favicon.png",
     },
+    {
+      rel: "alternate",
+      type: "application/rss+xml",
+      title: "Vipin Kumar Madhaan - DevPy Blog",
+      href: "/rss.xml",
+    },
   ],
   meta: [
     {

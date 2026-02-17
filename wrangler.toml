@@ -1,6 +1,7 @@
 # Wrangler configuration for direct Cloudflare deployment
 name = "devpy"
 compatibility_date = "2025-07-31"
+pages_build_output_dir = "dist"
 
 # D1 database binding for @nuxt/content
 [[d1_databases]]

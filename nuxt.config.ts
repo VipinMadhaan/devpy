@@ -55,10 +55,6 @@ export default defineNuxtConfig({
             sepia: "monokai",
           },
         },
-        toc: {
-          depth: 3,
-          searchDepth: 3,
-        },
       },
     },
     preview: {

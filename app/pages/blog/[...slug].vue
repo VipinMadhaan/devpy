@@ -332,7 +332,7 @@ const relatedPosts = computed(() => {
       />
     </div>
 
-    <div class="space-y-16 py-16">
+    <div class="space-y-16 pt-16">
       <!-- Post Header -->
       <header class="text-center space-y-6">
         <h1>
@@ -386,8 +386,57 @@ const relatedPosts = computed(() => {
       <!-- Main Content with Sidebar Layout -->
       <div class="relative max-w-7xl mx-auto">
         <div class="lg:grid lg:grid-cols-12 lg:gap-4">
+          <!-- Social Share Sidebar (Desktop) -->
+          <div class="hidden lg:block lg:col-span-1 relative">
+            <div class="sticky top-24 flex flex-col items-start gap-3">
+              <span class="text-sm font-medium text-gray-600 dark:text-gray-400">Share</span>
+
+              <UButton
+                :to="shareUrls.twitter"
+                external
+                variant="outline"
+                size="lg"
+                square
+                aria-label="Share on X"
+              >
+                <UIcon name="i-ph-x-logo" class="text-lg" />
+              </UButton>
+
+              <UButton
+                :to="shareUrls.linkedin"
+                external
+                variant="outline"
+                size="lg"
+                square
+                aria-label="Share on LinkedIn"
+              >
+                <UIcon name="i-ph-linkedin-logo" class="text-lg" />
+              </UButton>
+
+              <UButton
+                :to="shareUrls.facebook"
+                external
+                variant="outline"
+                size="lg"
+                square
+                aria-label="Share on Facebook"
+              >
+                <UIcon name="i-ph-facebook-logo" class="text-lg" />
+              </UButton>
+
+              <UButton
+                variant="outline"
+                size="lg"
+                square
+                aria-label="Copy link"
+                @click="copyToClipboard"
+              >
+                <UIcon :name="copied ? 'i-ph-check' : 'i-ph-copy'" class="text-lg" />
+              </UButton>
+            </div>
+          </div>
           <!-- Main Content -->
-          <div class="lg:col-span-8">
+          <div class="lg:col-span-10">
             <article
               ref="articleRef"
               class="prose prose-lg max-w-none dark:prose-invert"
@@ -395,16 +444,11 @@ const relatedPosts = computed(() => {
               <ContentRenderer :value="page" />
             </article>
           </div>
-
-          <!-- Sidebar -->
-          <div class="hidden lg:block lg:col-span-4 relative">
-            <BlogTableOfContents :toc="page.body?.toc?.links" behavior="smart" :top-offset="60" />
-          </div>
         </div>
       </div>
 
-      <!-- Social Share Section -->
-      <section class="border-t border-gray-200 dark:border-gray-700 pt-12">
+      <!-- Social Share Section (Mobile) -->
+      <section class="border-t border-gray-200 dark:border-gray-700 pt-12 lg:hidden">
         <div class="max-w-2xl mx-auto text-center">
           <h3 class="text-xl font-semibold mb-6">Share this article</h3>
           <div class="flex justify-center gap-3">

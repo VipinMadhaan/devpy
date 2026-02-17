@@ -1,4 +1,4 @@
-# Wrangler configuration for NuxtHub deployment
+# Wrangler configuration for direct Cloudflare deployment
 name = "devpy"
 compatibility_date = "2025-07-31"
 
@@ -6,7 +6,7 @@ compatibility_date = "2025-07-31"
 [[d1_databases]]
 binding = "DB"
 database_name = "devpy"
-database_id = "placeholder" # This will be replaced by NuxtHub CLI
+database_id = "d7a98920-0c1c-4352-a785-0c46390cba2f"
 
 # Environment variables (optional)
 [env.production]

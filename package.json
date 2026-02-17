@@ -41,7 +41,6 @@
   },
   "type": "module",
   "dependencies": {
-    "@nuxthub/core": "^0.9.0",
     "better-sqlite3": "^12.3.0",
     "lodash-es": "^4.17.21"
   }

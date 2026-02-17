@@ -77,7 +77,7 @@ A modern, high-performance personal portfolio and blog website built with **Nuxt
 
 ### **Deployment & Hosting**
 
-- **[NuxtHub Pages](https://hub.nuxt.com//)** - Static site hosting
+- **[Cloudflare Pages](https://pages.cloudflare.com/)** - Static site hosting
 - **[GitHub Actions](https://github.com/features/actions)** - CI/CD pipeline
 - **Brotli & Gzip compression** for optimal loading
 

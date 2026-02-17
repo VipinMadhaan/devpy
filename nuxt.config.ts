@@ -28,7 +28,7 @@ export default defineNuxtConfig({
   compatibilityDate: "2025-07-31",
 
   content: {
-    // Use D1 database for NuxtHub deployment
+    // Use D1 database binding for Nuxt Content on Cloudflare
     database: {
       type: 'd1',
       bindingName: 'DB'
@@ -146,16 +146,7 @@ export default defineNuxtConfig({
     "@nuxt/content",
     "nuxt-mcp",
     "@nuxt/eslint",
-    "@nuxthub/core",
   ],
-
-  hub: {
-    analytics: false,
-    blob: false,
-    cache: false,
-    database: true,
-    kv: false,
-  },
 
   nitro: {
     preset: "cloudflare-pages",
